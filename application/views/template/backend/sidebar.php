@@ -17,7 +17,7 @@
         Administrator
     </div>
     <li class="nav-item active">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="<?= site_url('admin'); ?>">
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span></a>
     </li>
@@ -48,10 +48,10 @@
         <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu:</h6>
-                <a class="collapse-item" href="#">Mahasiswa</a>
-                <a class="collapse-item" href="#">Matakuliah</a>
-                <a class="collapse-item" href="#">Prodi</a>
-                <a class="collapse-item" href="#">Ruang</a>
+                <a class="collapse-item" href="<?= site_url('admin-mahasiswa'); ?>">Mahasiswa</a>
+                <a class="collapse-item" href="<?= site_url('admin-matakuliah'); ?>">Matakuliah</a>
+                <a class="collapse-item" href="<?= site_url('admin-prodi'); ?>">Prodi</a>
+                <a class="collapse-item" href="<?= site_url('admin-ruang'); ?>">Ruang</a>
             </div>
         </div>
     </li>

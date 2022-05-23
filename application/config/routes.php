@@ -55,3 +55,17 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['admin'] = 'admin/dashboard';
+$route['admin-mahasiswa'] = 'admin/mahasiswa/list';
+$route['admin-mahasiswa/insert'] = 'admin/mahasiswa/insert';
+$route['admin-mahasiswa/delete/(:any)'] = 'admin/mahasiswa/delete/$1';
+$route['admin-mahasiswa/update/(:any)'] = 'admin/mahasiswa/update/$1';
+
+
+$route['admin-matakuliah'] = 'admin/matakuliah/list';
+$route['admin-matakuliah/insert'] = 'admin/matakuliah/list';
+$route['admin-matakuliah/delete/(:any)'] = 'admin/matakuliah/delete/$1';
+$route['admin-matakuliah/update/(:any)'] = 'admin/matakuliah/update/$1';
+
+$route['admin-prodi'] = 'admin/prodi/list';
+$route['admin-prodi/insert'] = 'admin/prodi/list';
+$route['admin-prodi/delete/(:any)'] = 'admin/prodi/delete/$1';
