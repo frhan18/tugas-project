@@ -7,3 +7,11 @@
     padding: 20px;
     margin: 0 0 20px 0;
 }
+
+#login-body {
+    /* background-color: red !important; */
+    background-image: url('https://cdn.wallpapersafari.com/1/7/OlP64m.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}

@@ -51,7 +51,7 @@
                                     <td><?= $rows['nama_prodi']; ?></td>
                                     <td>
                                         <div class="btn-group" role="group">
-                                            <button type="button" data-delete-url="<?= site_url('admin-matakuliah/delete/' . $rows['id_matakuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                            <button type="button" data-delete-url="<?= site_url('admin/delete_matakuliah/' . $rows['id_matakuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                             <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $rows['id_matakuliah']; ?>"><i class="fas fa-edit"></i></button>
                                         </div>
                                     </td>
@@ -98,7 +98,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin-matakuliah/insert') ?>
+                <?= form_open('admin/add_matakuliah') ?>
                 <!-- <div class="form-group row">
                     <label for="id_matakuliah" class="col-sm-3 col-form-label">ID (Matakuliah)</label>
                     <div class="col-sm-9">
@@ -134,6 +134,7 @@
                         <select class="custom-select custom-select <?= form_error('id_prodi') ? 'is-invalid' : ''; ?>" name="id_prodi" id="id_prodi">
                             <option selected>Pilih</option>
                             <?php
+                            $prodi = $this->db->get('prodi')->result_array();
                             shuffle($prodi);
                             foreach ($prodi as $rows) :  ?>
                                 <option value="<?= $rows['id_prodi']; ?>"><?= $rows['nama_prodi']; ?></option>
@@ -165,7 +166,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin-matakuliah/update/' . $rows['id_matakuliah']) ?>
+                    <?= form_open('admin/update_matakuliah/' . $rows['id_matakuliah']) ?>
                     <div class="form-group row">
                         <label for="id_matakuliah" class="col-sm-3 col-form-label">ID (Matakuliah)</label>
                         <div class="col-sm-9">

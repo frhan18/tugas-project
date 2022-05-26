@@ -3,10 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Matakuliah extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
 
+        if (!$this->session->userdata('id') || !$this->session->userdata('remember_me') || !$this->session->userdata('role')) {
+            redirect('/login');
+        } elseif ($this->session->userdata('role') == 2) {
+            redirect('users/dashboard');
+        } elseif ($this->session->userdata('role') == 3) {
+            redirect('dosen/dashboard');
+        }
+    }
     public function list()
     {
-
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
         $data['matakuliah'] = $this->db->select('*')->from('matakuliah')->join('prodi', 'prodi.id_prodi=matakuliah.id_prodi')->get()->result_array();
         $data['prodi'] = $this->db->get('prodi')->result_array();
         $config = [
@@ -47,9 +58,9 @@ class Matakuliah extends CI_Controller
         $this->form_validation->set_rules($config);
 
         if (!$this->form_validation->run()) {
-            $this->load->view('template/backend/header');
-            $this->load->view('template/backend/sidebar');
-            $this->load->view('template/backend/topbar');
+            $this->load->view('template/backend/header', $data);
+            $this->load->view('template/backend/sidebar', $data);
+            $this->load->view('template/backend/topbar', $data);
             $this->load->view('admin/list_matakuliah', $data);
             $this->load->view('template/backend/footer');
         } else {
