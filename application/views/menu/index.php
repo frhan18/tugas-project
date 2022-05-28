@@ -15,53 +15,57 @@
 <div class="wrapper">
     <!-- Page Heading -->
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #3a3a3a;">
+        <ol class="breadcrumb" style="background: #fff;">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : ''; ?></li>
         </ol>
     </nav>
 
-    <div class="add-modal-btn mb-3">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
-            <i class="fas fa-plus"></i> Add New Menu
-        </button>
-    </div>
+    <div class="box">
+        <div class="add-modal-btn mb-3">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
+                <i class="fas fa-plus"></i> Add New Menu
+            </button>
+        </div>
 
-    <div class="list-content">
-        <div class="row">
-            <div class="col">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Daftar Menu</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php $no = 1;
-                            foreach ($menu as $m) : ?>
+        <div class="list-content">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td><?= $no++; ?></td>
-                                    <td><?= $m['menu']; ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" data-delete-url="<?= site_url('menu/delete_menu/' . $m['id']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                            <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $m['id']; ?>"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
+                                    <th>#</th>
+                                    <th>Daftar Menu</th>
+                                    <th>Action</th>
                                 </tr>
+                            </thead>
 
-                            <?php endforeach; ?>
+                            <tbody>
+                                <?php $no = 1;
+                                foreach ($menu as $m) : ?>
+                                    <tr>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $m['menu']; ?></td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" data-delete-url="<?= site_url('menu/delete_menu/' . $m['id']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $m['id']; ?>"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                        </tbody>
-                    </table>
+                                <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+
 </div>
 
 

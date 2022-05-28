@@ -10,72 +10,76 @@
 </header>
 
 
-<div class="wrapper">
-    <!-- Page Heading -->
+
+<div class="wrapperr">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #3a3a3a;">
+        <ol class="breadcrumb" style="background: #fff;">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
             <li class="breadcrumb-item active" aria-current="page">User Account</li>
         </ol>
     </nav>
-
-    <div class="add-modal-btn mb-3">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
-            <i class="fas fa-plus"></i> Add New Data
-        </button>
-    </div>
-
-    <div class="list-content">
-        <div class="row">
-            <div class="col">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Create</th>
-                                <th>Update</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <?php foreach ($user as $rows) : ?>
+    <!-- Page Heading -->
+    <div class="box">
+        <div class="add-modal-btn mb-3">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
+                <i class="fas fa-plus"></i> Add New Data
+            </button>
+        </div>
+        <div class="list-content">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td><?= $rows['name']; ?></td>
-                                    <td><?= $rows['email']; ?></td>
-                                    <td>
-                                        <?php if ($rows['role_id'] == 1) : ?>
-                                            <p class="text-white">Admin</p>
-                                        <?php elseif ($rows['role_id'] == 2) : ?>
-                                            <p class="text-white">Mahasiswa</p>
-                                        <?php else : ?>
-                                            <p class="text-white">Dosen</p>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?= $rows['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
-                                    <td><?= date('d M Y H:i:s', $rows['created_at']); ?></td>
-                                    <td><?= date('d M Y H:i:s', $rows['updated_at']); ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" data-delete-url="<?= site_url('admin/delete_account/' . $rows['id_user']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                            <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $rows['id_user']; ?>"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Create</th>
+                                    <th>Update</th>
+                                    <th>Action</th>
                                 </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <?php foreach ($user as $rows) : ?>
+                                    <tr>
+                                        <td><?= $rows['name']; ?></td>
+                                        <td><?= $rows['email']; ?></td>
+                                        <td>
+                                            <?php if ($rows['role_id'] == 1) : ?>
+                                                <p class="text-white">Admin</p>
+                                            <?php elseif ($rows['role_id'] == 2) : ?>
+                                                <p class="text-white">Mahasiswa</p>
+                                            <?php else : ?>
+                                                <p class="text-white">Dosen</p>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?= $rows['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
+                                        <td><?= date('d M Y H:i:s', $rows['created_at']); ?></td>
+                                        <td><?= date('d M Y H:i:s', $rows['updated_at']); ?></td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" data-delete-url="<?= site_url('admin/delete_account/' . $rows['id_user']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $rows['id_user']; ?>"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
 
 
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+
+
 </div>
 
 
@@ -104,25 +108,25 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_tambahLabel">Add New Data</h5>
+                <h5 class="modal-title" id="modal_tambahLabel">Add New Account</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/new_account') ?>
-                <div class="form-group row">
-                    <label for="name" class="col-sm-3 col-form-label">Username </label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= set_value('name'); ?>" name="name" id="name" placeholder="admin">
-                        <div class="invalid-feedback"><?= form_error('name'); ?></div>
-                    </div>
-                </div>
+                <?= form_open('admin/user_account') ?>
                 <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= set_value('email'); ?>" name="email" id="email" placeholder="johndoe@gmail.com">
                         <div class="invalid-feedback"><?= form_error('email'); ?></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="name" class="col-sm-3 col-form-label">Username </label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= set_value('name'); ?>" name="name" id="name" placeholder="admin">
+                        <div class="invalid-feedback"><?= form_error('name'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -132,13 +136,7 @@
                         <div class="invalid-feedback"><?= form_error('password'); ?></div>
                     </div>
                 </div>
-                <!-- <div class="form-group row">
-                    <label for="password2" class="col-sm-3 col-form-label">Confirm Password</label>
-                    <div class="col-sm-9">
-                        <input type="password" class="form-control <?= form_error('password2') ? 'is-invalid' : ''; ?>" name="password2" id="password2" placeholder="confrim password">
-                        <div class="invalid-feedback"><?= form_error('password2'); ?></div>
-                    </div>
-                </div> -->
+
                 <div class="form-group row">
                     <label for="role_id" class="col-sm-3 col-form-label">Role</label>
                     <div class="col-sm-9">

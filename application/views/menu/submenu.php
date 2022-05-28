@@ -15,63 +15,67 @@
 <div class="wrapper">
     <!-- Page Heading -->
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #3a3a3a;">
+        <ol class="breadcrumb" style="background: #fff;">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : ''; ?></li>
         </ol>
     </nav>
 
-    <div class="add-modal-btn mb-3">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
-            <i class="fas fa-plus"></i> Add New Menu
-        </button>
-    </div>
+    <div class="box">
+        <div class="add-modal-btn mb-3">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
+                <i class="fas fa-plus"></i> Add New Menu
+            </button>
+        </div>
 
-    <div class="list-content">
-        <div class="row">
-            <div class="col">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Menu</th>
-                                <th>Title</th>
-                                <th>Url</th>
-                                <th>icon</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <?php
-                            $base_url = base_url();
-                            $no = 1;
-                            foreach ($submenu as $sm) : ?>
+        <div class="list-content">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td><?= $no++; ?></td>
-                                    <td><?= $sm['menu']; ?></td>
-                                    <td><?= $sm['title']; ?></td>
-                                    <td><?= $base_url; ?><?= $sm['url']; ?></td>
-                                    <td><?= $sm['icon']; ?></td>
-                                    <td><?= $sm['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
-                                    <th>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" data-delete-url="<?= site_url('menu/delete_submenu/' . $sm['id']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                            <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $sm['id']; ?>"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </th>
+                                    <th>#</th>
+                                    <th>Menu</th>
+                                    <th>Title</th>
+                                    <th>Url</th>
+                                    <th>icon</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
-                            <?php endforeach; ?>
+                            </thead>
 
-                        </tbody>
-                    </table>
+                            <tbody>
+
+                                <?php
+                                $base_url = base_url();
+                                $no = 1;
+                                foreach ($submenu as $sm) : ?>
+                                    <tr>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $sm['menu']; ?></td>
+                                        <td><?= $sm['title']; ?></td>
+                                        <td><?= $base_url; ?><?= $sm['url']; ?></td>
+                                        <td><?= $sm['icon']; ?></td>
+                                        <td><?= $sm['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
+                                        <th>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" data-delete-url="<?= site_url('menu/delete_submenu/' . $sm['id']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $sm['id']; ?>"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
+
 </div>
 
 

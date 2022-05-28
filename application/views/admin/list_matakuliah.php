@@ -12,56 +12,59 @@
 <div class="wrapper">
     <!-- Page Heading -->
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #3a3a3a;">
+        <ol class="breadcrumb" style="background: #fff;">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
             <li class="breadcrumb-item active" aria-current="page">Matakuliah</li>
         </ol>
     </nav>
 
-    <div class="add-modal-btn mb-3">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
-            <i class="fas fa-plus"></i> Add New Data
-        </button>
-    </div>
+    <div class="box">
+        <div class="add-modal-btn mb-3">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
+                <i class="fas fa-plus"></i> Add New Data
+            </button>
+        </div>
 
-    <div class="list-content">
-        <div class="row">
-            <div class="col">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>ID (Matakuliah)</th>
-                                <th>Matakuliah</th>
-                                <th>Sks</th>
-                                <th>Semester</th>
-                                <th>Prodi</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <?php foreach ($matakuliah as $rows) : ?>
+        <div class="list-content">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td><?= $rows['id_matakuliah']; ?></td>
-                                    <td><?= $rows['nama_matakuliah']; ?></td>
-                                    <td><?= $rows['sks']; ?></td>
-                                    <td><?= $rows['semester']; ?></td>
-                                    <td><?= $rows['nama_prodi']; ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button type="button" data-delete-url="<?= site_url('admin/delete_matakuliah/' . $rows['id_matakuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                            <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $rows['id_matakuliah']; ?>"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
+                                    <th>ID (Matakuliah)</th>
+                                    <th>Matakuliah</th>
+                                    <th>Sks</th>
+                                    <th>Semester</th>
+                                    <th>Prodi</th>
+                                    <th>Action</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+
+                            <tbody>
+
+                                <?php foreach ($matakuliah as $rows) : ?>
+                                    <tr>
+                                        <td><?= $rows['id_matakuliah']; ?></td>
+                                        <td><?= $rows['nama_matakuliah']; ?></td>
+                                        <td><?= $rows['sks']; ?></td>
+                                        <td><?= $rows['semester']; ?></td>
+                                        <td><?= $rows['nama_prodi']; ?></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" data-delete-url="<?= site_url('admin/delete_matakuliah/' . $rows['id_matakuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $rows['id_matakuliah']; ?>"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -92,38 +95,31 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_tambahLabel">Add New Data</h5>
+                <h5 class="modal-title" id="modal_tambahLabel">Add New Data Matakuliah</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/add_matakuliah') ?>
-                <!-- <div class="form-group row">
-                    <label for="id_matakuliah" class="col-sm-3 col-form-label">ID (Matakuliah)</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('id_matakuliah') ? 'is-invalid' : ''; ?>" value="<?= set_value('id_matakuliah'); ?>" name="id_matakuliah" id="id_matakuliah">
-                        <div class="invalid-feedback"><?= form_error('id_matakuliah'); ?></div>
-                    </div>
-                </div> -->
+                <?= form_open('admin/matakuliah') ?>
                 <div class="form-group row">
                     <label for="nama_matakuliah" class="col-sm-3 col-form-label">Nama matakuliah</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('nama_matakuliah') ? 'is-invalid' : ''; ?>" value="<?= set_value('nama_matakuliah'); ?>" name="nama_matakuliah" id="nama_matakuliah">
+                        <input type="text" class="form-control <?= form_error('nama_matakuliah') ? 'is-invalid' : ''; ?>" value="<?= set_value('nama_matakuliah'); ?>" name="nama_matakuliah" id="nama_matakuliah" required>
                         <div class="invalid-feedback"><?= form_error('nama_matakuliah'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="sks" class="col-sm-3 col-form-label">Sks</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control <?= form_error('sks') ? 'is-invalid' : ''; ?>" value="<?= set_value('sks'); ?>" name="sks" id="sks">
+                        <input type="number" class="form-control <?= form_error('sks') ? 'is-invalid' : ''; ?>" value="<?= set_value('sks'); ?>" name="sks" id="sks" required>
                         <div class="invalid-feedback"><?= form_error('sks'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="semester" class="col-sm-3 col-form-label">Semester</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control <?= form_error('semester') ? 'is-invalid' : ''; ?>" value="<?= set_value('semester'); ?>" name="semester" id="semester">
+                        <input type="number" class="form-control <?= form_error('semester') ? 'is-invalid' : ''; ?>" value="<?= set_value('semester'); ?>" name="semester" id="semester" required>
                         <div class="invalid-feedback"><?= form_error('semester'); ?></div>
                     </div>
                 </div>
@@ -131,7 +127,7 @@
                 <div class="form-group row">
                     <label for="id_prodi" class="col-sm-3 col-form-label">Program Studi</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('id_prodi') ? 'is-invalid' : ''; ?>" name="id_prodi" id="id_prodi">
+                        <select class="custom-select custom-select <?= form_error('id_prodi') ? 'is-invalid' : ''; ?>" name="id_prodi" id="id_prodi" required>
                             <option selected>Pilih</option>
                             <?php
                             $prodi = $this->db->get('prodi')->result_array();
@@ -160,7 +156,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_updateLabel">Update Data <strong><?= $rows['nama_matakuliah']; ?> (<?= $rows['id_matakuliah']; ?>)</strong></h5>
+                    <h5 class="modal-title" id="modal_updateLabel">Edit Data matakuliah <strong><?= $rows['nama_matakuliah']; ?> (<?= $rows['id_matakuliah']; ?>)</strong></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

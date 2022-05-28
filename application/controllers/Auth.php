@@ -4,7 +4,50 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Auth extends CI_Controller
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('user_model', 'user', true);
+    }
+
     public function index()
+    {
+        if ($this->session->userdata('is_logged_in')) {
+            redirect('admin');
+        }
+
+        $config = [
+            [
+                'field' => 'nim',
+                'label' => 'NIM / Email',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ]
+        ];
+        $this->form_validation->set_rules($config);
+
+        if (!$this->form_validation->run()) {
+            $this->load->view('template/frontend/header');
+            $this->load->view('auth/login');
+            $this->load->view('template/frontend/footer');
+        } else {
+            // $this->_loginAdmin();
+            $this->_appAccessMember();
+        }
+    }
+
+
+    public function admin_page()
     {
         if ($this->session->userdata('is_logged_in')) {
             redirect('admin');
@@ -32,24 +75,19 @@ class Auth extends CI_Controller
 
         if (!$this->form_validation->run()) {
             $this->load->view('template/frontend/header');
-            $this->load->view('auth/login');
+            $this->load->view('auth/login_admin');
             $this->load->view('template/frontend/footer');
         } else {
-            $this->_loginAdmin();
+            $this->_appAccess();
         }
     }
 
 
-    private function _loginAdmin()
+    private function _appAccess()
     {
         $email = htmlspecialchars($this->input->post('email', true));
         $password = htmlspecialchars($this->input->post('password', true));
-        // $row = $this->db->get_where('user', ['email' => $email])->row_array();
-        $row = $this->db->select('*')
-            ->from('user')
-            ->where('email', $email)
-            ->or_where('name', $email)
-            ->get()->row_array();
+        $row = $this->user->access_app($email);
         if (!empty($row)) {
             // Active user > 1 ?
             if ($row['is_active'] == 1) {
@@ -61,24 +99,60 @@ class Auth extends CI_Controller
                         'is_logged_in' => true
                     ];
                     $this->session->set_userdata($sesi_user);
-                    if ($row['role_id'] == 1) {
-                        redirect('admin');
+                    redirect('admin');
+                } else {
+                    $this->session->set_flashdata('message_error', 'Password salah!');
+                    redirect('/app');
+                }
+            } else {
+                $this->session->set_flashdata('message_error', 'Akun di nonaktifkan!');
+                redirect('/app');
+            }
+        } else {
+            $this->session->set_flashdata('message_error', 'Username / Email tidak terdaftar');
+            redirect('/app');
+        }
+    }
+
+
+    private function _appAccessMember()
+    {
+        $nim = htmlspecialchars($this->input->post('nim', true));
+        $password = htmlspecialchars($this->input->post('password', true));
+        $user = $this->user->access_app_member($nim)->row_array();
+
+        if (!empty($user)) {
+            // Active user > 1 ?
+            if ($user['is_active'] == 1) {
+                $password_verify = password_verify($password, $user['password']);
+                if ($password_verify) {
+                    $sesi_user = [
+                        'id' => $user['id_user'],
+                        'id_role' => $user['role_id'],
+                        'is_logged_in' => TRUE
+                    ];
+
+                    $this->session->set_userdata($sesi_user);
+
+                    if ($user['role_id'] == 2) {
+                        redirect('users');
                     } else {
-                        redirect('admin');
+                        redirect('dosen');
                     }
                 } else {
                     $this->session->set_flashdata('message_error', 'Password salah!');
                     redirect('/login');
                 }
             } else {
-                $this->session->set_flashdata('message_error', 'Akun di nonaktifkan!');
+                $this->session->set_flashdata('message_error', 'Akun di nonatifkan, segera hubungi pihak terkait / admin');
                 redirect('/login');
             }
         } else {
-            $this->session->set_flashdata('message_error', 'Username / Email tidak terdaftar');
+            $this->session->set_flashdata('message_error', 'NIM / Email tidak terdaftar');
             redirect('/login');
         }
     }
+
 
     public function logout()
     {

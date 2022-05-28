@@ -153,12 +153,9 @@ class Menu extends CI_Controller
 
     public function access() // access
     {
-        $data['title'] = 'Access menu';
+        $data['title'] = 'Acesss menu';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-        // $data['access_menu'] = $this->db->get('user_access_menu')->result_array();
         $data['access_menu'] = $this->menu->join_user_access();
-
-
 
         $this->load->view('template/backend/header', $data);
         $this->load->view('template/backend/sidebar', $data);
@@ -205,7 +202,7 @@ class Menu extends CI_Controller
         if (!$row['id'] || !$id) {
             show_404();
         } else {
-            if ($this->menu->delete_menu($id)) {
+            if ($this->menu->acces_menu_delete($id)) {
                 $this->session->set_flashdata('message_success', 'Access menu di dihapus');
                 redirect('menu/access');
             }

@@ -49,59 +49,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'auth/login';
+$route['default_controller'] = 'page';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-// $route['admin'] = 'admin/dashboard';
-// $route['admin-mahasiswa'] = 'admin/mahasiswa/list';
-// $route['admin-mahasiswa/insert'] = 'admin/mahasiswa/list';
-// $route['admin-mahasiswa/delete/(:any)'] = 'admin/mahasiswa/delete/$1';
-// $route['admin-mahasiswa/update/(:any)'] = 'admin/mahasiswa/update/$1';
-
-
-// $route['admin-matakuliah'] = 'admin/matakuliah/list';
-// $route['admin-matakuliah/insert'] = 'admin/matakuliah/list';
-// $route['admin-matakuliah/delete/(:any)'] = 'admin/matakuliah/delete/$1';
-// $route['admin-matakuliah/update/(:any)'] = 'admin/matakuliah/update/$1';
-
-// $route['admin-prodi'] = 'admin/prodi/list';
-// $route['admin-prodi/insert'] = 'admin/prodi/list';
-// $route['admin-prodi/delete/(:any)'] = 'admin/prodi/delete/$1';
-// $route['admin-prodi/update/(:any)'] = 'admin/prodi/update/$1';
-
-
-
-// $route['admin/user-account'] = 'admin/account/list';
-// $route['admin/user-account/insert'] = 'admin/account/list';
-// $route['admin/user-account/delete/(:any)'] = 'admin/account/delete/$1';
-// $route['admin/user-account/update/(:any)'] = 'admin/account/update/$1';
-
-
-// $route['admin-ruang'] = 'admin/ruang/list';
-// $route['admin-ruang/insert'] = 'admin/ruang/list';
-// $route['admin-ruang/update/(:any)'] = 'admin/ruang/update/$1';
-
-
-// $route['admin-dosen'] = 'admin/dosen/list';
-// $route['admin-dosen/insert'] = 'admin/dosen/list';
-// $route['admin-dosen/update/(:any)'] = 'admin/dosen/update/$1';
-// $route['admin-dosen/delete/(:any)'] = 'admin/dosen/delete/$1';
-
-
-// $route['admin-kelas'] = 'admin/kelas/list';
-// $route['admin-kelas/insert'] = 'admin/kelas/list';
-// $route['admin-kelas/delete/(:any)'] = 'admin/kelas/delete/$1';
-
-
-// $route['login'] = 'auth/login';
-// $route['access-admin'] = 'auth/login_admin';
-// $route['logout'] = 'auth/logout';
-
-
-
-// $route['users'] = 'users/dashboard';
-
 $route['login'] = 'auth/index';
 $route['logout'] = 'auth/logout';
+
+$route['app'] = 'auth/admin_page';

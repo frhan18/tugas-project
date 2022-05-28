@@ -2,23 +2,29 @@
 
 class User_model extends CI_Model
 {
-    public function login_user($nim)
+
+    public function access_app($email)
     {
-        return $this->db->select('*')
+        $query = $this->db->select('user.*')
             ->from('user')
-            ->join('mahasiswa', 'mahasiswa.id_user=user.id_user')
-            ->where('nim', $nim)
-            ->get();
+            ->where('name', $email)
+            ->or_where('email', $email)
+            ->get()->row_array();
+
+        return $query;
     }
 
-    public function login_admin($email)
+
+    public function access_app_member($nim)
     {
-        return $this->db->select('*')
-            ->from('user')
-            ->where('email', $email)
-            ->or_where('name', $email)
-            ->get();
+        $query = $this->db->select('*')->from('user')
+            ->where('nim', $nim)
+            ->join('mahasiswa', 'mahasiswa.id_user=user.id_user', 'LEFT')->get();
+
+
+        return $query;
     }
+
 
     public function get_user()
     {

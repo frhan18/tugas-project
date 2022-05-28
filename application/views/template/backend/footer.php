@@ -5,7 +5,7 @@
 <!-- End of Main Content -->
 
 <!-- Footer -->
-<footer class="sticky-footer" style="background: #3a3a3a;">
+<footer class="sticky-footer" style="background: #fff;">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
             <span>Copyright &copy; Your Website 2020</span>

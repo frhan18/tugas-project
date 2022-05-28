@@ -13,58 +13,60 @@
 <div class="wrapper">
     <!-- Page Heading -->
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #3a3a3a;">
+        <ol class="breadcrumb" style="background: #fff;">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
             <li class="breadcrumb-item active" aria-current="page">Prodi</li>
         </ol>
     </nav>
+    <div class="box">
+        <div class="add-modal-btn mb-3">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
+                <i class="fas fa-plus"></i> Add New Data
+            </button>
+        </div>
 
-    <div class="add-modal-btn mb-3">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
-            <i class="fas fa-plus"></i> Add New Data
-        </button>
-    </div>
-
-    <div class="list-content">
-        <div class="row">
-            <div class="col">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>ID (Prodi)</th>
-                                <th>Prodi</th>
-                                <th>Akreditasi</th>
-                                <th>Tahun</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <?php foreach ($prodi as $rows) : ?>
+        <div class="list-content">
+            <div class="row">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td><?= $rows['id_prodi']; ?></td>
-                                    <td><?= $rows['nama_prodi']; ?></td>
-                                    <td><?= $rows['akreditasi']; ?></td>
-                                    <td><?= $rows['tahun']; ?></td>
-                                    <td><?= $rows['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <button type="button" data-delete-url="<?= site_url('admin/delete_prodi/' . $rows['id_prodi']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                            <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $rows['id_prodi']; ?>"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
+                                    <th>ID (Prodi)</th>
+                                    <th>Prodi</th>
+                                    <th>Akreditasi</th>
+                                    <th>Tahun Aktif</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
+                            </thead>
 
-                            <?php endforeach; ?>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+                                <?php foreach ($prodi as $rows) : ?>
+                                    <tr>
+                                        <td><?= $rows['id_prodi']; ?></td>
+                                        <td><?= $rows['nama_prodi']; ?></td>
+                                        <td><?= $rows['akreditasi']; ?></td>
+                                        <td><?= $rows['tahun']; ?></td>
+                                        <td><?= $rows['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" data-delete-url="<?= site_url('admin/delete_prodi/' . $rows['id_prodi']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_update<?= $rows['id_prodi']; ?>"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -75,11 +77,11 @@
     function deleteConfirm(event) {
         Swal.fire({
             title: 'Delete Confirmation!',
-            text: 'Are you sure to delete the item?',
+            text: 'Apakah anda yakin menghapus data ini?',
             icon: 'warning',
             showCancelButton: true,
-            cancelButtonText: 'No',
-            confirmButtonText: 'Yes Delete',
+            cancelButtonText: 'Nanti dulu',
+            confirmButtonText: 'Ya, yakin',
             confirmButtonColor: 'red'
         }).then(dialog => {
             if (dialog.isConfirmed) {
@@ -89,23 +91,22 @@
     }
 </script>
 
-
 <!-- Modal tambah -->
 <div class="modal fade" id="modal_tambah" tabindex="-1" aria-labelledby="modal_tambahLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_tambahLabel">Add New Data</h5>
+                <h5 class="modal-title" id="modal_tambahLabel">Add New Prodi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/add_prodi') ?>
+                <?= form_open('admin/prodi') ?>
                 <div class="form-group row">
                     <label for="id_prodi" class="col-sm-3 col-form-label">ID (Prodi)</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('id_prodi') ? 'is-invalid' : ''; ?>" value="<?= set_value('id_prodi'); ?>" name="id_prodi" id="id_prodi" placeholder="IKOM">
+                        <input type="text" class="form-control <?= form_error('id_prodi') ? 'is-invalid' : ''; ?>" value="<?= set_value('id_prodi'); ?>" name="id_prodi" id="id_prodi" placeholder="IKOM" required>
                         <div class="invalid-feedback"><?= form_error('id_prodi'); ?></div>
                     </div>
                 </div>
@@ -119,8 +120,8 @@
                 <div class="form-group row">
                     <label for="akreditasi" class="col-sm-3 col-form-label">Akreditasi</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select  <?= form_error('akreditasi') ? 'is-invalid' : ''; ?>" name="akreditasi" id="akreditasi">
-                            <option selected>Pilih</option>
+                        <select class="custom-select custom-select<?= form_error('akreditasi') ? 'is-invalid' : ''; ?>" name="akreditasi" id="akreditasi" required>
+                            <option selected disabled>Pilih</option>
                             <?php
                             $akreditasi = ['A', 'B', 'C', 'D'];
                             foreach ($akreditasi as $rows) : ?>
@@ -165,7 +166,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_updateLabel">Update Data Prodi <strong>(<?= $rows['nama_prodi']; ?>)</strong></h5>
+                    <h5 class="modal-title" id="modal_updateLabel">Edit Data Prodi <strong>(<?= $rows['nama_prodi']; ?>)</strong></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
