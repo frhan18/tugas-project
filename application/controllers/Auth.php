@@ -119,7 +119,7 @@ class Auth extends CI_Controller
     {
         $nim = htmlspecialchars($this->input->post('nim', true));
         $password = htmlspecialchars($this->input->post('password', true));
-        $user = $this->user->access_app_member($nim)->row_array();
+        $user = $this->db->select('*')->from('user')->where('email', $nim)->or_where('nim', $nim)->get()->row_array();
 
         if (!empty($user)) {
             // Active user > 1 ?
@@ -134,10 +134,10 @@ class Auth extends CI_Controller
 
                     $this->session->set_userdata($sesi_user);
 
-                    if ($user['role_id'] == 2) {
-                        redirect('users');
+                    if ($user['role_id'] == 1) {
+                        redirect('admin');
                     } else {
-                        redirect('dosen');
+                        redirect('users');
                     }
                 } else {
                     $this->session->set_flashdata('message_error', 'Password salah!');

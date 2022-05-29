@@ -37,7 +37,7 @@
                                     <div class="invalid-feedback ml-2"><?= form_error('nim'); ?></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" placeholder="Password">
+                                    <input type="password" name="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : ''; ?>" placeholder="Password">
                                     <div class="invalid-feedback ml-2"><?= form_error('password'); ?></div>
                                 </div>
 

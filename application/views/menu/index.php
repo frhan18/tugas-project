@@ -23,7 +23,7 @@
 
     <div class="box">
         <div class="add-modal-btn mb-3">
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
+            <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
                 <i class="fas fa-plus"></i> Add New Menu
             </button>
         </div>
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save </button>
+                    <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Save </button>
                     <?= form_close(); ?>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update </button>
+                        <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Update </button>
                         <?= form_close(); ?>
                     </div>
                 </div>

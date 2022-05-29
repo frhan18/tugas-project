@@ -37,7 +37,6 @@
                                     <th>Role</th>
                                     <th>Status</th>
                                     <th>Create</th>
-                                    <th>Update</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -58,8 +57,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td><?= $rows['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
-                                        <td><?= date('d M Y H:i:s', $rows['created_at']); ?></td>
-                                        <td><?= date('d M Y H:i:s', $rows['updated_at']); ?></td>
+                                        <td><?= date('d M Y H:i:s', $rows['date_created']); ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <button type="button" data-delete-url="<?= site_url('admin/delete_account/' . $rows['id_user']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>

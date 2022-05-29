@@ -14,12 +14,7 @@
     <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>css/style.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-    <?php if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 2) : ?>
-        <title>SIA APP - <?= $title; ?></title>
-    <?php else : ?>
-        <title>SIA APP</title>
-    <?php endif; ?>
+    <title>MyApp <?= isset($title) ? $title : 'myapp.com'; ?></title>
 
 </head>
 

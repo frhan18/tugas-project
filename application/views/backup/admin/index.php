@@ -68,7 +68,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
                                 KRS</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_all_krs; ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_all_matakuliah; ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-bookmark fa-3x text-gray-300"></i>

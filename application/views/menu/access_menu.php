@@ -22,7 +22,7 @@
     </nav>
     <div class="box">
         <div class="add-modal-btn mb-3">
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
+            <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
                 <i class="fas fa-plus"></i> Add New Access Menu
             </button>
         </div>

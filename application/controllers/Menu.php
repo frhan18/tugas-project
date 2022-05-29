@@ -208,4 +208,74 @@ class Menu extends CI_Controller
             }
         }
     }
+
+    public function role_access()
+    {
+        $data['title'] = 'Role access';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+        $data['role_access'] = $this->db->select('*')->from('user_role')->get()->result_array();
+
+        $config = [
+            [
+                'field' => 'role_name',
+                'label' => 'Role',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong'
+                ]
+            ]
+        ];
+
+        $this->form_validation->set_rules($config);
+
+        if (!$this->form_validation->run()) {
+            $this->load->view('template/backend/header', $data);
+            $this->load->view('template/backend/sidebar', $data);
+            $this->load->view('template/backend/topbar', $data);
+            $this->load->view('menu/role_access', $data);
+            $this->load->view('template/backend/footer');
+        } else {
+            $this->add_role();
+        }
+    }
+
+    private function add_role()
+    {
+        $data =  ['role_name' => $this->input->post('role_name')];
+        if ($this->db->insert('user_role', $data)) {
+            $this->session->set_flashdata('message_success', 'Role access ditambahkan');
+            redirect('menu/role_access');
+        }
+    }
+
+    public function update_role($id)
+    {
+        $row = $this->db->get_where('user_role', ['role_id' => $id])->row_array();
+        if (!$row['role_id'] || !$id) {
+            show_404();
+        } else {
+            $data = [
+                'role_name' => $this->input->post('role_name', true),
+            ];
+
+            if ($this->db->update('user_role', $data, ['role_id' => $id])) {
+                $this->session->set_flashdata('message_success', 'Role  access di perbarui');
+                redirect('menu/role_access');
+            }
+        }
+    }
+
+    public function delete_role($id)
+    {
+        $row = $this->db->get_where('user_role', ['role_id' => $id])->row_array();
+
+        if (!$row['role_id'] || !$id) {
+            show_404();
+        } else {
+            if ($this->db->delete('user_role', ['role_id' => $id])) {
+                $this->session->set_flashdata('message_success', 'Role access dihapus');
+                redirect('menu/role_access');
+            }
+        }
+    }
 }

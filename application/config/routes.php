@@ -56,5 +56,41 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'auth/index';
 $route['logout'] = 'auth/logout';
-
 $route['app'] = 'auth/admin_page';
+
+
+
+// mahasiswa
+$route['admin/mahasiswa/add'] = 'admin/mahasiswa';
+$route['admin/mahasiswa/(:any)'] = 'admin/detail_mahasiswa/$1';
+$route['admin/mahasiswa/edit/(:any)'] = 'admin/update_mahasiswa/$1';
+$route['admin/mahasiswa/delete/(:any)'] = 'admin/delete_mahasiswa/$1';
+
+// Dosen
+$route['admin/dosen/add'] = 'admin/dosen';
+$route['admin/dosen/edit/(:any)'] = 'admin/update_dosen/$1';
+$route['admin/dosen/delete/(:any)'] = 'admin/delete_dosen/$1';
+
+
+// matakuliah
+$route['admin/matakuliah/add'] = 'admin/matakuliah';
+$route['admin/matakuliah/edit/(:any)'] = 'admin/update_matakuliah/$1';
+$route['admin/matakuliah/delete/(:any)'] = 'admin/delete_matakuliah/$1';
+
+
+// kelas
+$route['admin/kelas/add'] = 'admin/kelas';
+$route['admin/kelas/edit/(:any)'] = 'admin/update_kelas/$1';
+$route['admin/kelas/delete/(:any)'] = 'admin/delete_kelas/$1';
+
+
+// krs
+$route['admin/krs/add'] = 'admin/krs';
+$route['admin/krs/delete/(:any)'] = 'admin/delete_krs/$1';
+$route['admin/krs/edit/(:any)'] = 'admin/update_krs/$1';
+
+
+// role
+$route['menu/role_access/add'] = 'menu/role_access';
+$route['menu/role_access/edit/(:any)'] = 'menu/update_role/$1';
+$route['menu/role_access/delete/(:any)'] = 'menu/delete_role/$1';

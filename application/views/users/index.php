@@ -1,1 +1,0 @@
-<h1>Selamat datang, <?= $get_sesi_user['name']; ?></h1>
