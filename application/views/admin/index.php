@@ -67,11 +67,11 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
-                                KRS</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_all_krs; ?></div>
+                                Prodi</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $count_all_prodi; ?></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-bookmark fa-3x text-gray-300"></i>
+                            <i class="fas fa-book-open fa-3x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col">
                 <div class="wrapper">
-                    <h1 class="h3 mb-4 text-white">User Account <i class="fas fa-users px-2 "></i></h1>
+                    <h1 class="h3 mb-4 text-dark">User Account <i class="fas fa-users px-2 "></i></h1>
                     <p>User registered : <?= $count_all_user; ?></p>
 
                     <div class="list-user">
@@ -98,7 +98,7 @@
                                         <th>Role</th>
                                         <th>Status</th>
                                         <th>Create</th>
-                                        <th>Action</th>
+                                        <th>update</th>
                                     </tr>
                                 </thead>
 
@@ -116,11 +116,8 @@
                                             </td>
                                             <td><?= $rows['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
                                             <td><?= date('d M Y H:i:s', $rows['date_created']); ?></td>
-                                            <td>
-                                                <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-primary btn-sm">Detail</button>
-                                                </div>
-                                            </td>
+                                            <td><?= date('d M Y H:i:s', $rows['date_created']); ?></td>
+
                                         </tr>
 
 

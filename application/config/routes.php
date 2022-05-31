@@ -94,3 +94,14 @@ $route['admin/krs/edit/(:any)'] = 'admin/update_krs/$1';
 $route['menu/role_access/add'] = 'menu/role_access';
 $route['menu/role_access/edit/(:any)'] = 'menu/update_role/$1';
 $route['menu/role_access/delete/(:any)'] = 'menu/delete_role/$1';
+
+
+// prodi    
+$route['admin/prodi/add'] = 'admin/prodi';
+$route['admin/prodi/edit/(:any)'] = 'admin/update_prodi/$1';
+$route['admin/prodi/delete/(:any)'] = 'admin/delete_prodi/$1';
+
+
+$route['admin/kuliah/add'] = 'admin/kuliah';
+$route['admin/kuliah/delete/(:any)'] = 'admin/delete_perkuliahan/$1';
+$route['admin/kuliah/edit/(:any)'] = 'admin/edit_perkuliahan/$1';

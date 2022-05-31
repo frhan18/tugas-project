@@ -120,6 +120,7 @@ class Auth extends CI_Controller
         $nim = htmlspecialchars($this->input->post('nim', true));
         $password = htmlspecialchars($this->input->post('password', true));
         $user = $this->db->select('*')->from('user')->where('email', $nim)->or_where('nim', $nim)->get()->row_array();
+        // $user  =   $this->db->select('*')->from('user')->join('tb_mahasiswa', 'tb_mahasiswa.id_user=user.id_user')->where('nim', $nim)->get()->row_array();
 
         if (!empty($user)) {
             // Active user > 1 ?

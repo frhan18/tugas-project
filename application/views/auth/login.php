@@ -19,7 +19,7 @@
                 <div class="row login-box">
                     <div class="col-lg-6 d-lg-block">
                         <div class="content-login">
-                            <img src="https://adhom.id/wp-content/uploads/2021/04/landing_page_background_2-removebg-preview.png" class="img-fluid">
+                            <img src="<?= base_url('assets/img/bg-login.png'); ?>" class="img-fluid">
                             <h3 class="px-3 mx-4 pt-5 login_title">Selamat datang di sistem informasi akademik </h3>
                             <a href="#penggunaan" data-toggle="modal" data-target="#exampleModal" class="penggunaan"> Bantuan?</a>
                         </div>
@@ -33,7 +33,7 @@
                                 </div>
                                 <?= form_open('login', 'class="user"'); ?>
                                 <div class="form-group">
-                                    <input type="text" name="nim" value="<?= set_value('nim'); ?>" class="form-control form-control-user <?= form_error('nim') ? 'is-invalid' : ''; ?>" placeholder="Masukan NIM / Email ">
+                                    <input type="text" name="nim" value="<?= set_value('nim'); ?>" class="form-control form-control-user <?= form_error('nim') ? 'is-invalid' : ''; ?>" placeholder="Masukan NIM / NIP ">
                                     <div class="invalid-feedback ml-2"><?= form_error('nim'); ?></div>
                                 </div>
                                 <div class="form-group">

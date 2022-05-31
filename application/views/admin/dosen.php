@@ -36,9 +36,11 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Kode dosen</th>
+                                    <th>Nip</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Kode matakuliah</th>
+                                    <th>Status</th>
+                                    <th>jenis_kelamin</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -49,9 +51,11 @@
                                     <tr>
                                         <td><?= $no++; ?></td>
                                         <td><?= $rows['id_dosen']; ?></td>
+                                        <td><?= $rows['nip']; ?></td>
                                         <td><?= $rows['nama']; ?></td>
                                         <td><?= $rows['email']; ?></td>
-                                        <td><?= $rows['id_mata_kuliah']; ?></td>
+                                        <td><?= $rows['jenis_kelamin'] == 'L' ? 'Laki laki' : 'Perempuan'; ?></td>
+                                        <td><?= $rows['status_dosen'] ? 'Aktif' : 'Tidak aktif'; ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="javascript:void(0)" data-delete-url="<?= site_url('admin/dosen/delete/' . htmlentities($rows['id_dosen'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
@@ -112,6 +116,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="nip" class="col-sm-3 col-form-label">Nip</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control <?= form_error('nip') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nip')); ?>" name="nip" id="nip">
+                        <div class="invalid-feedback"><?= form_error('nip'); ?></div>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="nama" class="col-sm-3 col-form-label">Nama dosen</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nama')); ?>" name="nama" id="nama">
@@ -126,18 +137,30 @@
                         <div class="invalid-feedback"><?= form_error('email'); ?></div>
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label for="id_matakuliah" class="col-sm-3 col-form-label"> Matakuliah</label>
+                    <label for="jenis_kelamin" class="col-sm-3 col-form-label"> Jenis kelamin</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('id_matakuliah') ? 'is-invalid' : ''; ?>" name="id_matakuliah" id="id_matakuliah">
-                            <option selected disabled>Pilih matakuliah</option>
+                        <select class="custom-select custom-select <?= form_error('jenis_kelamin') ? 'is-invalid' : ''; ?>" name="jenis_kelamin" id="jenis_kelamin">
+                            <option selected disabled>Pilih jenis kelamin</option>
                             <?php
-                            foreach ($matakuliah as $mk) : ?>
-                                <option value="<?= $mk['id_mata_kuliah']; ?>"><?= $mk['nama_mata_kuliah']; ?> </option>
+                            $jenis_kelamin = [['key' => 'L', 'value' => 'Laki laki'], ['key' => 'P', 'value' => 'Perempuan']];
+                            foreach ($jenis_kelamin as $mk) : ?>
+                                <option value="<?= $mk['key']; ?>"><?= $mk['value']; ?> </option>
                             <?php endforeach; ?>
                         </select>
-                        <div class="invalid-feedback"><?= form_error('id_matakuliah'); ?></div>
+                        <div class="invalid-feedback"><?= form_error('jenis_kelamin'); ?></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="status_dosen" class="col-sm-3 col-form-label"> Status</label>
+                    <div class="col-sm-9">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="status_dosen" checked>
+                            <label class="form-check-label" for="status_dosen">
+                                Status dosen aktif / tidak ?
+                            </label>
+                        </div>
+                        <div class="invalid-feedback"><?= form_error('status_dosen'); ?></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -174,6 +197,13 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="nip" class="col-sm-3 col-form-label">Nip</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control <?= form_error('nip') ? 'is-invalid' : ''; ?>" value="<?= $dsn['nip']; ?>" name="nip" id="nip" readonly>
+                            <div class="invalid-feedback"><?= form_error('nip'); ?></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="nama" class="col-sm-3 col-form-label">Nama dosen</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= $dsn['nama']; ?>" name="nama" id="nama">
@@ -188,26 +218,36 @@
                             <div class="invalid-feedback"><?= form_error('email'); ?></div>
                         </div>
                     </div>
-
                     <div class="form-group row">
-                        <label for="id_matakuliah" class="col-sm-3 col-form-label"> Matakuliah</label>
+                        <label for="jenis_kelamin" class="col-sm-3 col-form-label"> Jenis kelamin</label>
                         <div class="col-sm-9">
-                            <select class="custom-select custom-select <?= form_error('id_matakuliah') ? 'is-invalid' : ''; ?>" name="id_matakuliah" id="id_matakuliah">
-                                <option selected disabled>Pilih matakuliah</option>
+                            <select class="custom-select custom-select <?= form_error('jenis_kelamin') ? 'is-invalid' : ''; ?>" name="jenis_kelamin" id="jenis_kelamin">
+                                <option selected disabled>Pilih jenis kelamin</option>
                                 <?php
-                                foreach ($matakuliah as $mk) : ?>
-                                    <option value="<?= $mk['id_mata_kuliah']; ?>" <?php if ($dsn['id_mata_kuliah'] == $mk['id_mata_kuliah']) echo 'selected'; ?>><?= $mk['nama_mata_kuliah']; ?> </option>
+                                $jenis_kelamin = [['key' => 'L', 'value' => 'Laki laki'], ['key' => 'P', 'value' => 'Perempuan']];
+                                foreach ($jenis_kelamin as $mk) : ?>
+                                    <option value="<?= $mk['key']; ?>" <?php if ($dsn['jenis_kelamin'] == $mk['key']) echo 'selected'; ?>><?= $mk['value']; ?> </option>
                                 <?php endforeach; ?>
                             </select>
-                            <div class="invalid-feedback"><?= form_error('id_matakuliah'); ?></div>
+                            <div class="invalid-feedback"><?= form_error('jenis_kelamin'); ?></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="status_dosen" class="col-sm-3 col-form-label"> Status</label>
+                        <div class="col-sm-9">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="status_dosen" value="1" <?php if ($dsn['status_dosen'] == 1) echo 'checked'; ?> id="status_dosen">
+                                <label class="form-check-label" for="status_dosen">
+                                    Status dosen aktif / tidak ?
+                                </label>
+                            </div>
+                            <div class="invalid-feedback"><?= form_error('status_dosen'); ?></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Update </button>
                     </div>
-
                     <?= form_close(); ?>
-
                 </div>
 
             </div>

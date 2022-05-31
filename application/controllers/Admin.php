@@ -21,8 +21,7 @@ class Admin extends CI_Controller
         $data['count_all_mahasiswa'] = $this->db->count_all('tb_mahasiswa');
         $data['count_all_dosen'] = $this->db->count_all('tb_dosen');
         $data['count_all_matakuliah'] = $this->db->count_all('tb_mata_kuliah');
-        $data['count_all_krs'] = $this->db->count_all('tb_krs');
-
+        $data['count_all_prodi'] = $this->db->count_all('tb_prodi');
         $data['count_all_user'] = $this->db->count_all('user');
 
         $this->load->view('template/backend/header', $data);
@@ -88,12 +87,12 @@ class Admin extends CI_Controller
         $id = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 16);
         $data = [
             'id_user'       => $id,
-            'name'          => $this->security->sanitize_filename($this->input->post('name'), TRUE),
-            'nim'           => $this->security->sanitize_filename($this->input->post('nim'), TRUE),
-            'email'         => $this->security->sanitize_filename($this->input->post('email'), TRUE),
+            'name'          => $this->input->post('name', true),
+            'nim'           => $this->input->post('nim', true),
+            'email'         => $this->input->post('email', true),
             'password'      => password_hash($this->input->post('password', true), PASSWORD_DEFAULT),
-            'role_id'       => $this->security->sanitize_filename($this->input->post('role_id'), TRUE),
-            'is_active'     => $this->security->sanitize_filename($this->input->post('is_active'), TRUE),
+            'role_id'       => $this->input->post('role_id', true),
+            'is_active'     => $this->input->post('is_active', true),
             'image'         => 'default.svg',
             'date_created'  => time(),
         ];
@@ -111,15 +110,15 @@ class Admin extends CI_Controller
             show_404();
         } else {
             $data = [
-                'name'          => htmlspecialchars($this->input->post('name', true)),
-                'email'         => htmlspecialchars($this->input->post('email', true)),
+                'name'          => $this->input->post('name', true),
+                'email'         => $this->input->post('email', true),
                 'role_id'       => $this->input->post('role_id', true),
                 'is_active'     => $this->input->post('is_active', true),
                 'updated_at'    => time(),
             ];
 
             if ($this->user->update($data, $id)) {
-                $this->session->set_flashdata('message_success', 'Account ' . $row['name'] . ' di perbarui');
+                $this->session->set_flashdata('message_success', 'Data akun di perbarui');
                 redirect('admin/user_account');
             }
         }
@@ -133,7 +132,7 @@ class Admin extends CI_Controller
         } else {
             $delete_user = $this->user->delete($id);
             if ($delete_user) {
-                $this->session->set_flashdata('message_success', 'Account ' . $row['name']  . ' dihapus');
+                $this->session->set_flashdata('message_success', 'Data akun dihapus');
                 redirect('admin/user_account');
             }
         }
@@ -230,15 +229,15 @@ class Admin extends CI_Controller
     public function add_mahasiswa()
     {
         $data = [
-            'nim'                   => $this->security->sanitize_filename($this->input->post('nim'), TRUE),
-            'nama'                  => $this->security->sanitize_filename($this->input->post('nama'), TRUE),
-            'tempat_tanggal_lahir'  => $this->security->sanitize_filename($this->input->post('tempat_tanggal_lahir'), TRUE),
-            'tahun_masuk'           => $this->security->sanitize_filename($this->input->post('tahun_masuk'), TRUE),
-            'agama'                 => $this->security->sanitize_filename($this->input->post('agama'), TRUE),
-            'jenis_kelamin'         => $this->security->sanitize_filename($this->input->post('jenis_kelamin'), TRUE),
-            'status_mhs'            => $this->security->sanitize_filename($this->input->post('status_mhs'), TRUE),
-            'tahun_masuk'           => $this->security->sanitize_filename($this->input->post('tahun_masuk'), TRUE),
-            'alamat'                => $this->security->sanitize_filename($this->input->post('alamat'), TRUE),
+            'nim'                   => $this->input->post('nim', true),
+            'nama'                  => $this->input->post('nama', true),
+            'tempat_tanggal_lahir'  => $this->input->post('tempat_tanggal_lahir', true),
+            'tahun_masuk'           => $this->input->post('tahun_masuk', true),
+            'agama'                 => $this->input->post('agama', true),
+            'jenis_kelamin'         => $this->input->post('jenis_kelamin', true),
+            'status_mhs'            => $this->input->post('status_mhs', true),
+            'tahun_masuk'           => $this->input->post('tahun_masuk', true),
+            'alamat'                => $this->input->post('alamat', true),
         ];
 
         if ($this->db->insert('tb_mahasiswa', $data)) {
@@ -254,14 +253,14 @@ class Admin extends CI_Controller
             show_404();
         } else {
             $data = [
-                'nama'                  => $this->input->post('nama'),
-                'tempat_tanggal_lahir'  => $this->input->post('tempat_tanggal_lahir'),
-                'tahun_masuk'           => $this->input->post('tahun_masuk'),
-                'agama'                 => $this->input->post('agama'),
-                'jenis_kelamin'         => $this->input->post('jenis_kelamin'),
-                'status_mhs'            => $this->input->post('status_mhs'),
-                'tahun_masuk'           => $this->input->post('tahun_masuk'),
-                'alamat'                => $this->security->sanitize_filename($this->input->post('alamat'), TRUE),
+                'nama'                  => $this->input->post('nama', true),
+                'tempat_tanggal_lahir'  => $this->input->post('tempat_tanggal_lahir', true),
+                'tahun_masuk'           => $this->input->post('tahun_masuk', true),
+                'agama'                 => $this->input->post('agama', true),
+                'jenis_kelamin'         => $this->input->post('jenis_kelamin', true),
+                'status_mhs'            => $this->input->post('status_mhs', true),
+                'tahun_masuk'           => $this->input->post('tahun_masuk', true),
+                'alamat'                => $this->input->post('alamat', true)
             ];
 
             if ($this->db->update('tb_mahasiswa', $data, ['nim' => $id])) {
@@ -302,6 +301,15 @@ class Admin extends CI_Controller
                     'is_unique' => '{field} sudah terdaftar'
                 ]
             ],
+            [
+                'field' => 'nip',
+                'label' => 'Nip',
+                'rules' => 'required|trim|is_unique[tb_dosen.nip]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong!',
+                    'is_unique' => '{field} sudah terdaftar'
+                ]
+            ],
 
             [
                 'field' => 'nama',
@@ -320,16 +328,13 @@ class Admin extends CI_Controller
                 ]
             ],
             [
-                'field' => 'id_matakuliah',
-                'label' => 'Matakuliah',
+                'field' => 'jenis_kelamin',
+                'label' => 'Jenis kelamin',
                 'rules' => 'required|trim',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong!',
                 ]
             ],
-
-
-
         ];
 
 
@@ -350,14 +355,16 @@ class Admin extends CI_Controller
     private function add_dosen()
     {
         $data = [
-            'id_dosen' => $this->security->sanitize_filename($this->input->post('id_dosen'), TRUE),
-            'nama' => $this->security->sanitize_filename($this->input->post('nama'), TRUE),
-            'email' => $this->security->sanitize_filename($this->input->post('email'), TRUE),
-            'id_mata_kuliah' => $this->security->sanitize_filename($this->input->post('id_matakuliah'), TRUE),
+            'id_dosen'       => $this->input->post('id_dosen', true),
+            'nip'            => $this->input->post('nip', true),
+            'nama'           => $this->input->post('nama', true),
+            'email'          => $this->input->post('email', true),
+            'jenis_kelamin'  => $this->input->post('jenis_kelamin', true),
+            'status_dosen'   => $this->input->post('status_dosen', true),
         ];
 
         if ($this->db->insert('tb_dosen', $data)) {
-            $this->session->set_flashdata('message_success', 'Data dosen berhasil ditambahkan');
+            $this->session->set_flashdata('message_success', 'Berhasil menambahkan data dosen');
             redirect('admin/dosen');
         }
     }
@@ -370,13 +377,17 @@ class Admin extends CI_Controller
             $this->page_error();
         } else {
             $data = [
-                'nama' => $this->security->sanitize_filename($this->input->post('nama'), TRUE),
-                'email' => $this->security->sanitize_filename($this->input->post('email'), TRUE),
-                'id_mata_kuliah' => $this->security->sanitize_filename($this->input->post('id_matakuliah'), TRUE),
+                'id_dosen'       => $this->input->post('id_dosen', true),
+                'nip'            => $this->input->post('nip', true),
+                'nama'           => $this->input->post('nama', true),
+                'email'          => $this->input->post('email', true),
+                'jenis_kelamin'  => $this->input->post('jenis_kelamin', true),
+                'status_dosen'   => $this->input->post('status_dosen', true),
             ];
 
+
             if ($this->db->update('tb_dosen', $data, ['id_dosen' => $id])) {
-                $this->session->set_flashdata('message_success', 'Data dosen berhasil di perbarui');
+                $this->session->set_flashdata('message_success', 'Data dosen di perbarui');
                 redirect('admin/dosen');
             }
         }
@@ -390,7 +401,7 @@ class Admin extends CI_Controller
             $this->page_error();
         } else {
             $this->db->delete('tb_dosen', ['id_dosen' => $id]);
-            $this->session->set_flashdata('message_success', 'Data dosen berhasil dihapus');
+            $this->session->set_flashdata('message_success', 'Data dosen dihapus');
             redirect('admin/dosen');
         }
     }
@@ -439,7 +450,7 @@ class Admin extends CI_Controller
     private function add_matakuliah()
     {
         $data = [
-            'id_mata_kuliah' => $this->input->post('id_mata_kuliah', true),
+            'id_mata_kuliah'   => $this->input->post('id_mata_kuliah', true),
             'nama_mata_kuliah' => $this->input->post('nama_mata_kuliah', true)
         ];
 
@@ -582,9 +593,6 @@ class Admin extends CI_Controller
         $data['matakuliah'] = $this->db->select('tb_mata_kuliah.id_mata_kuliah')->from('tb_mata_kuliah')->get()->result_array();
         $data['kelas'] = $this->db->select('tb_kelas.kode_kelas')->from('tb_kelas')->get()->result_array();
         $data['mahasiswa'] = $this->db->select('tb_mahasiswa.nim')->from('tb_mahasiswa')->get()->result_array();
-        $data['sks'] = [1, 2, 3, 4];
-
-
         $config = [
 
             [
@@ -656,12 +664,12 @@ class Admin extends CI_Controller
     private function add_krs()
     {
         $data = [
-            'id_mata_kuliah' => $this->security->sanitize_filename($this->input->post('id_mata_kuliah'), TRUE),
-            'kode_kelas' => $this->security->sanitize_filename($this->input->post('kode_kelas'), TRUE),
-            'nim' => $this->security->sanitize_filename($this->input->post('nim'), TRUE),
-            'sks' => $this->security->sanitize_filename($this->input->post('sks'), TRUE),
-            'tahun' => $this->security->sanitize_filename($this->input->post('tahun'), TRUE),
-            'semester' => $this->security->sanitize_filename($this->input->post('semester'), TRUE),
+            'id_mata_kuliah'         => $this->input->post('id_mata_kuliah', true),
+            'kode_kelas'             => $this->input->post('kode_kelas', true),
+            'nim'                    => $this->input->post('nim', true),
+            'sks'                    => $this->input->post('sks', true),
+            'tahun'                  => $this->input->post('tahun', true),
+            'semester'               => $this->input->post('semester', true),
         ];
 
         if ($this->db->insert('tb_krs', $data)) {
@@ -690,12 +698,12 @@ class Admin extends CI_Controller
             $this->page_error();
         } else {
             $data = [
-                'id_mata_kuliah' => $this->security->sanitize_filename($this->input->post('id_mata_kuliah'), TRUE),
-                'kode_kelas'    => $this->security->sanitize_filename($this->input->post('kode_kelas'), TRUE),
-                'nim'           => $this->security->sanitize_filename($this->input->post('nim'), TRUE),
-                'sks'           => $this->security->sanitize_filename($this->input->post('sks'), TRUE),
-                'tahun'         => $this->security->sanitize_filename($this->input->post('tahun'), TRUE),
-                'semester'      => $this->security->sanitize_filename($this->input->post('semester'), TRUE),
+                'id_mata_kuliah' => $this->input->post('id_mata_kuliah', true),
+                'kode_kelas'    => $this->input->post('kode_kelas', true),
+                'nim'           => $this->input->post('nim', true),
+                'sks'           => $this->input->post('sks', true),
+                'tahun'         => $this->input->post('tahun', true),
+                'semester'      => $this->input->post('semester', true),
             ];
 
 
@@ -707,6 +715,89 @@ class Admin extends CI_Controller
     }
 
 
+    public function prodi() // Dashboard
+    {
+        $data['title'] = 'Prodi';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+        $data['prodi'] = $this->db->get('tb_prodi')->result_array();
+        $config = [
+
+            [
+                'field' => 'kode_prodi',
+                'label' => 'Kode prodi',
+                'rules' => 'required|trim|is_unique[tb_prodi.kode_prodi]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'is_unique' => '{field} sudah terdaftar'
+                ]
+            ],
+            [
+                'field' => 'nama_prodi',
+                'label' => 'Nama prodi',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+
+        ];
+
+        $this->form_validation->set_rules($config);
+
+        if (!$this->form_validation->run()) {
+
+            $this->load->view('template/backend/header', $data);
+            $this->load->view('template/backend/sidebar', $data);
+            $this->load->view('template/backend/topbar', $data);
+            $this->load->view('admin/prodi', $data);
+            $this->load->view('template/backend/footer');
+        } else {
+            $this->add_prodi();
+        }
+    }
+
+    private function add_prodi()
+    {
+        $data = [
+            'kode_prodi' => $this->input->post('kode_prodi', true),
+            'nama_prodi' => $this->input->post('nama_prodi', true),
+        ];
+
+        if ($this->db->insert('tb_prodi', $data)) {
+            $this->session->set_flashdata('message_success', 'Data prodi berhasil ditambahkan');
+            redirect('admin/prodi');
+        }
+    }
+    public function update_prodi($id)
+    {
+        $row = $this->db->get_where('tb_prodi', ['kode_prodi' => $id])->row_array();
+        if (!$row['kode_prodi'] || !$id) {
+            $this->page_error();
+        } else {
+            $data = [
+                'kode_prodi' => $this->input->post('kode_prodi', true),
+                'nama_prodi' => $this->input->post('nama_prodi', true),
+            ];
+
+            if ($this->db->update('tb_prodi', $data, ['kode_prodi' => $id])) {
+                $this->session->set_flashdata('message_success', 'Data prpdi berhasil diperbarui');
+                redirect('admin/prodi');
+            }
+        }
+    }
+
+    public function delete_prodi($id)
+    {
+        $row = $this->db->get_where('tb_prodi', ['kode_prodi' => $id])->row_array();
+        if (!$row['kode_prodi'] || !$id) {
+            $this->page_error();
+        } else {
+            $this->db->delete('tb_prodi', ['kode_prodi' => $id]);
+            $this->session->set_flashdata('message_success', 'Data prodi berhasil dihapus');
+            redirect('admin/prodi');
+        }
+    }
+
     public function page_error()
     {
         $data['title'] = 'Page Not Found 404';
@@ -717,5 +808,145 @@ class Admin extends CI_Controller
         $this->load->view('template/backend/topbar', $data);
         $this->load->view('auth/blocked', $data);
         $this->load->view('template/backend/footer');
+    }
+
+
+
+    public function kuliah() // Dashboard
+    {
+        $data['title'] = 'Perkuliahan';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+        $data['perkuliahan'] = $this->db->get('tb_perkuliahan')->result_array();
+        $data['kode_dosen'] = $this->db->select('tb_dosen.id_dosen')->from('tb_dosen')->get()->result_array();
+        $data['kode_nim'] = $this->db->select('tb_mahasiswa.nim')->from('tb_mahasiswa')->get()->result_array();
+        $data['kode_kelas'] = $this->db->select('tb_kelas.kode_kelas')->from('tb_kelas')->get()->result_array();
+        $data['kode_matakuliah'] = $this->db->select('tb_mata_kuliah.id_mata_kuliah')->from('tb_mata_kuliah')->get()->result_array();
+        $config = [
+
+            [
+                'field' => 'id_dosen',
+                'label' => 'Kode dosen',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'nim',
+                'label' => 'Nim',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'id_mata_kuliah',
+                'label' => 'Kode matakuliah',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'kode_kelas',
+                'label' => 'Kode kelas',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'waktu_mulai',
+                'label' => 'Waktu mulai',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'waktu_selesai',
+                'label' => 'Waktu selesai',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'hari',
+                'label' => 'Hari',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+
+        ];
+
+        $this->form_validation->set_rules($config);
+
+        if (!$this->form_validation->run()) {
+
+            $this->load->view('template/backend/header', $data);
+            $this->load->view('template/backend/sidebar', $data);
+            $this->load->view('template/backend/topbar', $data);
+            $this->load->view('admin/perkuliahan', $data);
+            $this->load->view('template/backend/footer');
+        } else {
+            $this->add_perkuliahan();
+        }
+    }
+
+    public function add_perkuliahan()
+    {
+        $data_perkuliahan = [
+            'id_dosen'          => $this->input->post('id_dosen', true),
+            'nim'               => $this->input->post('nim', true),
+            'id_mata_kuliah'    => $this->input->post('id_mata_kuliah', true),
+            'kode_kelas'        => $this->input->post('kode_kelas', true),
+            'waktu_mulai'       => $this->input->post('waktu_mulai', true),
+            'waktu_selesai'      => $this->input->post('waktu_selesai', true),
+            'hari'              => $this->input->post('hari', true),
+        ];
+
+
+        if ($this->db->insert('tb_perkuliahan', $data_perkuliahan)) {
+            $this->session->set_flashdata('message_success', 'Data perkuliahan ditambahkan');
+            redirect('admin/kuliah');
+        }
+    }
+
+    public function edit_perkuliahan($id)
+    {
+        $row = $this->db->get_where('tb_perkuliahan', ['id' => $id])->row_array();
+        if (!$row['id'] || !$id) {
+            $this->page_error();
+        } else {
+            $data_perkuliahan = [
+                'id_dosen'          => $this->input->post('id_dosen', true),
+                'nim'               => $this->input->post('nim', true),
+                'id_mata_kuliah'    => $this->input->post('id_mata_kuliah', true),
+                'kode_kelas'        => $this->input->post('kode_kelas', true),
+                'waktu_mulai'       => $this->input->post('waktu_mulai', true),
+                'waktu_selesai'      => $this->input->post('waktu_selesai', true),
+                'hari'              => $this->input->post('hari', true),
+            ];
+
+            if ($this->db->update('tb_perkuliahan', $data_perkuliahan, ['id' => $id])) {
+                $this->session->set_flashdata('message_success', 'Data perkuliahan di perbarui');
+                redirect('admin/kuliah');
+            }
+        }
+    }
+
+    public function delete_perkuliahan($id)
+    {
+        $row = $this->db->get_where('tb_perkuliahan', ['id' => $id])->row_array();
+        if (!$row['id'] || !$id) {
+            $this->page_error();
+        } else {
+            $this->db->delete('tb_perkuliahan', ['id' => $id]);
+            $this->session->set_flashdata('message_success', 'Data perkuliahan dihapus');
+            redirect('admin/kuliah');
+        }
     }
 }

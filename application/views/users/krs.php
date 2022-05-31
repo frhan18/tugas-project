@@ -4,11 +4,10 @@
 
         <div class="list-mhs">
             <ul>
-                <li>Nama mahasiswa : <?= $user['nama']; ?></li>
                 <li>Nim : <?= $user['nim']; ?></li>
-                <li>Semester : <?= $user['semester']; ?></li>
-                <li>Kode Kelas : <?= $user['kode_kelas']; ?> </li>
-                <li>Tahun ajar : <?= $user['tahun']; ?></li>
+                <li>Nama mahasiswa : <?= $user['nama']; ?></li>
+                <li>Kelas : <?= $user['kode_kelas']; ?> </li>
+                <li>Tahun : <?= $user['tahun']; ?></li>
             </ul>
         </div>
 
@@ -22,22 +21,37 @@
             <div class="text-center mb-3">
                 <h3 class="text-dark">DATA KRS TERSEDIA <i class="fas fa-fw fa-bookmark"></i></h3>
             </div>
-            <div class="row">
-                <?php foreach ($krs as $rows) : ?>
-                    <div class="col-lg-4 col-md-6 mb-3">
-                        <div class="card" style="background-color:#fff; height: 250px; max-width: 100%;">
-                            <div class="card-body">
-                                <h5 class="card-title text-dark"><?= $rows['nama_mata_kuliah']; ?> / (<?= $rows['id_mata_kuliah']; ?>)</h5>
-                                <hr>
-                                <p><i class="fas fa-fw fa-book"></i> Kode matakuliah : <b><?= $rows['id_mata_kuliah']; ?></b></p>
-                                <p style="margin-top: -15px;"><i class="fas fa-fw fa-book"></i> Matakuliah : <b><?= $rows['nama_mata_kuliah']; ?></b></p>
-                                <p style="margin-top: -15px;"><i class="fas fa-fw fa-book"></i> SKS : <b><?= $rows['sks']; ?></b></p>
-                                <p style="margin-top: -15px;"><i class="fas fa-fw fa-book"></i> Kode kelas : <b><?= $rows['kode_kelas']; ?></b></p>
-
-                            </div>
-                        </div>
+            <div class="row p-1">
+                <div class="col">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Kd_matakuliah</th>
+                                    <th scope="col">Matakuliah</th>
+                                    <th scope="col">Sks</th>
+                                    <th scope="col">Semester</th>
+                                    <th scope="col">Kode kelas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $no = 1;
+                                foreach ($krs as $rows) : ?>
+                                    <tr>
+                                        <th scope="row"><?= $no++; ?></th>
+                                        <td><?= $rows['id_mata_kuliah']; ?></td>
+                                        <td><?= $rows['nama_mata_kuliah']; ?></td>
+                                        <td><?= $rows['sks']; ?></td>
+                                        <td><?= $rows['semester']; ?></td>
+                                        <td><?= $rows['kode_kelas']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
         <?php endif ?>
     </div>

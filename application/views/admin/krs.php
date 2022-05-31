@@ -152,6 +152,7 @@
                     <div class="col-sm-9">
                         <select class="custom-select custom-select <?= form_error('sks') ? 'is-invalid' : ''; ?>" name="sks" id="sks">
                             <option selected disabled>Pilih sks </option>
+                            <?php $sks = [1, 2, 3, 4]; ?>
                             <?php foreach ($sks as $s) : ?>
                                 <option value="<?= $s; ?>"><?= $s; ?></option>
                             <?php endforeach; ?>
