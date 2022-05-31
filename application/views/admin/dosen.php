@@ -39,8 +39,8 @@
                                     <th>Nip</th>
                                     <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Status</th>
                                     <th>jenis_kelamin</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
