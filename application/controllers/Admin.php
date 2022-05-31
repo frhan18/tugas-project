@@ -10,7 +10,9 @@ class Admin extends CI_Controller
         $this->load->model('user_model', 'user', TRUE);
         $this->load->model('krs_model', 'krs', TRUE);
 
-        _is_logged_in();
+        if (!$this->session->userdata('is_logged_in')) {
+            redirect('/login');
+        }
     }
 
     public function index() // Dashboard
@@ -798,18 +800,6 @@ class Admin extends CI_Controller
         }
     }
 
-    public function page_error()
-    {
-        $data['title'] = 'Page Not Found 404';
-        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-
-        $this->load->view('template/backend/header', $data);
-        // $this->load->view('template/backend/sidebar', $data);
-        $this->load->view('template/backend/topbar', $data);
-        $this->load->view('auth/blocked', $data);
-        $this->load->view('template/backend/footer');
-    }
-
 
 
     public function kuliah() // Dashboard
@@ -948,5 +938,18 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message_success', 'Data perkuliahan dihapus');
             redirect('admin/kuliah');
         }
+    }
+
+
+    public function page_error()
+    {
+        $data['title'] = 'Page Not Found 404';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+
+        $this->load->view('template/backend/header', $data);
+        // $this->load->view('template/backend/sidebar', $data);
+        $this->load->view('template/backend/topbar', $data);
+        $this->load->view('auth/blocked', $data);
+        $this->load->view('template/backend/footer');
     }
 }
