@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <h3 class="jdwl-title p-2">Jadwal perkuliahan</h3>
-                <p class="p-2">Halo, <b><?= $get_sesi_user['name']; ?></b> jadwal kuliah kamu sudah tersedia</p>
+                <p class="p-2">Halo, <b><?= $get_sesi_user['name']; ?></b> jadwal perkuliahan kamu sudah tersedia.</p>
                 <hr class="sidebar-divider">
                 <?php if (count($perkuliahan) <= 0) : ?>
                     <div class="text-center">
@@ -14,7 +14,7 @@
                         <div class="row p-2">
                             <?php foreach ($perkuliahan as $kuliah) : ?>
                                 <div class="col-lg-4 col-md-6 col-sm-10">
-                                    <div class="card mb-3" style="height: 280px; max-width:100%;">
+                                    <div class="card mb-3" style="height: 280px; max-width:100%; background-color: #fff;">
                                         <div class="card-body">
                                             <h5 class="card-title text-dark font-weight-bold"><?= $kuliah['nama_mata_kuliah']; ?> (<?= $kuliah['id_mata_kuliah']; ?>)</h5>
                                             <hr>

@@ -22,8 +22,8 @@
 
     <div class="box">
         <div class="add-modal-btn mb-3">
-            <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_kelas" aria-pressed="false">
-                <i class="fas fa-plus"></i> Add New Data
+            <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_krs" aria-pressed="false">
+                <i class="fas fa-plus"></i> Tambah Data Baru
             </button>
         </div>
 
@@ -100,11 +100,11 @@
 </script>
 
 
-<div class="modal fade" id="modal_kelas" tabindex="-1" aria-labelledby="modal_kelas" aria-hidden="true">
+<div class="modal fade" id="modal_krs" tabindex="-1" aria-labelledby="modal_krs" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_kelas_label">Tambah Data <b> Krs</b></h5>
+                <h5 class="modal-title" id="modal_krs_label">Tambah Data <b> Krs</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

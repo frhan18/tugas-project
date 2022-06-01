@@ -1,0 +1,128 @@
+<div class="setting-container">
+    <div class="row">
+        <div class="col-lg-10">
+            <header id="header">
+                <?php if ($this->session->flashdata('message_success')) : ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= $this->session->flashdata('message_success'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
+                <?php if ($this->session->flashdata('message_error')) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?= $this->session->flashdata('message_error'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb" style="background: #fff;">
+                        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : 'Admin'; ?></li>
+                    </ol>
+                </nav>
+            </header>
+
+        </div>
+
+
+
+
+    </div>
+
+    <div class="main">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10">
+                <div class="box">
+                    <h3 class="mb-3">Akun info </h3>
+                    <hr class="sidebar-divider">
+                    <div class="akun-info-profil mb-3">
+                        <img src="<?= base_url('upload/' . $get_sesi_user['image']); ?>" class="img-fluid" width="300" style="max-width: 100%;">
+                    </div>
+
+                    <div class="form-akun-info p-2 pt-3">
+                        <?= form_open_multipart('admin/setting/akun_update'); ?>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['email']); ?>" name="email" id="email" autofocus required>
+                                <div class="invalid-feedback"><?= form_error('email'); ?></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label">Nama akun</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['name']); ?>" name="name" id="name" required>
+                                <div class="invalid-feedback"><?= form_error('name'); ?></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="image" class="col-sm-3 col-form-label">Foto upload <em><a href="#info" class="text-dark"><i class="fas fa-info "></i></a></em> </label>
+                            <div class="col-sm-9">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="image" name="image" value="<?= $get_sesi_user['image']; ?>">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                </div>
+                                <div class="invalid-feedback"><?= form_error('image'); ?></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="info_akun" class="col-sm-3 col-form-label">Akun dibuat</label>
+                            <div class="col-sm-9">
+                                <p><?= date('d M Y H:i:s', $get_sesi_user['date_created']); ?></p>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-dark ">Update</button>
+                        <?= form_close(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10">
+                <div class="box">
+                    <div class="form-update-sandi pt-3">
+                        <h3 class="mb-3">Kata sandi baru </h3>
+                        <hr class="sidebar-divider">
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">Pemberitahuan <i class="fas fa-fw fa-exclamation-circle"></i></h4>
+                            <p>Demi keamanan akun, segera ubah kata sandi lama menjadi kata sandi terbaru</p>
+                        </div>
+                        <?= form_open('admin/setting/new_password'); ?>
+                        <div class="form-group row">
+                            <label for="password_lama" class="col-sm-3 col-form-label">Password Lama</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control <?= form_error('password_lama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('password_lama')); ?>" name="password_lama" id="password_lama">
+                                <div class="invalid-feedback"><?= form_error('password_lama'); ?></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password_baru" class="col-sm-3 col-form-label">Password Baru</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control <?= form_error('password_baru') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('password_baru')); ?>" name="password_baru" id="password_baru">
+                                <div class="invalid-feedback"><?= form_error('password_baru'); ?></div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="ulangi_password" class="col-sm-3 col-form-label">Ulangi password</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control <?= form_error('ulangi_password') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('ulangi_password')); ?>" name="ulangi_password" id="ulangi_password">
+                                <div class="invalid-feedback"><?= form_error('ulangi_password'); ?></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark ">Update</button>
+                        <?= form_close(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

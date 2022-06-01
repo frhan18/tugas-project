@@ -105,3 +105,18 @@ $route['admin/prodi/delete/(:any)'] = 'admin/delete_prodi/$1';
 $route['admin/kuliah/add'] = 'admin/kuliah';
 $route['admin/kuliah/delete/(:any)'] = 'admin/delete_perkuliahan/$1';
 $route['admin/kuliah/edit/(:any)'] = 'admin/edit_perkuliahan/$1';
+
+
+
+$route['admin/setting/new_password'] = 'admin/setting_password';
+$route['admin/setting/akun_update'] = 'admin/setting_akun';
+
+
+$route['admin/berita/add'] = 'admin/berita';
+$route['admin/berita/edit/(:any)'] = 'admin/update_berita/$1';
+$route['admin/berita/delete/(:any)'] = 'admin/delete_berita/$1';
+
+
+// users
+$route['users/profile/update-profile'] = 'users/setting_profile';
+$route['users/profle/update-password'] = 'users/setting_password';

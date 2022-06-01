@@ -952,4 +952,235 @@ class Admin extends CI_Controller
         $this->load->view('auth/blocked', $data);
         $this->load->view('template/backend/footer');
     }
+
+
+    public function setting()
+    {
+        $data['title'] = 'Profile';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+        $this->load->view('template/backend/header', $data);
+        $this->load->view('template/backend/sidebar', $data);
+        $this->load->view('template/backend/topbar', $data);
+        $this->load->view('admin/setting', $data);
+        $this->load->view('template/backend/footer');
+    }
+
+    public function setting_password()
+    {
+        $data['title'] = 'Profile';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+        $config = [
+            [
+                'field' => 'password_lama',
+                'label' => 'Password Lama',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+            [
+                'field' => 'password_baru',
+                'label' => 'Password Baru',
+                'rules' => 'required|trim|matches[ulangi_password]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'matches'  => '{field} tidak sama dengan konfirmasi'
+                ]
+            ],
+            [
+                'field' => 'ulangi_password',
+                'label' => 'Ulangi password',
+                'rules' => 'required|trim|matches[password_baru]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'matches'  => '{field} tidak sama dengan password baru'
+                ]
+            ],
+        ];
+
+        $this->form_validation->set_rules($config);
+        if (!$this->form_validation->run()) {
+            $this->load->view('template/backend/header', $data);
+            $this->load->view('template/backend/sidebar', $data);
+            $this->load->view('template/backend/topbar', $data);
+            $this->load->view('admin/setting', $data);
+            $this->load->view('template/backend/footer');
+        } else {
+            $password_lama = $this->input->post('password_lama', true);
+            $password_baru = $this->input->post('password_baru', true);
+            $password_verify  = password_verify($password_lama, $data['get_sesi_user']['password']);
+            if (!$password_verify) {
+                $this->session->set_flashdata('message_error', 'Password lama salah!');
+                redirect('admin/setting');
+            } else {
+                if ($password_lama == $password_baru) {
+                    $this->session->set_flashdata('message_error', 'Password baru tidak boleh sama dengan password lama.');
+                    redirect('admin/setting');
+                } else {
+                    // password ok
+                    $password_hash = password_hash($password_baru, PASSWORD_DEFAULT);
+
+                    $this->db->set('password', $password_hash);
+                    $this->db->where('id_user', $this->session->userdata('id'));
+                    $this->db->update('user');
+
+                    $this->session->set_flashdata('message_success', 'Password berhasil di ubah');
+                    redirect('admin/setting');
+                }
+            }
+        }
+    }
+
+    public function setting_akun()
+    {
+        $data['title'] = 'Profile';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+        $config = [
+            [
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|trim|valid_email',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                    'valid_email' => '{field} sudah terdaftar '
+                ]
+            ],
+            [
+                'field' => 'name',
+                'label' => 'Nama akun',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong',
+                ]
+            ],
+        ];
+
+        $this->form_validation->set_rules($config);
+
+        if (!$this->form_validation->run()) {
+            $this->load->view('template/backend/header', $data);
+            $this->load->view('template/backend/sidebar', $data);
+            $this->load->view('template/backend/topbar', $data);
+            $this->load->view('admin/setting', $data);
+            $this->load->view('template/backend/footer');
+        } else {
+            $filename = date('Y-m-d') . '_' .  url_title($data['get_sesi_user']['name'], '-', true);
+            $config['upload_path']          = FCPATH . '/upload/';
+            $config['allowed_types']        = 'jpg|jpeg|png';
+            $config['file_name']            = $filename;
+            $config['overwrite']            = true;
+            $config['max_size']             = 2048; // 1MB
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('image')) {
+                $data['error'] = $this->upload->display_errors();
+            } else {
+                $uploaded_data = $this->upload->data();
+            }
+
+            $setting_profile = [
+                'email' => $this->input->post('email', true),
+                'name' => $this->input->post('name', true),
+                'image' => $uploaded_data['file_name'],
+            ];
+
+            if ($this->db->update('user', $setting_profile, ['id_user' => $this->session->userdata('id')])) {
+                $this->session->set_flashdata('message_success', 'Akun kamu berhasil di perbarui.');
+                redirect('admin/setting');
+            }
+        }
+    }
+
+
+    public function feedback()
+    {
+        $data['title'] = 'Feedback';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+
+        $this->load->view('template/backend/header', $data);
+        $this->load->view('template/backend/sidebar', $data);
+        $this->load->view('template/backend/topbar', $data);
+        $this->load->view('admin/feedback', $data);
+        $this->load->view('template/backend/footer');
+    }
+
+
+
+    public function berita()
+    {
+        $data['title'] = 'Berita';
+        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+        $data['berita'] = $this->db->get('tb_berita')->result_array();
+
+        $config = [
+            [
+                'field' => 'judul_berita',
+                'label' => 'Judul berita',
+                'rules' => 'required|trim|is_unique[tb_berita.judul_berita]',
+                'errors' => [
+                    'required' => '{field} berita belum di isi',
+                    'is_unique' => '{field} berita sudah diterbitkan'
+                ]
+            ]
+        ];
+
+        $this->form_validation->set_rules($config);
+
+        if (!$this->form_validation->run()) {
+            $this->load->view('template/backend/header', $data);
+            $this->load->view('template/backend/sidebar', $data);
+            $this->load->view('template/backend/topbar', $data);
+            $this->load->view('admin/berita', $data);
+            $this->load->view('template/backend/footer');
+        } else {
+            $this->tambahBerita();
+        }
+    }
+
+    public function tambahBerita()
+    {
+        $data = [
+            'judul_berita' => $this->input->post('judul_berita', true),
+            'penulis'      => $this->input->post('penulis', true),
+            'content'      => $this->input->post('content', true),
+            'created_at'   => time(),
+            'is_active'    => $this->input->post('is_active', true)
+        ];
+
+        if ($this->db->insert('tb_berita', $data)) {
+            $this->session->set_flashdata('berita_berhasil', 'Berita baru berhasil ditambahkan');
+            redirect('admin/berita');
+        }
+    }
+
+    public function update_berita($id)
+    {
+        $rows = $this->db->get_where('tb_berita', ['id_berita' => $id])->row_array();
+        if (!$rows['id_berita'] || !$id) {
+            show_404();
+        } else {
+            $data = [
+                'judul_berita' => $this->input->post('judul_berita', true),
+                'penulis'      => $this->input->post('penulis', true),
+                'content'      => $this->input->post('content', true),
+                'is_active'    => $this->input->post('is_active', true)
+            ];
+
+            if ($this->db->update('tb_berita', $data, ['id_berita' => $id])) {
+                $this->session->set_flashdata('berita_berhasil', 'Berita ' . $rows['judul_berita'] . ' di perbarui.');
+                redirect('admin/berita');
+            }
+        }
+    }
+
+    public function delete_berita($id)
+    {
+        $rows = $this->db->get_where('tb_berita', ['id_berita' => $id])->row_array();
+        if (!$rows['id_berita'] || !$id) {
+            show_404();
+        } else {
+            $this->db->delete('tb_berita', ['id_berita' => $id]);
+            $this->session->set_flashdata('berita_berhasil', 'Berita ' . $rows['judul_berita'] . ' dihapus.');
+            redirect('admin/berita');
+        }
+    }
 }

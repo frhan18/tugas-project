@@ -53,6 +53,49 @@
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <!-- <script src="<?= base_url('assets/'); ?>js/script.js"></script> -->
 <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+    var quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                [{
+                    header: [1, 2, 3, 4, 5, 6, false]
+                }],
+                [{
+                    font: []
+                }],
+                ["bold", "italic"],
+                ["link", "blockquote", "code-block", "image"],
+                [{
+                    list: "ordered"
+                }, {
+                    list: "bullet"
+                }],
+                [{
+                    script: "sub"
+                }, {
+                    script: "super"
+                }],
+                [{
+                    color: []
+                }, {
+                    background: []
+                }],
+            ]
+        },
+    });
+    quill.on('text-change', function(delta, oldDelta, source) {
+        document.querySelector("input[name='content']").value = quill.root.innerHTML;
+    });
+</script>
+
+<script>
+    $('.custom-file-input').on('change', function() {
+        let filename = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(filename);
+    });
+</script>
 
 </body>
 

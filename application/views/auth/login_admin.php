@@ -20,8 +20,9 @@
                     <div class="col-lg-6 d-lg-block">
                         <div class="content-login">
                             <img src="https://adhom.id/wp-content/uploads/2021/04/landing_page_background_2-removebg-preview.png" class="img-fluid">
-                            <h3 class="px-3 mx-4 pt-5 login_title">Selamat datang di sistem informasi akademik <strong>(Admin)</strong></h3>
-                            <a href="#penggunaan" data-toggle="modal" data-target="#exampleModal" class="penggunaan"> Bantuan?</a>
+                            <h3 class="px-3 mx-4 pt-5 login_title">Selamat datang di sistem informasi akademik <strong>Kampus Kita / SIKA</strong> </h3>
+
+                            <a href="#penggunaan" data-toggle="modal" data-target="#exampleModal" class="penggunaan"> Butuh Bantuan?</a>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -29,6 +30,7 @@
                             <div class="content-login">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Admin Login <i class="fas fa-user"></i></h1>
+                                    <div class="text-small">Silahkan login dengan username atau email yang sudah terdaftar.</div>
                                     <hr class="sidebar-divider">
                                 </div>
                                 <?= form_open('app', 'class="user"'); ?>
@@ -49,7 +51,7 @@
                                 <?= form_close(); ?>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="#">Lupa password?</a>
+                                    <a class="small text-dark" href="#">Lupa password?</a>
                                 </div>
 
                             </div>

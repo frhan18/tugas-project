@@ -23,7 +23,7 @@
     <div class="box">
         <div class="add-modal-btn mb-3">
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_perkuliahan" aria-pressed="false">
-                <i class="fas fa-plus"></i> Add New Data
+                <i class="fas fa-plus"></i> Tambah Data Baru
             </button>
         </div>
 

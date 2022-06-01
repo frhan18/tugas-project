@@ -1,16 +1,10 @@
 <!-- Sidebar -->
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #3a3a3a;">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-        <div class="sidebar-brand-icon">
-            <i class="fas fa-book"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">SIA APP</div>
-    </a>
+
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider mb-5">
 
 
     <!-- QUERY MENU -->

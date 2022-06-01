@@ -12,10 +12,9 @@ class Auth extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('is_logged_in')) {
-            redirect('admin');
+        if ($this->session->userdata('id') || $this->session->userdata('id_role') == 2) {
+            redirect('users');
         }
-
         $config = [
             [
                 'field' => 'nim',
@@ -99,7 +98,14 @@ class Auth extends CI_Controller
                         'is_logged_in' => true
                     ];
                     $this->session->set_userdata($sesi_user);
-                    redirect('admin');
+
+                    if ($row['role_id'] == 1) {
+                        redirect('admin');
+                    } elseif ($row['role_id'] == 6) {
+                        redirect('admin/index');
+                    } else {
+                        show_404();
+                    }
                 } else {
                     $this->session->set_flashdata('message_error', 'Password salah!');
                     redirect('/app');
@@ -120,8 +126,6 @@ class Auth extends CI_Controller
         $nim = htmlspecialchars($this->input->post('nim', true));
         $password = htmlspecialchars($this->input->post('password', true));
         $user = $this->db->select('*')->from('user')->where('email', $nim)->or_where('nim', $nim)->get()->row_array();
-        // $user  =   $this->db->select('*')->from('user')->join('tb_mahasiswa', 'tb_mahasiswa.id_user=user.id_user')->where('nim', $nim)->get()->row_array();
-
         if (!empty($user)) {
             // Active user > 1 ?
             if ($user['is_active'] == 1) {
@@ -135,24 +139,21 @@ class Auth extends CI_Controller
 
                     $this->session->set_userdata($sesi_user);
 
-                    if ($user['role_id'] == 1) {
-                        redirect('admin');
-                    } else {
-                        redirect('users');
-                    }
+                    redirect('users');
                 } else {
-                    $this->session->set_flashdata('message_error', 'Password salah!');
+                    $this->session->set_flashdata('message_error', 'Password yang kamu masukan salah!');
                     redirect('/login');
                 }
             } else {
-                $this->session->set_flashdata('message_error', 'Akun di nonatifkan, segera hubungi pihak terkait / admin');
+                $this->session->set_flashdata('message_error', 'Akun kamu di nonaktifkan, segera hubungi pihak terkait / admin');
                 redirect('/login');
             }
         } else {
-            $this->session->set_flashdata('message_error', 'NIM / Email tidak terdaftar');
+            $this->session->set_flashdata('message_error', 'NIM / Email  yang kamu masukan tidak terdaftar');
             redirect('/login');
         }
     }
+
 
 
     public function logout()
@@ -162,16 +163,5 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('is_logged_in');
         $this->session->set_flashdata('message_success', 'Akun berhasil dikeluarkan');
         redirect('/login');
-    }
-
-
-    public function blocked()
-    {
-        $data['title'] = 'Blocked';
-        $this->load->view('template/backend/header', $data);
-        $this->load->view('template/backend/sidebar', $data);
-        $this->load->view('template/backend/topbar', $data);
-        $this->load->view('auth/blocked', $data);
-        $this->load->view('template/backend/footer');
     }
 }
