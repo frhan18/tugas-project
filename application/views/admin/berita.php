@@ -145,21 +145,21 @@
                 <div class="form-group row">
                     <label for="judul_berita" class="col-sm-3 col-form-label">Judul berita</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('judul_berita') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('judul_berita')); ?>" name="judul_berita" id="judul_berita">
+                        <input type="text" class="form-control <?= form_error('judul_berita') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('judul_berita')); ?>" name="judul_berita" id="judul_berita" required>
                         <div class="invalid-feedback"><?= form_error('judul_berita'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="penulis" class="col-sm-3 col-form-label">Penulis</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('penulis') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['name']); ?>" name="penulis" id="penulis">
+                        <input type="text" class="form-control <?= form_error('penulis') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['name']); ?>" name="penulis" id="penulis" required>
                         <div class="invalid-feedback"><?= form_error('penulis'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="content" class="col-sm-3 col-form-label">Kontent</label>
                     <div class="col-sm-9">
-                        <textarea id="editor" class="form-control" name="content" cols="30" rows="10" placeholder="Tuliskan isi pikiranmu..."><?= set_value('content') ?></textarea>
+                        <textarea id="editor" class="form-control" name="content" cols="30" rows="10" placeholder="Tuliskan isi pikiranmu..." required><?= set_value('content') ?></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

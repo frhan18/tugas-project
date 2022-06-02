@@ -35,10 +35,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Kode dosen</th>
+                                    <th>Dosen</th>
                                     <th>Nim</th>
-                                    <th>Kode Kelas</th>
-                                    <th>Kode MK</th>
+                                    <th>Kelas</th>
+                                    <th>Matakuliah</th>
                                     <th>Waktu_mulai</th>
                                     <th>waktu_selesai</th>
                                     <th>Hari</th>
@@ -53,10 +53,10 @@
                                 foreach ($perkuliahan as $kuliah) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $kuliah['id_dosen']; ?></td>
+                                        <td><?= $kuliah['nama']; ?></td>
                                         <td><?= $kuliah['nim']; ?></td>
                                         <td><?= $kuliah['kode_kelas']; ?></td>
-                                        <td><?= $kuliah['id_mata_kuliah']; ?></td>
+                                        <td><?= $kuliah['nama_mata_kuliah']; ?></td>
                                         <td><?= $kuliah['waktu_mulai']; ?></td>
                                         <td><?= $kuliah['waktu_selesai']; ?></td>
                                         <td><?= $kuliah['hari']; ?></td>
@@ -114,13 +114,13 @@
             <div class="modal-body">
                 <?= form_open('admin/kuliah/add') ?>
                 <div class="form-group row">
-                    <label for="id_dosen" class="col-sm-3 col-form-label"> Kode dosen</label>
+                    <label for="id_dosen" class="col-sm-3 col-form-label">Dosen</label>
                     <div class="col-sm-9">
                         <select class="custom-select custom-select <?= form_error('id_dosen') ? 'is-invalid' : ''; ?>" name="id_dosen" id="id_dosen">
-                            <option selected disabled>Pilih kode dosen</option>
+                            <option selected disabled>Pilih dosen</option>
                             <?php
                             foreach ($kode_dosen as $kdsn) : ?>
-                                <option value="<?= $kdsn['id_dosen']; ?>"><?= $kdsn['id_dosen']; ?> </option>
+                                <option value="<?= $kdsn['id_dosen']; ?>"><?= $kdsn['nama']; ?> </option>
                             <?php endforeach; ?>
                         </select>
                         <div class="invalid-feedback"><?= form_error('id_dosen'); ?></div>
@@ -140,23 +140,23 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="id_mata_kuliah" class="col-sm-3 col-form-label"> Kode matakuliah</label>
+                    <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Matakuliah</label>
                     <div class="col-sm-9">
                         <select class="custom-select custom-select <?= form_error('id_mata_kuliah') ? 'is-invalid' : ''; ?>" name="id_mata_kuliah" id="id_mata_kuliah">
-                            <option selected disabled>Pilih kode matakuliah</option>
+                            <option selected disabled>Pilih matakuliah</option>
                             <?php
                             foreach ($kode_matakuliah as $kdmk) : ?>
-                                <option value="<?= $kdmk['id_mata_kuliah']; ?>"><?= $kdmk['id_mata_kuliah']; ?> </option>
+                                <option value="<?= $kdmk['id_mata_kuliah']; ?>"><?= $kdmk['nama_mata_kuliah']; ?> </option>
                             <?php endforeach; ?>
                         </select>
                         <div class="invalid-feedback"><?= form_error('id_mata_kuliah'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kode_kelas" class="col-sm-3 col-form-label"> Kode kelas</label>
+                    <label for="kode_kelas" class="col-sm-3 col-form-label">Kelas</label>
                     <div class="col-sm-9">
                         <select class="custom-select custom-select <?= form_error('kode_kelas') ? 'is-invalid' : ''; ?>" name="kode_kelas" id="kode_kelas">
-                            <option selected disabled>Pilih kode kelas</option>
+                            <option selected disabled>Pilih kelas</option>
                             <?php
                             foreach ($kode_kelas as $ks) : ?>
                                 <option value="<?= $ks['kode_kelas']; ?>"><?= $ks['kode_kelas']; ?> </option>
@@ -219,10 +219,10 @@
                 <div class="modal-body">
                     <?= form_open('admin/kuliah/edit/' . htmlentities($kuliah['id'])) ?>
                     <div class="form-group row">
-                        <label for="id_dosen" class="col-sm-3 col-form-label"> Kode dosen</label>
+                        <label for="id_dosen" class="col-sm-3 col-form-label">Dosen</label>
                         <div class="col-sm-9">
                             <select class="custom-select custom-select <?= form_error('id_dosen') ? 'is-invalid' : ''; ?>" name="id_dosen" id="id_dosen">
-                                <option selected disabled>Pilih kode dosen</option>
+                                <option selected disabled>Pilih dosen</option>
                                 <?php
                                 foreach ($kode_dosen as $kdsn) : ?>
                                     <option value="<?= $kdsn['id_dosen']; ?>" <?php if ($kuliah['id_dosen'] == $kdsn['id_dosen']) echo 'selected'; ?>><?= $kdsn['id_dosen']; ?> </option>

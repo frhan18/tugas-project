@@ -35,8 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Kode matakuliah</th>
-                                    <th>Kode Kelas</th>
+                                    <th>Matakuliah</th>
+                                    <th>Prodi</th>
+                                    <th>Kelas</th>
                                     <th>Nim</th>
                                     <th>Sks</th>
                                     <th>Tahun</th>
@@ -51,7 +52,8 @@
                                 foreach ($krs as $kr) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $kr['id_mata_kuliah']; ?></td>
+                                        <td><?= $kr['nama_mata_kuliah']; ?></td>
+                                        <td><?= $kr['nama_prodi']; ?></td>
                                         <td><?= $kr['kode_kelas']; ?></td>
                                         <td><?= $kr['nim']; ?></td>
                                         <td><?= $kr['sks']; ?></td>
@@ -112,22 +114,34 @@
             <div class="modal-body">
                 <?= form_open('admin/krs/add') ?>
                 <div class="form-group row">
-                    <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Kode matakuliah</label>
+                    <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Matakuliah</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('id_mata_kuliah') ? 'is-invalid' : ''; ?>" name="id_mata_kuliah" id="id_mata_kuliah">
-                            <option selected disabled>Pilih Kode matakuliah</option>
+                        <select class="custom-select custom-select <?= form_error('id_mata_kuliah') ? 'is-invalid' : ''; ?>" name="id_mata_kuliah" id="id_mata_kuliah" required>
+                            <option selected disabled>Pilih matakuliah</option>
                             <?php foreach ($matakuliah as $mk) : ?>
-                                <option value="<?= $mk['id_mata_kuliah']; ?>"><?= $mk['id_mata_kuliah']; ?></option>
+                                <option value="<?= $mk['id_mata_kuliah']; ?>"><?= $mk['nama_mata_kuliah']; ?></option>
                             <?php endforeach; ?>
                         </select>
                         <div class="invalid-feedback"><?= form_error('id_mata_kuliah'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kode_kelas" class="col-sm-3 col-form-label">Kode kelas</label>
+                    <label for="kode_prodi" class="col-sm-3 col-form-label">Prodi</label>
+                    <div class="col-sm-9">
+                        <select class="custom-select custom-select <?= form_error('kode_prodi') ? 'is-invalid' : ''; ?>" name="kode_prodi" id="kode_prodi" required>
+                            <option selected disabled>Pilih prodi</option>
+                            <?php foreach ($prodi as $pd) : ?>
+                                <option value="<?= $pd['kode_prodi']; ?>"><?= $pd['nama_prodi']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="invalid-feedback"><?= form_error('kode_prodi'); ?></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="kode_kelas" class="col-sm-3 col-form-label">Kelas</label>
                     <div class="col-sm-9">
                         <select class="custom-select custom-select <?= form_error('kode_kelas') ? 'is-invalid' : ''; ?>" name="kode_kelas" id="kode_kelas">
-                            <option selected disabled>Pilih Kode kelas</option>
+                            <option selected disabled>Pilih kelas</option>
                             <?php foreach ($kelas as $ks) : ?>
                                 <option value="<?= $ks['kode_kelas']; ?>"><?= $ks['kode_kelas']; ?></option>
                             <?php endforeach; ?>
@@ -161,9 +175,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="tahun" class="col-sm-3 col-form-label">Tahun </label>
+                    <label for="tahun" class="col-sm-3 col-form-label">Tahun ajar </label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('tahun') ? 'is-invalid' : ''; ?>" value="<?= set_value('tahun'); ?>" name="tahun" id="tahun" placeholder="2019/2020">
+                        <input type="text" class="form-control <?= form_error('tahun') ? 'is-invalid' : ''; ?>" value="<?= set_value('tahun'); ?>" name="tahun" id="tahun" placeholder="Contoh 2019 / 2020">
                         <div class=" invalid-feedback"><?= form_error('tahun'); ?>
                         </div>
                     </div>
@@ -201,22 +215,34 @@
                 <div class="modal-body">
                     <?= form_open('admin/krs/edit/' . htmlentities($rows['id'])) ?>
                     <div class="form-group row">
-                        <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Kode matakuliah</label>
+                        <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Matakuliah</label>
                         <div class="col-sm-9">
                             <select class="custom-select custom-select <?= form_error('id_mata_kuliah') ? 'is-invalid' : ''; ?>" name="id_mata_kuliah" id="id_mata_kuliah">
-                                <option selected disabled>Pilih Kode matakuliah</option>
+                                <option selected disabled>Pilih matakuliah</option>
                                 <?php foreach ($matakuliah as $mk) : ?>
-                                    <option value="<?= $mk['id_mata_kuliah']; ?>" <?php if ($rows['id_mata_kuliah'] == $mk['id_mata_kuliah']) echo 'selected'; ?>><?= $mk['id_mata_kuliah']; ?></option>
+                                    <option value="<?= $mk['id_mata_kuliah']; ?>" <?php if ($rows['id_mata_kuliah'] == $mk['id_mata_kuliah']) echo 'selected'; ?>><?= $mk['nama_mata_kuliah']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <div class="invalid-feedback"><?= form_error('id_mata_kuliah'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="kode_kelas" class="col-sm-3 col-form-label">Kode kelas</label>
+                        <label for="kode_prodi" class="col-sm-3 col-form-label">Prodi</label>
+                        <div class="col-sm-9">
+                            <select class="custom-select custom-select <?= form_error('kode_prodi') ? 'is-invalid' : ''; ?>" name="kode_prodi" id="kode_prodi" required>
+                                <option selected disabled>Pilih prodi</option>
+                                <?php foreach ($prodi as $pd) : ?>
+                                    <option value="<?= $pd['kode_prodi']; ?>" <?php if ($rows['kode_prodi'] == $pd['kode_prodi']) echo 'selected'; ?>><?= $pd['nama_prodi']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <div class="invalid-feedback"><?= form_error('kode_prodi'); ?></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="kode_kelas" class="col-sm-3 col-form-label">kelas</label>
                         <div class="col-sm-9">
                             <select class="custom-select custom-select <?= form_error('kode_kelas') ? 'is-invalid' : ''; ?>" name="kode_kelas" id="kode_kelas">
-                                <option selected disabled>Pilih Kode kelas</option>
+                                <option selected disabled>Pilih kelas</option>
                                 <?php foreach ($kelas as $ks) : ?>
                                     <option value="<?= $ks['kode_kelas']; ?>" <?php if ($rows['kode_kelas'] == $ks['kode_kelas']) echo 'selected'; ?>><?= $ks['kode_kelas']; ?></option>
                                 <?php endforeach; ?>
@@ -259,7 +285,7 @@
                     <div class="form-group row">
                         <label for="semester" class="col-sm-3 col-form-label">Semester </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('semester') ? 'is-invalid' : ''; ?>" value="<?= $rows['semester']; ?>" name="semester" id="semester" placeholder="">
+                            <input type="text" class="form-control <?= form_error('semester') ? 'is-invalid' : ''; ?>" value="<?= $rows['semester']; ?>" name="semester" id="semester" placeholder="" required>
                             <div class=" invalid-feedback"><?= form_error('semester'); ?>
                             </div>
                         </div>

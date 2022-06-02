@@ -116,7 +116,6 @@ class Admin extends CI_Controller
                 'email'         => $this->input->post('email', true),
                 'role_id'       => $this->input->post('role_id', true),
                 'is_active'     => $this->input->post('is_active', true),
-                'updated_at'    => time(),
             ];
 
             if ($this->user->update($data, $id)) {
@@ -591,26 +590,39 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Krs';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-        $data['krs'] = $this->db->get('tb_krs')->result_array();
-        $data['matakuliah'] = $this->db->select('tb_mata_kuliah.id_mata_kuliah')->from('tb_mata_kuliah')->get()->result_array();
+        $data['krs'] = $this->db->select('*')
+            ->from('tb_krs')
+            ->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_krs.id_mata_kuliah', 'LEFT')
+            ->join('tb_prodi', 'tb_prodi.kode_prodi=tb_krs.kode_prodi', 'LEFT')
+            ->get()->result_array();
+        $data['matakuliah'] = $this->db->select('tb_mata_kuliah.id_mata_kuliah, tb_mata_kuliah.nama_mata_kuliah')->from('tb_mata_kuliah')->get()->result_array();
         $data['kelas'] = $this->db->select('tb_kelas.kode_kelas')->from('tb_kelas')->get()->result_array();
         $data['mahasiswa'] = $this->db->select('tb_mahasiswa.nim')->from('tb_mahasiswa')->get()->result_array();
+        $data['prodi'] = $this->db->select('tb_prodi.kode_prodi, tb_prodi.nama_prodi')->from('tb_prodi')->get()->result_array();
         $config = [
 
             [
                 'field' => 'id_mata_kuliah',
-                'label' => 'Kode matakuliah',
+                'label' => 'Matakuliah',
                 'rules' => 'required|trim',
                 'errors' => [
-                    'required' => '{field} tidak boleh kosong',
+                    'required' => '{field} belum di pilih',
+                ]
+            ],
+            [
+                'field' => 'kode_prodi',
+                'label' => 'Prodi',
+                'rules' => 'required|trim',
+                'errors' => [
+                    'required' => '{field} belum di pilih',
                 ]
             ],
             [
                 'field' => 'kode_kelas',
-                'label' => 'Kode kelas',
+                'label' => 'Kelas',
                 'rules' => 'required|trim',
                 'errors' => [
-                    'required' => '{field} tidak boleh kosong',
+                    'required' => '{field} belum di pilih',
                 ]
             ],
             [
@@ -618,7 +630,7 @@ class Admin extends CI_Controller
                 'label' => 'Nim',
                 'rules' => 'required|trim',
                 'errors' => [
-                    'required' => '{field} tidak boleh kosong',
+                    'required' => '{field} belum di pilih',
                 ]
             ],
             [
@@ -626,7 +638,7 @@ class Admin extends CI_Controller
                 'label' => 'Sks',
                 'rules' => 'required|trim',
                 'errors' => [
-                    'required' => '{field} tidak boleh kosong',
+                    'required' => '{field} belum di pilih',
                 ]
             ],
             [
@@ -634,7 +646,7 @@ class Admin extends CI_Controller
                 'label' => 'Tahun',
                 'rules' => 'required|trim',
                 'errors' => [
-                    'required' => '{field} tidak boleh kosong',
+                    'required' => '{field} belum di pilih',
 
                 ]
             ],
@@ -643,7 +655,7 @@ class Admin extends CI_Controller
                 'label' => 'Semester',
                 'rules' => 'required|trim',
                 'errors' => [
-                    'required' => '{field} tidak boleh kosong',
+                    'required' => '{field} belum di pilih',
 
                 ]
             ],
@@ -667,6 +679,7 @@ class Admin extends CI_Controller
     {
         $data = [
             'id_mata_kuliah'         => $this->input->post('id_mata_kuliah', true),
+            'kode_prodi'             => $this->input->post('kode_prodi', true),
             'kode_kelas'             => $this->input->post('kode_kelas', true),
             'nim'                    => $this->input->post('nim', true),
             'sks'                    => $this->input->post('sks', true),
@@ -675,7 +688,7 @@ class Admin extends CI_Controller
         ];
 
         if ($this->db->insert('tb_krs', $data)) {
-            $this->session->set_flashdata('message_success', 'Data krs berhasil ditambahkan');
+            $this->session->set_flashdata('message_success', ' Admin menambahkan data krs');
             redirect('admin/krs');
         }
     }
@@ -806,11 +819,14 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Perkuliahan';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-        $data['perkuliahan'] = $this->db->get('tb_perkuliahan')->result_array();
-        $data['kode_dosen'] = $this->db->select('tb_dosen.id_dosen')->from('tb_dosen')->get()->result_array();
+        $data['perkuliahan'] = $this->db->select('*, tb_dosen.nama')
+            ->from('tb_perkuliahan')
+            ->join('tb_dosen', 'tb_dosen.id_dosen=tb_perkuliahan.id_dosen')
+            ->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_perkuliahan.id_mata_kuliah')->get()->result_array();
+        $data['kode_dosen'] = $this->db->select('tb_dosen.id_dosen, tb_dosen.nama')->from('tb_dosen')->get()->result_array();
         $data['kode_nim'] = $this->db->select('tb_mahasiswa.nim')->from('tb_mahasiswa')->get()->result_array();
-        $data['kode_kelas'] = $this->db->select('tb_kelas.kode_kelas')->from('tb_kelas')->get()->result_array();
-        $data['kode_matakuliah'] = $this->db->select('tb_mata_kuliah.id_mata_kuliah')->from('tb_mata_kuliah')->get()->result_array();
+        $data['kode_kelas'] = $this->db->select('tb_kelas.kode_kelas, tb_kelas.nama_kelas')->from('tb_kelas')->get()->result_array();
+        $data['kode_matakuliah'] = $this->db->select('tb_mata_kuliah.id_mata_kuliah, tb_mata_kuliah.nama_mata_kuliah')->from('tb_mata_kuliah')->get()->result_array();
         $config = [
 
             [

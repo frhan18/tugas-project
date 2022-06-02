@@ -18,7 +18,7 @@ class Auth extends CI_Controller
         $config = [
             [
                 'field' => 'nim',
-                'label' => 'NIM / Email',
+                'label' => 'NIM ',
                 'rules' => 'required|trim',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong',
@@ -100,7 +100,7 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($sesi_user);
 
                     if ($row['role_id'] == 1) {
-                        redirect('admin');
+                        redirect('admin/index');
                     } elseif ($row['role_id'] == 6) {
                         redirect('admin/index');
                     } else {
@@ -125,7 +125,7 @@ class Auth extends CI_Controller
     {
         $nim = htmlspecialchars($this->input->post('nim', true));
         $password = htmlspecialchars($this->input->post('password', true));
-        $user = $this->db->select('*')->from('user')->where('email', $nim)->or_where('nim', $nim)->get()->row_array();
+        $user = $this->db->select('*')->from('user')->where('nim', $nim)->get()->row_array();
         if (!empty($user)) {
             // Active user > 1 ?
             if ($user['is_active'] == 1) {
@@ -149,7 +149,7 @@ class Auth extends CI_Controller
                 redirect('/login');
             }
         } else {
-            $this->session->set_flashdata('message_error', 'NIM / Email  yang kamu masukan tidak terdaftar');
+            $this->session->set_flashdata('message_error', 'NIM  yang kamu masukan tidak terdaftar');
             redirect('/login');
         }
     }

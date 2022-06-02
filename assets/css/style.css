@@ -13,7 +13,7 @@
 
 #login-body {
     /* background-color: red !important; */
-    background-image: url('https://cdn.wallpapersafari.com/1/7/OlP64m.jpg');
+    background-image: url('https://yootheme.com/site/images/blog/2019/theme-tomsen-brody-illustration-09.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -23,20 +23,25 @@
 .login-box {
     height: 560px;
     background: #fff;
+    padding: 30px;
 }
 
 .login-box .content-login {
-
     margin-bottom: 10px;
     margin-top: 30px;
 
 }
 
-.content-login .penggunaan {
-    margin-left: 40px;
-    display: inline-block;
-    font-size: 12px;
-    color: #000;
+.login-box .content-login-img {
+    background-position: center;
+    background-size: cover;
+    object-fit: cover;
+    object-position: center;
+    max-width: 100%;
+}
+
+.login-box .content-login-img h3 {
+    font-size: 24px;
 }
 
 @media (max-width: 988px) {
@@ -62,4 +67,47 @@
 
 .modal-body {
     background-color: #fff;
+}
+
+
+@media (max-width: 600px) {
+    .login-container {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .login-box {
+        padding: 20px;
+    }
+
+    .login-box .content-login h1 {
+        font-size: 20px;
+
+    }
+}
+
+
+@media (max-width: 512px) {
+    .login-box .content-login-img h3 {
+        font-size: 18px;
+    }
+}
+
+
+.sidebar {
+    background-color: #3a3a3a;
+}
+
+.sidebar .sidebar-heading {
+    background-color: transparent;
+    color: #fff;
+}
+
+.sidebar .nav-item .nav-link {
+    color: #fff;
+}
+
+.table>tbody,
+* {
+    vertical-align: middle;
 }

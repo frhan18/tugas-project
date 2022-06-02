@@ -1,40 +1,38 @@
 <!-- Outer Row -->
-<div class="row justify-content-center">
+<div class="login-container">
+    <div class="row justify-content-center">
 
-    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
 
-        <div class="card o-hidden border-0  my-5">
-            <div class="card-body p-0">
-
-                <?php if ($this->session->flashdata('message_success')) : ?>
-                    <div class="notification-fb">
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?= $this->session->flashdata('message_success'); ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+            <div class="card o-hidden border-0  my-5">
+                <div class="card-body">
+                    <?php if ($this->session->flashdata('message_success')) : ?>
+                        <div class="notification-fb">
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= $this->session->flashdata('message_success'); ?>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                <?php endif; ?>
-                <div class="row login-box">
-                    <div class="col-lg-6 d-lg-block">
-                        <div class="content-login">
-                            <img src="<?= base_url('assets/img/bg-login.png'); ?>" class="img-fluid">
-                            <h3 class="px-3 mx-4 pt-5 login_title">Selamat datang di sistem informasi akademik <strong>Kampus Kita / SIKA</strong> </h3>
-                            <a href="#penggunaan" data-toggle="modal" data-target="#exampleModal" class="penggunaan"> Butuh Bantuan?</a>
+                    <?php endif; ?>
+                    <div class="row login-box">
+                        <div class="col-lg-6 col-sm-10 d-lg-block">
+                            <div class="content-login-img">
+                                <img src="<?= base_url('assets/img/bg-login.png'); ?>" class="img-fluid">
+                                <h3 class=" pt-5 login_title">Selamat datang di sistem informasi akademik <strong>Kampus Kita / SIKA</strong> </h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-5">
+                        <div class="col-lg-6">
                             <div class="content-login">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Mahasiswa Login <i class="fas fa-user-graduate"></i></h1>
-                                    <div class="text-small">Silahkan login dengan nim atau email yang sudah terdaftar.</div>
+                                    <div class="text-small">Silahkan login dengan nim yang sudah terdaftar.</div>
                                     <hr class="sidebar-divider">
                                 </div>
                                 <?= form_open('login', 'class="user"'); ?>
                                 <div class="form-group">
-                                    <input type="text" name="nim" value="<?= set_value('nim'); ?>" class="form-control form-control-user <?= form_error('nim') ? 'is-invalid' : ''; ?>" placeholder="Contoh 15200xxx">
+                                    <input type="text" name="nim" value="<?= set_value('nim'); ?>" class="form-control form-control-user <?= form_error('nim') ? 'is-invalid' : ''; ?>" placeholder="Masukan nim">
                                     <div class="invalid-feedback ml-2"><?= form_error('nim'); ?></div>
                                 </div>
                                 <div class="form-group">
@@ -58,11 +56,12 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
-
 </div>
+
 
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

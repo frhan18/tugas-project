@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background: #3a3a3a;">
+<ul class="navbar-nav sidebar  sidebar-dark accordion" id="accordionSidebar">
 
 
 

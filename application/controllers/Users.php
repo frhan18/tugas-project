@@ -48,8 +48,6 @@ class Users extends CI_Controller
             ->order_by('tb_mata_kuliah.nama_mata_kuliah', 'ASC')
             ->get()->result_array();
 
-
-
         $this->load->view('template/backend/header', $data);
         $this->load->view('template/backend/sidebar', $data);
         $this->load->view('template/backend/topbar', $data);
