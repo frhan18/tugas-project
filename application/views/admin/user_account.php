@@ -60,19 +60,17 @@
                                         <td><?= $rows['name']; ?></td>
                                         <td><?= $rows['email']; ?></td>
                                         <td>
-                                            <?php if ($rows['role_id'] == 1) : ?>
-                                                <p class="text-dark">Admin</p>
-                                            <?php elseif ($rows['role_id'] == 2) : ?>
-                                                <p class="text-dark">Mahasiswa</p>
+                                            <?php if ($rows['role_id'] == 1 || $rows['role_id'] == 6) : ?>
+                                                <p class="text-bold text-dark">Admin</p>
                                             <?php else : ?>
-                                                <p class="text-dark">Super admin plus</p>
+                                                <p>Mahasiswa</p>
                                             <?php endif; ?>
                                         </td>
                                         <td><?= $rows['is_active'] ? 'Aktif' : 'Tidak Aktif'; ?></td>
                                         <td><?= date('d M Y H:i:s', $rows['date_created']); ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <button type="button" data-delete-url="<?= site_url('admin/delete_account/' . $rows['id_user']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                                                <button type="button" data-delete-url="<?= site_url('user-account/delete/' . $rows['id_user']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                                 <button type="button" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_edit<?= $rows['id_user']; ?>"><i class="fas fa-edit"></i></button>
                                             </div>
                                         </td>
@@ -124,18 +122,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/user_account') ?>
+                <?= form_open('user-account/add') ?>
                 <div class="form-group row">
                     <label for="nim" class="col-sm-3 col-form-label">Nim </label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= set_value('nim'); ?>" name="nim" id="nim" placeholder="contoh 15200xxx">
+                        <input type="text" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= set_value('nim'); ?>" name="nim" id="nim" required>
                         <div class="invalid-feedback"><?= form_error('nim'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= set_value('email') ? set_value('email') : '@gmail.com'; ?>" name="email" id="email">
+                        <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= set_value('email') ? set_value('email') : '@gmail.com'; ?>" name="email" id="email" required>
                         <div class="invalid-feedback"><?= form_error('email'); ?></div>
                     </div>
                 </div>
@@ -143,14 +141,14 @@
                 <div class="form-group row">
                     <label for="name" class="col-sm-3 col-form-label">Nama akun </label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= set_value('name'); ?>" name="name" id="name">
+                        <input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= set_value('name'); ?>" name="name" id="name" required>
                         <div class="invalid-feedback"><?= form_error('name'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="password" class="col-sm-3 col-form-label">Password</label>
                     <div class="col-sm-9">
-                        <input type="password" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>" name="password" id="password" placeholder="Password">
+                        <input type="password" class="form-control <?= form_error('password') ? 'is-invalid' : ''; ?>" name="password" id="password" placeholder="Password" required minlength="6">
                         <div class="invalid-feedback"><?= form_error('password'); ?></div>
                     </div>
                 </div>
@@ -158,8 +156,8 @@
                 <div class="form-group row">
                     <label for="role_id" class="col-sm-3 col-form-label">Role</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id">
-                            <option selected disabled>Pilih</option>
+                        <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id" required>
+                            <option selected disabled value="">Pilih</option>
                             <?php
                             foreach ($role as $r) : ?>
                                 <option value="<?= $r['role_id']; ?>"><?= $r['role_name']; ?></option>
@@ -202,18 +200,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin/update_account/' . $rows['id_user']) ?>
+                    <?= form_open('user-account/edit/' . $rows['id_user']) ?>
                     <div class="form-group row">
                         <label for="nim" class="col-sm-3 col-form-label">Nim </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= $rows['nim']; ?>" name="nim" id="nim" placeholder="contoh 15200xxx">
+                            <input type="text" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= $rows['nim']; ?>" name="nim" id="nim" required>
                             <div class="invalid-feedback"><?= form_error('nim'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="email" class="col-sm-3 col-form-label">Email</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $rows['email']; ?>" name="email" id="email">
+                            <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $rows['email']; ?>" name="email" id="email" required>
                             <div class="invalid-feedback"><?= form_error('email'); ?></div>
                         </div>
                     </div>
@@ -221,15 +219,15 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-3 col-form-label">Nama akun </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $rows['name']; ?>" name="name" id="name">
+                            <input type="text" class="form-control <?= form_error('name') ? 'is-invalid' : ''; ?>" value="<?= $rows['name']; ?>" name="name" id="name" required>
                             <div class="invalid-feedback"><?= form_error('name'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="role_id" class="col-sm-3 col-form-label">Role</label>
                         <div class="col-sm-9">
-                            <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id">
-                                <option selected disabled>Pilih</option>
+                            <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id" required>
+                                <option selected disabled value="">Pilih</option>
                                 <?php
                                 foreach ($role as $r) : ?>
                                     <option value="<?= $r['role_id']; ?>" <?php if ($rows['role_id'] == $r['role_id']) echo 'selected'; ?>><?= $r['role_name']; ?></option>
@@ -252,7 +250,7 @@
 
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Save </button>
+                        <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Update </button>
                         <?= form_close(); ?>
                     </div>
                 </div>

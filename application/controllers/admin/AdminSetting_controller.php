@@ -1,90 +1,40 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Users extends CI_Controller
+class AdminSetting_controller extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
 
-        if (!$this->session->userdata('id') || !$this->session->userdata('id_role') || !$this->session->userdata('is_logged_in')) {
-            redirect('/login');
-        } else if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 6) {
-            redirect('admin');
+        if (!$this->session->userdata('id') || !$this->session->userdata('id_role')) {
+            redirect('login');
+        } elseif ($this->session->userdata('id_role') == 2) {
+            show_404();
         }
     }
 
     public function index()
     {
-        $data['title'] = 'Home';
+        $data['title'] = 'Profile ';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-        $data['berita'] = $this->db->get('tb_berita')->result_array();
 
         $this->load->view('template/backend/header', $data);
         $this->load->view('template/backend/sidebar', $data);
         $this->load->view('template/backend/topbar', $data);
-        $this->load->view('users/dashboard', $data);
+        $this->load->view('admin/setting', $data);
         $this->load->view('template/backend/footer');
     }
 
-    public function krs()
-    {
-        $data['title'] = 'Data KRS';
-        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-        $data['user'] = $this->db->select('tb_mahasiswa.nama, tb_mahasiswa.nim, tb_krs.semester, tb_krs.tahun, tb_krs.kode_kelas')
-            ->from('user')
-            ->join('tb_mahasiswa', 'tb_mahasiswa.nim=user.nim', 'left')
-            ->join('tb_krs', 'tb_krs.nim=user.nim', 'left')
-            ->where('tb_mahasiswa.nim', $data['get_sesi_user']['nim'])
-            ->get()->row_array();
-        $data['krs'] = $this->db->select('tb_krs.id_mata_kuliah,tb_mata_kuliah.nama_mata_kuliah,tb_krs.sks, tb_krs.semester, tb_kelas.kode_kelas')
-            ->from('tb_krs')
-            ->join('tb_kelas', 'tb_kelas.kode_kelas=tb_krs.kode_kelas')
-            ->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_krs.id_mata_kuliah')
-            ->where('tb_krs.nim', $data['get_sesi_user']['nim'])
-            ->order_by('tb_mata_kuliah.nama_mata_kuliah', 'ASC')
-            ->get()->result_array();
-
-        $this->load->view('template/backend/header', $data);
-        $this->load->view('template/backend/sidebar', $data);
-        $this->load->view('template/backend/topbar', $data);
-        $this->load->view('users/krs', $data);
-        $this->load->view('template/backend/footer');
-    }
-
-
-    public function jadwal_perkuliahan()
-    {
-        $data['title'] = 'Jadwal perkuliahan';
-        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-        $data['perkuliahan'] = $this->db->select('*, tb_dosen.nama')->from('tb_perkuliahan')->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_perkuliahan.id_mata_kuliah', 'LEFT')->join('tb_dosen', 'tb_dosen.id_dosen=tb_perkuliahan.id_dosen')->where('tb_perkuliahan.nim', $data['get_sesi_user']['nim'])->get()->result_array();
-
-
-
-        $this->load->view('template/backend/header', $data);
-        $this->load->view('template/backend/sidebar', $data);
-        $this->load->view('template/backend/topbar', $data);
-        $this->load->view('users/jadwal_kuliah', $data);
-        $this->load->view('template/backend/footer');
-    }
-
-    public function profile()
-    {
-        $data['title'] = 'Profile';
-        $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
-        $this->load->view('template/backend/header', $data);
-        $this->load->view('template/backend/sidebar', $data);
-        $this->load->view('template/backend/topbar', $data);
-        $this->load->view('users/profile', $data);
-        $this->load->view('template/backend/footer');
-    }
-    public function setting_profile($id)
+    public function setting_akun($id)
     {
         $data['title'] = 'Profile';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
         if ($id != $data['get_sesi_user']['id_user']) {
             show_error('Uppsss data yang kamu masukan tidak terdaftar.', 500, 'Halaman tidak merespon');
         }
+
         $config = [
             [
                 'field' => 'email',
@@ -111,10 +61,9 @@ class Users extends CI_Controller
             $this->load->view('template/backend/header', $data);
             $this->load->view('template/backend/sidebar', $data);
             $this->load->view('template/backend/topbar', $data);
-            $this->load->view('users/profile', $data);
+            $this->load->view('admin/setting', $data);
             $this->load->view('template/backend/footer');
         } else {
-            $gambar = $_FILES['image']['name'];
             $filename = date('Y-m-d') . '_' .  url_title($data['get_sesi_user']['name'], '-', true);
             $config['upload_path']          = FCPATH . '/upload/';
             $config['allowed_types']        = 'jpg|jpeg|png';
@@ -131,24 +80,25 @@ class Users extends CI_Controller
             $setting_profile = [
                 'email' => $this->input->post('email', true),
                 'name' => $this->input->post('name', true),
-                'image' => $uploaded_data['file_name']
+                'image' => $uploaded_data['file_name'],
             ];
 
             if ($this->db->update('user', $setting_profile, ['id_user' => $id])) {
                 $this->session->set_flashdata('message_success', 'Akun kamu berhasil di perbarui.');
-                redirect('users/profile');
+                redirect('setting-profile');
             }
         }
     }
-
 
     public function setting_password($id)
     {
         $data['title'] = 'Profile';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+
         if ($id != $data['get_sesi_user']['id_user']) {
             show_error('Uppsss data yang kamu masukan tidak terdaftar.', 500, 'Halaman tidak merespon');
         }
+
         $config = [
             [
                 'field' => 'password_lama',
@@ -191,11 +141,11 @@ class Users extends CI_Controller
             $password_verify  = password_verify($password_lama, $data['get_sesi_user']['password']);
             if (!$password_verify) {
                 $this->session->set_flashdata('message_error', 'Password lama salah!');
-                redirect('users/profile');
+                redirect('setting-profile');
             } else {
                 if ($password_lama == $password_baru) {
                     $this->session->set_flashdata('message_error', 'Password baru tidak boleh sama dengan password lama.');
-                    redirect('users/profile');
+                    redirect('setting-profile');
                 } else {
                     // password ok
                     $password_hash = password_hash($password_baru, PASSWORD_DEFAULT);
@@ -206,7 +156,7 @@ class Users extends CI_Controller
                     $this->db->update('user');
 
                     $this->session->set_flashdata('message_success', 'Password berhasil di ubah');
-                    redirect('users/profile');
+                    redirect('setting-profile');
                 }
             }
         }

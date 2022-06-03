@@ -66,7 +66,7 @@
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('admin/mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_edit<?= $rows['nim']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -117,7 +117,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/mahasiswa/add') ?>
+                <?= form_open('mahasiswa/add') ?>
                 <div class="form-group row">
                     <label for="nim" class="col-sm-3 col-form-label">Nim</label>
                     <div class="col-sm-9">
@@ -238,7 +238,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin/mahasiswa/edit/' . $rows['nim']) ?>
+                    <?= form_open('mahasiswa/edit/' . $rows['nim']) ?>
                     <div class="form-group row">
                         <label for="nim" class="col-sm-3 col-form-label">Nim</label>
                         <div class="col-sm-9">
@@ -339,71 +339,6 @@
 
 
                     <?= form_close(); ?>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
-
-
-
-
-<?php foreach ($mahasiswa as $rows) : ?>
-    <div class="modal fade" id="preview<?= $rows['nim']; ?>" tabindex="-1" aria-labelledby="previewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="previewLabel">Detail <b> Mahasiswa <?= $rows['nama']; ?></b></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-4 mb-3">
-                            <img src="https://i.pinimg.com/736x/fb/b2/29/fbb22992c6c540097f9073b20f092b2d.jpg" class="img-thumbnail" alt="...">
-                        </div>
-                        <div class="col-sm-8">
-                            <ul>
-                                <li>
-                                    Nama mahasiswa: <?= $rows['nama']; ?>
-                                </li>
-                                <li>
-                                    NIM : <?= $rows['nim']; ?>
-                                </li>
-                                <li>
-                                    TTL: <?= $rows['tempat_tanggal_lahir']; ?>
-                                </li>
-                                <li>
-                                    Alamat: <?= $rows['alamat']; ?>
-                                </li>
-                                <li>
-                                    Jenis kelamin: <?= $rows['jenis_kelamin'] == 'L' ? 'Laki laki' : 'Perempuan'; ?>
-                                </li>
-                                <li>
-                                    Agama: <?= $rows['agama']; ?>
-                                </li>
-                                <li>
-                                    Tahun masuk: <?= $rows['tahun_masuk']; ?>
-                                </li>
-                                <li>
-                                    Status : <?php if ($rows['status_mhs'] == 1) : ?>
-                                        Aktif
-                                    <?php elseif ($rows['status_mhs'] == 2) : ?>
-                                        Cuti
-                                    <?php elseif ($rows['status_mhs'] == 0) : ?>
-                                        Tidak Aktif
-                                    <?php else : ?>
-                                        Lulus
-                                    <?php endif; ?>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-
 
                 </div>
 

@@ -48,8 +48,8 @@ class Auth extends CI_Controller
 
     public function admin_page()
     {
-        if ($this->session->userdata('is_logged_in')) {
-            redirect('admin');
+        if ($this->session->userdata('id') || $this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 6) {
+            redirect('dashboard');
         }
 
         $config = [
@@ -100,9 +100,9 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($sesi_user);
 
                     if ($row['role_id'] == 1) {
-                        redirect('admin/index');
+                        redirect('dashboard');
                     } elseif ($row['role_id'] == 6) {
-                        redirect('admin/index');
+                        redirect('dashboard');
                     } else {
                         show_404();
                     }
@@ -161,7 +161,6 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('id_role');
         $this->session->unset_userdata('is_logged_in');
-        $this->session->set_flashdata('message_success', 'Akun berhasil dikeluarkan');
         redirect('/login');
     }
 }

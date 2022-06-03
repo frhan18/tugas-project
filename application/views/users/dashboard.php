@@ -20,7 +20,7 @@
 
             <?php if (count($berita) <= 0) : ?>
                 <div class="text-center pt-3">
-                    <h5>Belum ada berita terbaru</h5>
+                    Belum ada berita terbaru
                 </div>
             <?php else : ?>
                 <div class="row">

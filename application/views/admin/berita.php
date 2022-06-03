@@ -41,7 +41,7 @@
                                         <td><?= date('d-m-Y, H:i:s',  $rows['created_at']); ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('admin/berita/delete/' . htmlentities($rows['id_berita'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('post/delete-post/' . htmlentities($rows['id_berita'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#edit_berita_modal<?= $rows['id_berita']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -57,75 +57,6 @@
 
     </div>
 
-
-    <div class="box">
-        <div class="berita-list">
-            <div class="row">
-                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
-                    <h3 class="text-dark h3">Berita yang sudah terbit</h3>
-
-                    <div class="list-item-berita pt-3 ">
-                        <div class="row justify-content-arround">
-                            <?php foreach ($berita as $rows) : ?>
-                                <?php if ($rows['is_active'] == 1) : ?>
-                                    <div class="col-lg-4 col-md-10 col-sm-10">
-                                        <div class="card mb-3" style="height: 350px; overflow: auto;">
-                                            <div class="card-body">
-                                                <div class="content-info-berita">
-                                                    <h5 class="card-title text-dark font-weight-bold"><?= $rows['judul_berita']; ?></h5>
-                                                    <p class="info-penulis small">Ditulis oleh, <strong><?= $rows['penulis']; ?> </strong> <?= date('d M Y', $rows['created_at']); ?></p>
-                                                </div>
-                                                <div class="content-berita">
-                                                    <p><?= $rows['content']; ?>.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="box">
-        <div class="berita-list">
-            <div class="row">
-                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
-                    <h3 class="text-dark h3">Berita yang belum terbit</h3>
-
-
-
-                    <div class="list-item-berita pt-3 ">
-                        <div class="row justify-content-arround">
-                            <?php foreach ($berita as $rows) : ?>
-                                <?php if ($rows['is_active'] != 1) : ?>
-
-                                    <div class="col-lg-4 col-md-10 col-sm-10">
-                                        <div class="card mb-3" style="height: 350px; overflow: auto;">
-                                            <div class="card-body">
-                                                <div class="content-info-berita">
-                                                    <h5 class="card-title text-dark font-weight-bold"><?= $rows['judul_berita']; ?></h5>
-                                                    <p class="info-penulis small">Ditulis oleh, <strong><?= $rows['penulis']; ?> </strong> <?= date('d M Y', $rows['created_at']); ?></p>
-                                                </div>
-                                                <div class="content-berita">
-                                                    <p><?= $rows['content']; ?>.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -141,7 +72,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/berita/add') ?>
+                <?= form_open('post/post-new') ?>
                 <div class="form-group row">
                     <label for="judul_berita" class="col-sm-3 col-form-label">Judul berita</label>
                     <div class="col-sm-9">
@@ -152,14 +83,17 @@
                 <div class="form-group row">
                     <label for="penulis" class="col-sm-3 col-form-label">Penulis</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('penulis') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['name']); ?>" name="penulis" id="penulis" required>
+                        <input type="text" class="form-control <?= form_error('penulis') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['name']); ?>" name="penulis" id="penulis" readonly>
                         <div class="invalid-feedback"><?= form_error('penulis'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="content" class="col-sm-3 col-form-label">Kontent</label>
                     <div class="col-sm-9">
-                        <textarea id="editor" class="form-control" name="content" cols="30" rows="10" placeholder="Tuliskan isi pikiranmu..." required><?= set_value('content') ?></textarea>
+                        <div>
+                            <input type="hidden" name="content" value="<?= set_value('content') ?>">
+                            <div id="editor" style="min-height: 160px;"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -187,7 +121,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin/berita/edit/' . htmlentities($rows['id_berita'])) ?>
+                    <?= form_open('post/update-post/' . htmlentities($rows['id_berita'])) ?>
                     <div class="form-group row">
                         <label for="judul_berita" class="col-sm-3 col-form-label">Judul berita</label>
                         <div class="col-sm-9">
@@ -205,9 +139,13 @@
                     <div class="form-group row">
                         <label for="content" class="col-sm-3 col-form-label">Kontent</label>
                         <div class="col-sm-9">
-                            <textarea id="editor" class="form-control" name="content" cols="30" rows="10"><?= $rows['content'] ?></textarea>
+                            <div>
+                                <input type="hidden" name="content" value="<?= set_value('content') ?>">
+                                <div id="editor" style="min-height: 160px;" <?= set_value('content'); ?>></div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="modal-footer">
                         <button type="submit" value="0" name="is_active" class="btn btn-dark"><i class="fas fa-save"></i> Simpan ke draft </button>
                         <button type="submit" value="1" name="is_active" class="btn btn-dark"><i class="fas fa-save"></i> Terbitkan </button>
@@ -252,4 +190,43 @@
             }
         });
     }
+</script>
+
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<script>
+    var quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                [{
+                    header: [1, 2, 3, 4, 5, 6, false]
+                }],
+                [{
+                    font: []
+                }],
+                ["bold", "italic"],
+                ["link", "blockquote", "code-block", "image"],
+                [{
+                    list: "ordered"
+                }, {
+                    list: "bullet"
+                }],
+                [{
+                    script: "sub"
+                }, {
+                    script: "super"
+                }],
+                [{
+                    color: []
+                }, {
+                    background: []
+                }],
+            ]
+        },
+    });
+    quill.on('text-change', function(delta, oldDelta, source) {
+        document.querySelector("input[name='content']").value = quill.root.innerHTML;
+    });
 </script>

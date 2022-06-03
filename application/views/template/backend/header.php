@@ -15,6 +15,7 @@
     <link href="<?= base_url('assets/'); ?>css/style.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
     <title>SIKA - <?= isset($title) ? $title : 'sika.com'; ?></title>
 
 </head>

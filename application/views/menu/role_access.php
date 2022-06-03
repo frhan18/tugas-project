@@ -8,18 +8,19 @@
             </button>
         </div>
     <?php endif; ?>
+    <!-- Page Heading -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="background-color: transparent;">
+            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : ''; ?></li>
+        </ol>
+    </nav>
 </header>
 
 
 
 <div class="wrapper">
-    <!-- Page Heading -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #3a3a3a;">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : ''; ?></li>
-        </ol>
-    </nav>
+
 
 
     <div class="box">
@@ -104,7 +105,7 @@
                 <div class="form-group row">
                     <label for="role_name" class="col-sm-3 col-form-label">Role Name</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('role_name') ? 'is-invalid' : ''; ?>" value="<?= set_value('role_name'); ?>" name="role_name" id="role_name">
+                        <input type="text" class="form-control <?= form_error('role_name') ? 'is-invalid' : ''; ?>" value="<?= set_value('role_name'); ?>" name="role_name" id="role_name" required>
                         <div class="invalid-feedback"><?= form_error('role_name'); ?></div>
                     </div>
                 </div>
@@ -134,7 +135,7 @@
                     <div class="form-group row">
                         <label for="role_name" class="col-sm-3 col-form-label">Role Name</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('role_name') ? 'is-invalid' : ''; ?>" value="<?= $rc['role_name']; ?>" name="role_name" id="role_name">
+                            <input type="text" class="form-control <?= form_error('role_name') ? 'is-invalid' : ''; ?>" value="<?= $rc['role_name']; ?>" name="role_name" id="role_name" required>
                             <div class="invalid-feedback"><?= form_error('role_name'); ?></div>
                         </div>
                     </div>

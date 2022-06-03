@@ -51,7 +51,7 @@
                                         <td><?= $rows['nama_mata_kuliah']; ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('admin/matakuliah/delete/' . $rows['id_mata_kuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('matakuliah/delete/' . $rows['id_mata_kuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_matakuliah_edit<?= $rows['id_mata_kuliah']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -100,18 +100,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/matakuliah/add') ?>
+                <?= form_open('matakuliah/add') ?>
                 <div class="form-group row">
                     <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Kode matakuliah</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('id_mata_kuliah') ? 'is-invalid' : ''; ?>" value="<?= set_value('id_mata_kuliah'); ?>" name="id_mata_kuliah" id="id_mata_kuliah">
+                        <input type="text" class="form-control <?= form_error('id_mata_kuliah') ? 'is-invalid' : ''; ?>" value="<?= set_value('id_mata_kuliah'); ?>" name="id_mata_kuliah" id="id_mata_kuliah" required>
                         <div class="invalid-feedback"><?= form_error('id_mata_kuliah'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="nama_mata_kuliah" class="col-sm-3 col-form-label">Nama matakuliah</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('nama_mata_kuliah') ? 'is-invalid' : ''; ?>" value="<?= set_value('nama_mata_kuliah'); ?>" name="nama_mata_kuliah" id="nama_mata_kuliah">
+                        <input type="text" class="form-control <?= form_error('nama_mata_kuliah') ? 'is-invalid' : ''; ?>" value="<?= set_value('nama_mata_kuliah'); ?>" name="nama_mata_kuliah" id="nama_mata_kuliah" required>
                         <div class="invalid-feedback"><?= form_error('nama_mata_kuliah'); ?></div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin/matakuliah/edit/' . htmlentities($mk['id_mata_kuliah'])) ?>
+                    <?= form_open('matakuliah/edit/' . htmlentities($mk['id_mata_kuliah'])) ?>
                     <div class="form-group row">
                         <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Kode matakuliah</label>
                         <div class="col-sm-9">
@@ -152,7 +152,7 @@
                     <div class="form-group row">
                         <label for="nama_mata_kuliah" class="col-sm-3 col-form-label">Nama matakuliah</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('nama_mata_kuliah') ? 'is-invalid' : ''; ?>" value="<?= $mk['nama_mata_kuliah']; ?>" name="nama_mata_kuliah" id="nama_mata_kuliah">
+                            <input type="text" class="form-control <?= form_error('nama_mata_kuliah') ? 'is-invalid' : ''; ?>" value="<?= $mk['nama_mata_kuliah']; ?>" name="nama_mata_kuliah" id="nama_mata_kuliah" required>
                             <div class="invalid-feedback"><?= form_error('nama_mata_kuliah'); ?></div>
                         </div>
                     </div>

@@ -26,17 +26,17 @@
                         <div class="col-lg-6">
                             <div class="content-login">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Admin Login <i class="fas fa-user-graduate"></i></h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Admin Login <i class="fas fa-user"></i></h1>
                                     <div class="text-small">Silahkan login dengan username / email yang sudah terdaftar.</div>
                                     <hr class="sidebar-divider">
                                 </div>
                                 <?= form_open('app', 'class="user"'); ?>
                                 <div class="form-group">
-                                    <input type="text" name="email" value="<?= set_value('email'); ?>" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" placeholder="Masukan username / email">
+                                    <input type="email" name="email" value="<?= set_value('email'); ?>" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" placeholder="Masukan username / email" required>
                                     <div class="invalid-feedback ml-2"><?= form_error('email'); ?></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : ''; ?>" placeholder="Password">
+                                    <input type="password" name="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : ''; ?>" placeholder="Password" required>
                                     <div class="invalid-feedback ml-2"><?= form_error('password'); ?></div>
                                 </div>
 

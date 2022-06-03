@@ -105,9 +105,9 @@
                 <div class="form-group row">
                     <label for="role_id" class="col-sm-3 col-form-label">Role</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id">
+                        <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id" required>
                             <?php $role = $this->db->get('user_role')->result_array(); ?>
-                            <option selected>Pilih Role</option>
+                            <option selected value="">Pilih Role</option>
                             <?php foreach ($role as $rl) : ?>
                                 <option value="<?= $rl['role_id']; ?>"><?= $rl['role_name']; ?></option>
                             <?php endforeach; ?>
@@ -119,9 +119,9 @@
                 <div class="form-group row">
                     <label for="menu_id" class="col-sm-3 col-form-label">Menu</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id">
+                        <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id" required>
                             <?php $menu = $this->db->get('user_menu')->result_array(); ?>
-                            <option selected>Pilih Menu</option>
+                            <option selected value="">Pilih Menu</option>
                             <?php foreach ($menu as $m) : ?>
                                 <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
                             <?php endforeach; ?>
@@ -156,9 +156,9 @@
                     <div class="form-group row">
                         <label for="role_id" class="col-sm-3 col-form-label">Role</label>
                         <div class="col-sm-9">
-                            <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id">
+                            <select class="custom-select custom-select <?= form_error('role_id') ? 'is-invalid' : ''; ?>" name="role_id" id="role_id" required>
                                 <?php $role = $this->db->get('user_role')->result_array(); ?>
-                                <option selected>Pilih Role</option>
+                                <option selected value="">Pilih Role</option>
                                 <?php foreach ($role as $rl) : ?>
                                     <option value="<?= $rl['role_id']; ?>" <?php if ($menu_access['role_id'] == $rl['role_id']) echo 'selected'; ?>><?= $rl['role_name']; ?></option>
                                 <?php endforeach; ?>
@@ -170,9 +170,9 @@
                     <div class="form-group row">
                         <label for="menu_id" class="col-sm-3 col-form-label">Menu</label>
                         <div class="col-sm-9">
-                            <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id">
+                            <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id" required>
                                 <?php $menu = $this->db->get('user_menu')->result_array(); ?>
-                                <option selected>Pilih Menu</option>
+                                <option selected value="">Pilih Menu</option>
                                 <?php foreach ($menu as $m) : ?>
                                     <option value="<?= $m['id']; ?>" <?php if ($menu_access['menu_id'] == $m['id']) echo 'selected'; ?>><?= $m['menu']; ?></option>
                                 <?php endforeach; ?>

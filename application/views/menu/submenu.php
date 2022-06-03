@@ -115,8 +115,8 @@
                 <div class="form-group row">
                     <label for="menu_id" class="col-sm-3 col-form-label">Menu</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id">
-                            <option selected>Pilih</option>
+                        <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id" required>
+                            <option selected value="">Pilih</option>
                             <?php
                             $menu = $this->db->get('user_menu')->result_array();
                             foreach ($menu as $m) : ?>
@@ -129,21 +129,21 @@
                 <div class="form-group row">
                     <label for="title" class="col-sm-3 col-form-label">Title</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('title') ? 'is-invalid' : ''; ?>" value="<?= set_value('title'); ?>" name="title" id="title">
+                        <input type="text" required class="form-control <?= form_error('title') ? 'is-invalid' : ''; ?>" value="<?= set_value('title'); ?>" name="title" id="title">
                         <div class="invalid-feedback"><?= form_error('title'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="url" class="col-sm-3 col-form-label">Url</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('url') ? 'is-invalid' : ''; ?>" value="<?= set_value('url'); ?>" name="url" id="url" placeholder="<?= base_url(); ?>">
+                        <input type="text" required class="form-control <?= form_error('url') ? 'is-invalid' : ''; ?>" value="<?= set_value('url'); ?>" name="url" id="url" placeholder="<?= base_url(); ?>">
                         <div class="invalid-feedback"><?= form_error('url'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="icon" class="col-sm-3 col-form-label">Icon</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('icon') ? 'is-invalid' : ''; ?>" value="<?= set_value('icon'); ?>" name="icon" id="icon" placeholder="fas fa-fw fa-users">
+                        <input type="text" required class="form-control <?= form_error('icon') ? 'is-invalid' : ''; ?>" value="<?= set_value('icon'); ?>" name="icon" id="icon" placeholder="fas fa-fw fa-users">
                         <div class="invalid-feedback"><?= form_error('icon'); ?></div>
                     </div>
                 </div>
@@ -188,8 +188,8 @@
                     <div class="form-group row">
                         <label for="menu_id" class="col-sm-3 col-form-label">Menu</label>
                         <div class="col-sm-9">
-                            <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id">
-                                <option selected>Pilih</option>
+                            <select class="custom-select custom-select <?= form_error('menu_id') ? 'is-invalid' : ''; ?>" name="menu_id" id="menu_id" required>
+                                <option selected value="">Pilih</option>
                                 <?php
                                 $menu = $this->db->get('user_menu')->result_array();
                                 foreach ($menu as $m) : ?>

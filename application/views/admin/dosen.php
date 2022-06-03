@@ -58,7 +58,7 @@
                                         <td><?= $rows['status_dosen'] ? 'Aktif' : 'Tidak aktif'; ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('admin/dosen/delete/' . htmlentities($rows['id_dosen'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('dosen/delete/' . htmlentities($rows['id_dosen'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#edit_dosen<?= $rows['id_dosen']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -107,25 +107,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/dosen/add') ?>
+                <?= form_open('dosen/add') ?>
                 <div class="form-group row">
                     <label for="id_dosen" class="col-sm-3 col-form-label">Kode Dosen</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('id_dosen') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('id_dosen')); ?>" name="id_dosen" id="id_dosen">
+                        <input type="text" class="form-control <?= form_error('id_dosen') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('id_dosen')); ?>" name="id_dosen" id="id_dosen" required>
                         <div class="invalid-feedback"><?= form_error('id_dosen'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="nip" class="col-sm-3 col-form-label">Nip</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control <?= form_error('nip') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nip')); ?>" name="nip" id="nip">
+                        <input type="number" class="form-control <?= form_error('nip') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nip')); ?>" name="nip" id="nip" required>
                         <div class="invalid-feedback"><?= form_error('nip'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="nama" class="col-sm-3 col-form-label">Nama dosen</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nama')); ?>" name="nama" id="nama">
+                        <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nama')); ?>" name="nama" id="nama" required>
                         <div class="invalid-feedback"><?= form_error('nama'); ?></div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                 <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('email')); ?>" name="email" id="email">
+                        <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('email')); ?>" name="email" id="email" required>
                         <div class="invalid-feedback"><?= form_error('email'); ?></div>
                     </div>
                 </div>
@@ -188,7 +188,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin/dosen/edit/' . htmlentities($dsn['id_dosen'])); ?>
+                    <?= form_open('dosen/edit/' . htmlentities($dsn['id_dosen'])); ?>
                     <div class="form-group row">
                         <label for="id_dosen" class="col-sm-3 col-form-label">Kode Dosen</label>
                         <div class="col-sm-9">
@@ -199,14 +199,14 @@
                     <div class="form-group row">
                         <label for="nip" class="col-sm-3 col-form-label">Nip</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('nip') ? 'is-invalid' : ''; ?>" value="<?= $dsn['nip']; ?>" name="nip" id="nip" readonly>
+                            <input type="text" class="form-control <?= form_error('nip') ? 'is-invalid' : ''; ?>" value="<?= $dsn['nip']; ?>" name="nip" id="nip" required>
                             <div class="invalid-feedback"><?= form_error('nip'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="nama" class="col-sm-3 col-form-label">Nama dosen</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= $dsn['nama']; ?>" name="nama" id="nama">
+                            <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= $dsn['nama']; ?>" name="nama" id="nama" required>
                             <div class="invalid-feedback"><?= form_error('nama'); ?></div>
                         </div>
                     </div>
@@ -214,7 +214,7 @@
                     <div class="form-group row">
                         <label for="email" class="col-sm-3 col-form-label">Email</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $dsn['email']; ?>" name="email" id="email">
+                            <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $dsn['email']; ?>" name="email" id="email" required>
                             <div class="invalid-feedback"><?= form_error('email'); ?></div>
                         </div>
                     </div>

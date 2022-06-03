@@ -105,7 +105,7 @@
                 <div class="form-group row">
                     <label for="menu" class="col-sm-3 col-form-label">Nama menu</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('menu') ? 'is-invalid' : ''; ?>" value="<?= set_value('menu'); ?>" name="menu" id="menu">
+                        <input type="text" required class="form-control <?= form_error('menu') ? 'is-invalid' : ''; ?>" value="<?= set_value('menu'); ?>" name="menu" id="menu">
                         <div class="invalid-feedback"><?= form_error('menu'); ?></div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                     <div class="form-group row">
                         <label for="menu" class="col-sm-3 col-form-label">Nama menu</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('menu') ? 'is-invalid' : ''; ?>" value="<?= $m['menu']; ?>" name="menu" id="menu">
+                            <input type="text" required class="form-control <?= form_error('menu') ? 'is-invalid' : ''; ?>" value="<?= $m['menu']; ?>" name="menu" id="menu">
                             <div class="invalid-feedback"><?= form_error('menu'); ?></div>
                         </div>
                     </div>

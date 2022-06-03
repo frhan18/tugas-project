@@ -7,8 +7,11 @@ class Menu extends CI_Controller
     {
         parent::__construct();
         $this->load->model('menu_model', 'menu', TRUE);
-
-        _is_logged_in();
+        if (!$this->session->userdata('id') || !$this->session->userdata('id_role')) {
+            redirect('login');
+        } elseif ($this->session->userdata('id_role') == 2) {
+            show_404();
+        }
     }
 
 

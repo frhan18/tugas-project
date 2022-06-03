@@ -51,7 +51,7 @@
                                         <td><?= $rows['nama_prodi']; ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('admin/prodi/delete/' . $rows['kode_prodi']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('prodi/delete/' . $rows['kode_prodi']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_prodi_edit<?= $rows['kode_prodi']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -101,7 +101,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/prodi/add') ?>
+                <?= form_open('prodi/add') ?>
                 <div class="form-group row">
                     <label for="kode_prodi" class="col-sm-3 col-form-label">Kode prodi</label>
                     <div class="col-sm-9">
@@ -142,7 +142,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin/prodi/edit/' . $rows['kode_prodi']) ?>
+                    <?= form_open('prodi/edit/' . $rows['kode_prodi']) ?>
                     <div class="form-group row">
                         <label for="kode_prodi" class="col-sm-3 col-form-label">Kode prodi</label>
                         <div class="col-sm-9">
