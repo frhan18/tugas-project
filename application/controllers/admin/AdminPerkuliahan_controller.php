@@ -117,7 +117,7 @@ class AdminPerkuliahan_controller extends CI_Controller
 
         if ($this->db->insert('tb_perkuliahan', $data_perkuliahan)) {
             $this->session->set_flashdata('message_success', 'Data perkuliahan ditambahkan');
-            redirect('admin/kuliah');
+            redirect('perkuliahan/list');
         }
     }
 
@@ -139,7 +139,7 @@ class AdminPerkuliahan_controller extends CI_Controller
 
             if ($this->db->update('tb_perkuliahan', $data_perkuliahan, ['id' => $id])) {
                 $this->session->set_flashdata('message_success', 'Data perkuliahan di perbarui');
-                redirect('admin/kuliah');
+                redirect('perkuliahan/list');
             }
         }
     }
@@ -152,7 +152,7 @@ class AdminPerkuliahan_controller extends CI_Controller
         } else {
             $this->db->delete('tb_perkuliahan', ['id' => $id]);
             $this->session->set_flashdata('message_success', 'Data perkuliahan dihapus');
-            redirect('admin/kuliah');
+            redirect('perkuliahan/list');
         }
     }
 }

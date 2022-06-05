@@ -71,7 +71,7 @@ class AdminKelas_controller extends CI_Controller
 
         if ($this->db->insert('tb_kelas', $data)) {
             $this->session->set_flashdata('message_success', 'Data kelas berhasil ditambahkan');
-            redirect('admin/kelas');
+            redirect('kelas/list');
         }
     }
 
@@ -91,7 +91,7 @@ class AdminKelas_controller extends CI_Controller
 
             if ($this->db->update('tb_kelas', $data, ['kode_kelas' => $id])) {
                 $this->session->set_flashdata('message_success', 'Data kelas berhasil diperbarui');
-                redirect('admin/kelas');
+                redirect('kelas/list');
             }
         }
     }
@@ -104,7 +104,7 @@ class AdminKelas_controller extends CI_Controller
         } else {
             $this->db->delete('tb_kelas', ['kode_kelas' => $id]);
             $this->session->set_flashdata('message_success', 'Data kelas berhasil dihapus');
-            redirect('admin/kelas');
+            redirect('kelas/list');
         }
     }
 }

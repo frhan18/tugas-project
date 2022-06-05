@@ -6,7 +6,7 @@
                 <div class="col-xl-8 col-md-10 col-sm-10">
                     <h3 class="text-dark h3">Halo , <?= $get_sesi_user['name']; ?></h3>
                     <p>Buat berita terbaru dan menarik untuk halaman dashboard user</p>
-                    <a href="#" class="btn btn-dark" data-toggle="modal" data-target="#buat_berita_modal">Buat berita <i class="fas fa-plus"></i></a>
+                    <a href="#" class="btn btn-dark" data-toggle="modal" data-target="#buat_berita_modal">Tambah Berita Baru <i class="fas fa-plus"></i></a>
                 </div>
             </div>
             <hr class="sidebar-divider">
@@ -14,7 +14,7 @@
 
         <div class="list-berita">
             <div class="row">
-                <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+                <div class="col-lg-12 col-sm-10">
 
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -24,7 +24,7 @@
                                     <th>Judul</th>
                                     <th>Penulis</th>
                                     <th>Status</th>
-                                    <th>Dibuat</th>
+                                    <th>created_at</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -38,7 +38,7 @@
                                         <td><?= $rows['judul_berita']; ?></td>
                                         <td><?= $rows['penulis']; ?></td>
                                         <td><?= $rows['is_active'] == 1 ? 'Diterbitkan' : 'Draft'; ?></td>
-                                        <td><?= date('d-m-Y, H:i:s',  $rows['created_at']); ?></td>
+                                        <td><?= date('D m Y, H:i:s',  $rows['created_at']); ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="javascript:void(0)" data-delete-url="<?= site_url('post/delete-post/' . htmlentities($rows['id_berita'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
@@ -66,7 +66,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="buat_berita_modalLabel">Buat berita terbaru</h5>
+                <h5 class="modal-title" id="buat_berita_modalLabel">Tambah berita baru</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -83,7 +83,7 @@
                 <div class="form-group row">
                     <label for="penulis" class="col-sm-3 col-form-label">Penulis</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('penulis') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['name']); ?>" name="penulis" id="penulis" readonly>
+                        <input type="text" class="form-control <?= form_error('penulis') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['name']); ?>" name="penulis" id="penulis" required>
                         <div class="invalid-feedback"><?= form_error('penulis'); ?></div>
                     </div>
                 </div>
@@ -110,55 +110,6 @@
 </div>
 
 
-<?php foreach ($berita as $rows) : ?>
-    <div class="modal fade" id="edit_berita_modal<?= $rows['id_berita']; ?>" tabindex="-1" aria-labelledby="edit_berita_modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="edit_berita_modalLabel">Edit berita <b><?= $rows['judul_berita']; ?></b></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <?= form_open('post/update-post/' . htmlentities($rows['id_berita'])) ?>
-                    <div class="form-group row">
-                        <label for="judul_berita" class="col-sm-3 col-form-label">Judul berita</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('judul_berita') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['judul_berita']); ?>" name="judul_berita" id="judul_berita">
-                            <div class="invalid-feedback"><?= form_error('judul_berita'); ?></div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="penulis" class="col-sm-3 col-form-label">Penulis</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('penulis') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['penulis']); ?>" name="penulis" id="penulis">
-                            <div class="invalid-feedback"><?= form_error('penulis'); ?></div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="content" class="col-sm-3 col-form-label">Kontent</label>
-                        <div class="col-sm-9">
-                            <div>
-                                <input type="hidden" name="content" value="<?= set_value('content') ?>">
-                                <div id="editor" style="min-height: 160px;" <?= set_value('content'); ?>></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="submit" value="0" name="is_active" class="btn btn-dark"><i class="fas fa-save"></i> Simpan ke draft </button>
-                        <button type="submit" value="1" name="is_active" class="btn btn-dark"><i class="fas fa-save"></i> Terbitkan </button>
-                    </div>
-
-                    <?= form_close(); ?>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-<?php endforeach; ?>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php if ($this->session->flashdata('berita_berhasil')) : ?>

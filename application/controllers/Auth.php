@@ -48,7 +48,7 @@ class Auth extends CI_Controller
 
     public function admin_page()
     {
-        if ($this->session->userdata('id') || $this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 6) {
+        if ($this->session->userdata('id') || $this->session->userdata('id_role') == 1) {
             redirect('dashboard');
         }
 
@@ -125,7 +125,11 @@ class Auth extends CI_Controller
     {
         $nim = htmlspecialchars($this->input->post('nim', true));
         $password = htmlspecialchars($this->input->post('password', true));
-        $user = $this->db->select('*')->from('user')->where('nim', $nim)->get()->row_array();
+        $user = $this->db->select('user.*, tb_mahasiswa.nim')
+            ->from('user')
+            ->join('tb_mahasiswa', 'tb_mahasiswa.id_user=user.id_user')
+            ->where('nim', $nim)
+            ->get()->row_array();
         if (!empty($user)) {
             // Active user > 1 ?
             if ($user['is_active'] == 1) {

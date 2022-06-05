@@ -13,7 +13,7 @@
 
 #login-body {
     /* background-color: red !important; */
-    background-image: url('https://yootheme.com/site/images/blog/2019/theme-tomsen-brody-illustration-09.svg');
+    background-image: url('https://cdn.wallpapersafari.com/74/49/F7dPYn.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -73,7 +73,7 @@
 @media (max-width: 600px) {
     .login-container {
         padding: 0;
-        max-width: 100%;
+        width: 100%;
     }
 
     .login-box {
@@ -91,6 +91,10 @@
     .login-box .content-login-img h3 {
         font-size: 18px;
     }
+
+    .login-box {
+        padding: 8px;
+    }
 }
 
 
@@ -105,9 +109,4 @@
 
 .sidebar .nav-item .nav-link {
     color: #fff;
-}
-
-.table>tbody,
-* {
-    vertical-align: middle;
 }

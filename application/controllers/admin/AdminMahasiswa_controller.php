@@ -20,6 +20,7 @@ class AdminMahasiswa_controller extends CI_Controller
         $data['title'] = 'Data Mahasiswa';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
         $data['mahasiswa'] = $this->db->get('tb_mahasiswa')->result_array();
+        $data['prodi'] = $this->db->get('tb_prodi')->result_array();
         $config = [
             [
                 'field' => 'nim',
@@ -111,6 +112,7 @@ class AdminMahasiswa_controller extends CI_Controller
             'tempat_tanggal_lahir'  => $this->input->post('tempat_tanggal_lahir', true),
             'tahun_masuk'           => $this->input->post('tahun_masuk', true),
             'agama'                 => $this->input->post('agama', true),
+            'kode_prodi'            => $this->input->post('kode_prodi', true),
             'jenis_kelamin'         => $this->input->post('jenis_kelamin', true),
             'status_mhs'            => $this->input->post('status_mhs', true),
             'tahun_masuk'           => $this->input->post('tahun_masuk', true),
@@ -135,6 +137,8 @@ class AdminMahasiswa_controller extends CI_Controller
                 'tahun_masuk'           => $this->input->post('tahun_masuk', true),
                 'agama'                 => $this->input->post('agama', true),
                 'jenis_kelamin'         => $this->input->post('jenis_kelamin', true),
+                'kode_prodi'            => $this->input->post('kode_prodi', true),
+                'id_user'               => $this->input->post('id_user', true),
                 'status_mhs'            => $this->input->post('status_mhs', true),
                 'tahun_masuk'           => $this->input->post('tahun_masuk', true),
                 'alamat'                => $this->input->post('alamat', true)

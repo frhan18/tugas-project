@@ -13,19 +13,15 @@
 
 <div class="wrapper">
     <!-- Page Heading -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #fff;">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : 'Mahasiswa'; ?></li>
-        </ol>
-    </nav>
 
     <div class="box">
-        <div class="add-modal-btn mb-3">
+        <div class="mahasiswa-info mb-3">
+            <h3>Data Mahasiswa</h3>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
                 <i class="fas fa-plus"></i> Tambah Data Baru
             </button>
         </div>
+        <hr class="sidebar-divider">
 
         <div class="list-content">
             <div class="row">
@@ -48,11 +44,11 @@
                                 <?php $no = 1;
                                 foreach ($mahasiswa as $rows) : ?>
                                     <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $rows['nim']; ?></td>
-                                        <td><?= $rows['nama']; ?></td>
-                                        <td><?= $rows['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan'; ?></td>
-                                        <td>
+                                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['nim']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['nama']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan'; ?></td>
+                                        <td style="vertical-align: middle;">
                                             <?php if ($rows['status_mhs'] == 1) : ?>
                                                 Aktif
                                             <?php elseif ($rows['status_mhs'] == 2) : ?>
@@ -64,10 +60,10 @@
                                             <?php endif; ?>
 
                                         </td>
-                                        <td>
+                                        <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_edit<?= $rows['nim']; ?>"><i class="fas fa-edit"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-warning ml-1" data-toggle="modal" data-target="#modal_edit<?= $rows['nim']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -163,7 +159,20 @@
                         <div class="invalid-feedback"><?= form_error('jenis_kelamin'); ?></div>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="kode_prodi" class="col-sm-3 col-form-label">Prodi</label>
+                    <div class="col-sm-9">
+                        <select class="custom-select custom-select  <?= form_error('kode_prodi') ? 'is-invalid' : ''; ?>" name="kode_prodi" id="kode_prodi">
+                            <option selected disabled>Pilih prodi</option>
+                            <?php
 
+                            foreach ($prodi as $p) : ?>
+                                <option value="<?= $p['kode_prodi']; ?>"><?= $p['nama_prodi']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="invalid-feedback"><?= form_error('kode_prodi'); ?></div>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="agama" class="col-sm-3 col-form-label">Agama</label>
                     <div class="col-sm-9">
@@ -181,7 +190,14 @@
                 <div class="form-group row">
                     <label for="tahun_masuk" class="col-sm-3 col-form-label">Tahun masuk</label>
                     <div class="col-sm-9">
-                        <input type="date" class="form-control <?= form_error('tahun_masuk') ? 'is-invalid' : ''; ?>" value="<?= set_value('tahun_masuk'); ?>" name="tahun_masuk" id="tahun_masuk">
+                        <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="tahun_masuk" id="tahun_masyk">
+                            <option selected disabled>Pilih tahun</option>
+                            <?php
+                            $tahun_masuk = ['2015', '2016', '2017', '2018', '2018', '2019', '2020', '2021', '2022'];
+                            foreach ($tahun_masuk as $th) : ?>
+                                <option value="<?= $th; ?>"><?= $th; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                         <div class="invalid-feedback"><?= form_error('tahun_masuk'); ?></div>
                     </div>
                 </div>
@@ -213,7 +229,6 @@
                         <div class="invalid-feedback"><?= form_error('status_mhs'); ?></div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Save </button>
                 </div>
@@ -242,7 +257,7 @@
                     <div class="form-group row">
                         <label for="nim" class="col-sm-3 col-form-label">Nim</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['nim']); ?>" name="nim" id="nim" readonly>
+                            <input type="number" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['nim']); ?>" name="nim" id="nim">
                             <div class="invalid-feedback"><?= form_error('nim'); ?></div>
                         </div>
                     </div>
@@ -302,7 +317,14 @@
                     <div class="form-group row">
                         <label for="tahun_masuk" class="col-sm-3 col-form-label">Tahun masuk</label>
                         <div class="col-sm-9">
-                            <input type="date" class="form-control <?= form_error('tahun_masuk') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['tahun_masuk']); ?>" name="tahun_masuk" id="tahun_masuk">
+                            <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="tahun_masuk" id="tahun_masyk">
+                                <option selected disabled>Pilih tahun</option>
+                                <?php
+                                $tahun_masuk = ['2015', '2016', '2017', '2018', '2018', '2019', '2020', '2021', '2022'];
+                                foreach ($tahun_masuk as $th) : ?>
+                                    <option value="<?= $th; ?>" <?php if ($rows['tahun_masuk'] == $th) echo 'selected'; ?>><?= $th; ?></option>
+                                <?php endforeach; ?>
+                            </select>
                             <div class="invalid-feedback"><?= form_error('tahun_masuk'); ?></div>
                         </div>
                     </div>

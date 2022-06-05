@@ -7,7 +7,7 @@
                 <hr class="sidebar-divider">
                 <?php if (count($perkuliahan) <= 0) : ?>
                     <div class="text-center">
-                        Jadwal perkuliahan tidak tersedia
+                        Jadwal perkuliahan tidak tersedia.&#128522
                     </div>
                 <?php else : ?>
                     <div class="list-jadwal pt-3 mt-3">

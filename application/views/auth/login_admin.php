@@ -4,7 +4,7 @@
 
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
 
-            <div class="card o-hidden border-0  my-5">
+            <div class="card shadow o-hidden border-0  my-5">
                 <div class="card-body">
                     <?php if ($this->session->flashdata('message_success')) : ?>
                         <div class="notification-fb">
@@ -32,11 +32,11 @@
                                 </div>
                                 <?= form_open('app', 'class="user"'); ?>
                                 <div class="form-group">
-                                    <input type="email" name="email" value="<?= set_value('email'); ?>" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" placeholder="Masukan username / email" required>
+                                    <input type="text" name="email" value="<?= set_value('email') ? set_value('email') : 'admin@gmail.com'; ?>" class="form-control form-control-user <?= form_error('email') ? 'is-invalid' : ''; ?>" placeholder="Masukan username / email" required>
                                     <div class="invalid-feedback ml-2"><?= form_error('email'); ?></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : ''; ?>" placeholder="Password" required>
+                                    <input type="password" name="password" value="admin" class="form-control form-control-user <?= form_error('password') ? 'is-invalid' : ''; ?>" placeholder="Password" required>
                                     <div class="invalid-feedback ml-2"><?= form_error('password'); ?></div>
                                 </div>
 

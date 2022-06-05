@@ -81,6 +81,7 @@ class AdminSetting_controller extends CI_Controller
                 'email' => $this->input->post('email', true),
                 'name' => $this->input->post('name', true),
                 'image' => $uploaded_data['file_name'],
+                'updated_at' => time(),
             ];
 
             if ($this->db->update('user', $setting_profile, ['id_user' => $id])) {

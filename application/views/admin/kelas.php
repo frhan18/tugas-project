@@ -13,19 +13,16 @@
 
 <div class="wrapper">
     <!-- Page Heading -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #fff;">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : 'Admin'; ?></li>
-        </ol>
-    </nav>
 
     <div class="box">
-        <div class="add-modal-btn mb-3">
+        <div class="kelas-info mb-3">
+            <h3 class="h3 mb-2">Data Kelas</h3>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_kelas" aria-pressed="false">
                 <i class="fas fa-plus"></i> Tambah Data Baru
             </button>
         </div>
+
+        <hr class="sidebar-divider">
 
         <div class="list-content">
             <div class="row">
@@ -47,14 +44,14 @@
                                 <?php $no = 1;
                                 foreach ($kelas as $rows) : ?>
                                     <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $rows['kode_kelas']; ?></td>
-                                        <td><?= $rows['nama_kelas']; ?></td>
-                                        <td><?= $rows['lokasi_kelas']; ?></td>
-                                        <td>
+                                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['kode_kelas']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['nama_kelas']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['lokasi_kelas']; ?></td>
+                                        <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('admin/kelas/delete/' . $rows['kode_kelas']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_kelas_edit<?= $rows['kode_kelas']; ?>"><i class="fas fa-edit"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('kelas/delete/' . $rows['kode_kelas']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-warning ml-1" data-toggle="modal" data-target="#modal_kelas_edit<?= $rows['kode_kelas']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -102,7 +99,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('admin/kelas/add') ?>
+                <?= form_open('kelas/add') ?>
                 <div class="form-group row">
                     <label for="kode_kelas" class="col-sm-3 col-form-label">Kode kelas</label>
                     <div class="col-sm-9">
@@ -157,7 +154,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('admin/kelas/edit/' . htmlentities($k['kode_kelas'])) ?>
+                    <?= form_open('kelas/edit/' . htmlentities($k['kode_kelas'])) ?>
                     <div class="form-group row">
                         <label for="kode_kelas" class="col-sm-3 col-form-label">Kode kelas</label>
                         <div class="col-sm-9">

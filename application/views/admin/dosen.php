@@ -13,20 +13,16 @@
 
 <div class="wrapper">
     <!-- Page Heading -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #fff;">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : 'Admin'; ?></li>
-        </ol>
-    </nav>
 
     <div class="box">
-        <div class="add-modal-btn mb-3">
+        <div class="dosen-info mb-3">
+            <h3 class="h3 mb-2">Data Dosen</h3>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
                 <i class="fas fa-plus"></i> Tambah Data Baru
             </button>
         </div>
 
+        <hr class="sidebar-divider">
         <div class="list-content">
             <div class="row">
                 <div class="col">
@@ -49,17 +45,17 @@
                                 <?php $no = 1;
                                 foreach ($dosen as $rows) : ?>
                                     <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $rows['id_dosen']; ?></td>
-                                        <td><?= $rows['nip']; ?></td>
-                                        <td><?= $rows['nama']; ?></td>
-                                        <td><?= $rows['email']; ?></td>
-                                        <td><?= $rows['jenis_kelamin'] == 'L' ? 'Laki laki' : 'Perempuan'; ?></td>
-                                        <td><?= $rows['status_dosen'] ? 'Aktif' : 'Tidak aktif'; ?></td>
-                                        <td>
+                                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['id_dosen']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['nip']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['nama']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['email']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['jenis_kelamin'] == 'L' ? 'Laki laki' : 'Perempuan'; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['status_dosen'] ? 'Aktif' : 'Tidak aktif'; ?></td>
+                                        <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('dosen/delete/' . htmlentities($rows['id_dosen'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#edit_dosen<?= $rows['id_dosen']; ?>"><i class="fas fa-edit"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('dosen/delete/' . htmlentities($rows['id_dosen'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-warning ml-1" data-toggle="modal" data-target="#edit_dosen<?= $rows['id_dosen']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
                                     </tr>

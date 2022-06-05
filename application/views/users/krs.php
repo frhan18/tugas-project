@@ -2,57 +2,52 @@
     <div class="box">
         <h3 class="h3 text-dark">Kartu Rencana Studi <strong>(KRS)</strong></h3>
 
-        <div class="list-mhs">
-            <ul>
-                <li>Nim : <?= $user['nim']; ?></li>
-                <li>Nama mahasiswa : <?= $user['nama']; ?></li>
-                <li>Kelas : <?= $user['kode_kelas']; ?> </li>
-                <li>Tahun : <?= $user['tahun']; ?></li>
-            </ul>
-        </div>
-
-    </div>
-    <div class="box">
         <?php if (count($krs) <= 0) : ?>
-            <div class="text-center mb-3">
-                <h3 class="text-dark">DATA KRS BELUM TERSEDIA</h3>
-            </div>
+            <div class="text-center pt-3 mt-3">Jadwal KRS kamu belum tayang.&#128522</div>
         <?php else : ?>
-            <div class="text-center mb-3">
-                <h3 class="text-dark">DATA KRS TERSEDIA <i class="fas fa-fw fa-bookmark"></i></h3>
-            </div>
-            <div class="row p-1">
-                <div class="col">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Kd_matakuliah</th>
-                                    <th scope="col">Matakuliah</th>
-                                    <th scope="col">Sks</th>
-                                    <th scope="col">Semester</th>
-                                    <th scope="col">Kode kelas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
-                                foreach ($krs as $rows) : ?>
+            <p>Halo, <?= $get_sesi_user['name']; ?> Kartu Rencana Studi kamu sudah tersedia.</p>
+
+
+            <hr class="sidebar-divider">
+
+            <div class="list-krs pt-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <th scope="row"><?= $no++; ?></th>
-                                        <td><?= $rows['id_mata_kuliah']; ?></td>
-                                        <td><?= $rows['nama_mata_kuliah']; ?></td>
-                                        <td><?= $rows['sks']; ?></td>
-                                        <td><?= $rows['semester']; ?></td>
-                                        <td><?= $rows['kode_kelas']; ?></td>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Kode MK</th>
+                                        <th scope="col">Matakuliah</th>
+                                        <th scope="col">Kelas</th>
+                                        <th scope="col">Semester</th>
+                                        <th scope="col">SKS</th>
+                                        <th scope="col">Prodi</th>
+                                        <th scope="col">Tahun Ajar</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($krs as $k) : ?>
+                                        <tr>
+                                            <th scope="row" style="vertical-align: middle ;">1</th>
+                                            <td style="vertical-align: middle ;"><?= $k['id_mata_kuliah']; ?></td>
+                                            <td style="vertical-align: middle ;"><?= $k['nama_mata_kuliah']; ?></td>
+                                            <td style="vertical-align: middle ;"><?= $k['kode_kelas']; ?></td>
+                                            <td style="vertical-align: middle ;"><?= $k['semester']; ?></td>
+                                            <td style="vertical-align: middle ;"><?= $k['sks']; ?></td>
+                                            <td style="vertical-align: middle ;"><?= $k['nama_prodi']; ?></td>
+                                            <td style="vertical-align: middle ;"><?= $k['tahun']; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        <?php endif ?>
+        <?php endif; ?>
+
     </div>
+
 </section>

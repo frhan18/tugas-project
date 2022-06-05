@@ -28,6 +28,9 @@ class AdminDashboard_controller extends CI_Controller
         $data['count_all_user'] = $this->db->count_all('user');
 
         $data['berita'] = $this->db->get('tb_berita')->result_array();
+        $data['mahasiswa'] = $this->db->select('*')->from('tb_mahasiswa')->join('tb_prodi', 'tb_prodi.kode_prodi=tb_mahasiswa.kode_prodi')->get()->result_array();
+
+
 
         $this->load->view('template/backend/header', $data);
         $this->load->view('template/backend/sidebar', $data);
@@ -46,6 +49,20 @@ class AdminDashboard_controller extends CI_Controller
         } else {
             $this->db->delete('user', ['id_user' => $id]);
             redirect('dashboard');
+        }
+    }
+
+    public function delete_mahasiswa($id)
+    {
+        $row = $this->db->get_where('mahasiswa', ['nim' => $id])->row_array();
+        if (!$row['nim'] || !$id) {
+            show_404();
+        } else {
+            $delete_mahasiswa = $this->db->delete('mahasiswa', ['nim' => $id]);
+            if ($delete_mahasiswa) {
+                $this->session->set_flashdata('message_success', 'Data mahasiswa di hapus.');
+                redirect('dashboard');
+            }
         }
     }
 }

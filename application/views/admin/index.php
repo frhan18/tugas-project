@@ -83,87 +83,7 @@
 
         <div class="account-container p-3">
             <div class="row">
-                <div class="col-lg-10 col-md-10 col-sm-10">
-
-                    <div class="row justify-content-arround">
-                        <div class="col-lg-8 col-md-6">
-                            <h5 class="mb-4 text-dark">Akun terdaftar di tahun <b style="text-decoration: underline;"><?= date('Y'); ?></b></h5>
-                            <p class="info" style="margin-top: -15px;">Jumlah pengguna : <?= $count_all_user; ?></p>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <form action="" method="GET">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Cari pengguna" name="pengguna">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
-                    <div class="list-account">
-                        <div class="table-responsive">
-                            <table class="table table-stripped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Created</th>
-                                        <th scope="col"><i class="fas fa-cogs"></i></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    foreach ($user as $rows) : ?>
-                                        <tr>
-                                            <th scope="row"><?= $no++; ?></th>
-                                            <td><?= $rows['email']; ?></td>
-                                            <td><?= $rows['name']; ?></td>
-                                            <td>
-                                                <?php if ($rows['role_id'] == 1 || $rows['role_id'] == 6) : ?>
-                                                    <p class="text-bold text-dark">Admin</p>
-                                                <?php else : ?>
-                                                    <p>Mahasiswa</p>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td>
-                                                <?php if ($rows['is_active'] == 1) : ?>
-                                                    <p class="text-success">Aktif</p>
-                                                <?php else : ?>
-                                                    <p class="text-success">Tidak aktif</p>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td><?= date('d-M-Y',  $rows['date_created']); ?></td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="javascript:void(0)" data-delete-url="<?= site_url('dashboard/account-delete/' . $rows['id_user']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-
-    <div class="box">
-
-        <div class="account-container p-3">
-            <div class="row">
-                <div class="col-lg-10 col-md-10 col-sm-10">
+                <div class="col">
 
                     <div class="row justify-content-arround">
                         <div class="col-lg-8 col-md-6">
@@ -185,7 +105,7 @@
 
                     <div class="list-account">
                         <div class="table-responsive">
-                            <table class="table table-stripped">
+                            <table class="table table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
@@ -199,21 +119,23 @@
                                 <tbody>
                                     <?php
                                     $no = 1;
-                                    foreach ($user as $rows) : ?>
-                                        <tr>
-                                            <th scope="row"><?= $no++; ?></th>
-                                            <td><?= $rows['email']; ?></td>
-                                            <td><?= $rows['name']; ?></td>
-                                            <td>Ilmu komputer</td>
-                                            <td>
+                                    foreach ($mahasiswa as $rows) : ?>
 
+                                        <tr>
+                                            <th scope="row" style="vertical-align: middle;"><?= $no++; ?></th>
+                                            <td style="vertical-align: middle;"><?= $rows['nama']; ?></td>
+                                            <td style="vertical-align: middle;"><?= $rows['nim']; ?></td>
+                                            <td style="vertical-align: middle;"><?= $rows['nama_prodi']; ?></td>
+                                            <td style="vertical-align: middle;">
+                                                <?= $rows['status_mhs'] ? 'Aktif' : 'Tidak aktif'; ?>
                                             </td>
-                                            <td>
+                                            <td style="vertical-align: middle;">
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="javascript:void(0)" data-delete-url="" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                    <a href="javascript:void(0)" data-delete-url="<?= base_url('dashboard/mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
+
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -227,46 +149,6 @@
 
 
 
-    <div class="box">
-
-        <div class="blog-container p-3">
-            <div class="row">
-                <div class="col-lg-10 col-md-10 col-sm-10">
-                    <h4 class="mb-4 text-dark">Publish post <i class="fas fa-blog"></i> </h4>
-                    <hr class="sidebar-divider">
-
-                    <?php if (count($berita) <= 0) : ?>
-
-                        <div class="text-center pt-2">
-                            Belum menambahkan berita.
-                        </div>
-
-                    <?php endif; ?>
-
-                    <div class="list-blog">
-                        <div class="row justify-content-arround">
-                            <?php foreach ($berita as $post) : ?>
-                                <?php if ($post['penulis'] == $get_sesi_user['name']) : ?>
-                                    <?php if ($post['is_active'] == 1) : ?>
-                                        <div class="col-lg-4 col-md-6 col-sm-10">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <h5 class="card-title"><?= $post['judul_berita']; ?></h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Di terbitkan <?= date('d M Y', $post['created_at']); ?></h6>
-                                                    <p class="card-text"><?= $post['content']; ?></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
 </div>
 

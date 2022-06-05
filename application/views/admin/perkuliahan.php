@@ -13,20 +13,21 @@
 
 <div class="wrapper">
     <!-- Page Heading -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="background: #fff;">
-            <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><?= isset($title) ? $title : 'Admin'; ?></li>
-        </ol>
-    </nav>
-
     <div class="box">
-        <div class="add-modal-btn mb-3">
-            <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_perkuliahan" aria-pressed="false">
-                <i class="fas fa-plus"></i> Tambah Data Baru
-            </button>
+        <div class="perkuliahan-info mb-3">
+            <div class="row">
+                <div class="col-lg">
+                    <h3 class="info h3 text-dark">Data Perkuliahan di tahun <?= date('Y'); ?></h3>
+                    <p class="text-dark">Data perkuliahan </p>
+                    <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_perkuliahan" aria-pressed="false">
+                        <i class="fas fa-plus"></i> Tambah Data Baru
+                    </button>
+                </div>
+            </div>
         </div>
 
+
+        <hr class="sidebar-divider">
         <div class="list-content">
             <div class="row">
                 <div class="col">
@@ -51,19 +52,19 @@
                                 <?php
                                 $no = 1;
                                 foreach ($perkuliahan as $kuliah) : ?>
-                                    <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $kuliah['nama']; ?></td>
-                                        <td><?= $kuliah['nim']; ?></td>
-                                        <td><?= $kuliah['kode_kelas']; ?></td>
-                                        <td><?= $kuliah['nama_mata_kuliah']; ?></td>
-                                        <td><?= $kuliah['waktu_mulai']; ?></td>
-                                        <td><?= $kuliah['waktu_selesai']; ?></td>
-                                        <td><?= $kuliah['hari']; ?></td>
+                                    <tr style="vertical-align: middle;">
+                                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kuliah['nama']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kuliah['nim']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kuliah['kode_kelas']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kuliah['nama_mata_kuliah']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kuliah['waktu_mulai']; ?></td>
+                                        <td style="vertical-align: middle;"> <?= $kuliah['waktu_selesai']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kuliah['hari']; ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('/perkuliahan/delete/' . htmlentities($kuliah['id'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#modal_edit_perkuliahan<?= $kuliah['id']; ?>"><i class="fas fa-edit"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('/perkuliahan/delete/' . htmlentities($kuliah['id'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-warning ml-1" data-toggle="modal" data-target="#modal_edit_perkuliahan<?= $kuliah['id']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
                                     </tr>

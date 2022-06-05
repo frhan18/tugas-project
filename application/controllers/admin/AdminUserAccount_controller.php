@@ -22,6 +22,7 @@ class AdminUserAccount_controller extends CI_Controller
         $data['user'] = $this->user->get_user();
         $data['role'] = $this->db->select('user_role.role_name, user_role.role_id')->from('user_role')->get()->result_array();
 
+        $data['pengguna_aktif'] = $this->db->count_all('user');
         $config = [
             [
                 'field' => 'name',
@@ -59,7 +60,7 @@ class AdminUserAccount_controller extends CI_Controller
             $this->load->view('template/backend/header', $data);
             $this->load->view('template/backend/sidebar', $data);
             $this->load->view('template/backend/topbar', $data);
-            $this->load->view('admin/user_account', $data);
+            $this->load->view('admin/data_pengguna', $data);
             $this->load->view('template/backend/footer');
         } else {
             $this->new_account();
@@ -68,22 +69,21 @@ class AdminUserAccount_controller extends CI_Controller
 
     private function new_account()
     {
-        $id = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyz"), 0, 16);
         $data = [
-            'id_user'       => $id,
             'name'          => $this->input->post('name', true),
-            'nim'           => $this->input->post('nim', true),
             'email'         => $this->input->post('email', true),
             'password'      => password_hash($this->input->post('password', true), PASSWORD_DEFAULT),
             'role_id'       => $this->input->post('role_id', true),
             'is_active'     => $this->input->post('is_active', true),
             'image'         => 'default.svg',
             'date_created'  => time(),
+            'updated_at' => time(),
+            'password_update'  => time(),
         ];
 
         if ($this->user->insert($data)) {
             $this->session->set_flashdata('message_success', 'Berhasil menambahkan akun baru');
-            redirect('admin/user_account');
+            redirect('user-account');
         }
     }
 
@@ -98,11 +98,12 @@ class AdminUserAccount_controller extends CI_Controller
                 'email'         => $this->input->post('email', true),
                 'role_id'       => $this->input->post('role_id', true),
                 'is_active'     => $this->input->post('is_active', true),
+                'update_at'    => time(),
             ];
 
             if ($this->user->update($data, $id)) {
                 $this->session->set_flashdata('message_success', 'Data akun di perbarui');
-                redirect('admin/user_account');
+                redirect('user-account');
             }
         }
     }
@@ -116,7 +117,7 @@ class AdminUserAccount_controller extends CI_Controller
             $delete_user = $this->user->delete($id);
             if ($delete_user) {
                 $this->session->set_flashdata('message_success', 'Data akun dihapus');
-                redirect('admin/user_account');
+                redirect('user-account');
             }
         }
     }

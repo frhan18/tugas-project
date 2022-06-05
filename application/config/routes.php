@@ -63,6 +63,7 @@ $route['app'] = 'auth/admin_page';
 
 $route['dashboard'] = 'admin/AdminDashboard_controller/index';
 $route['dashboard/account-delete/(:any)'] = 'admin/AdminDashboard_controller/hapus_pengguna/$1';
+$route['dashboard/mahasiswa/delete/(:any)'] = 'admin/AdminDashboard_controller/delete_mahasiswa/$1';
 
 $route['setting-profile'] = 'admin/AdminSetting_controller/index';
 $route['setting-profile/update-profile/(:any)'] = 'admin/AdminSetting_controller/setting_akun/$1';
@@ -131,3 +132,4 @@ $route['users/profile/update-profile/(:any)'] = 'users/setting_profile/$1';
 $route['users/profile/update-password/(:any)'] = 'users/setting_password/$1';
 
 $route['users/perkuliahan'] = 'users/jadwal_perkuliahan';
+$route['users/mahasiswa_data/update/(:any)'] = 'users/mahasiswa_data_update/$1';

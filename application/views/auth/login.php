@@ -4,7 +4,7 @@
 
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
 
-            <div class="card o-hidden border-0  my-5">
+            <div class="card o-hidden shadow border-0  my-5">
                 <div class="card-body">
                     <?php if ($this->session->flashdata('message_success')) : ?>
                         <div class="notification-fb">
@@ -27,7 +27,9 @@
                             <div class="content-login">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Mahasiswa Login <i class="fas fa-user"></i></h1>
-                                    <div class="text-small">Silahkan login dengan nim yang sudah terdaftar.</div>
+                                    <div class="text-small">Silahkan login dengan nim yang sudah terdaftar. <br>
+                                        Password <em><q>SIKA22</q></em>
+                                    </div>
                                     <hr class="sidebar-divider">
                                 </div>
                                 <?= form_open('login', 'class="user"'); ?>
