@@ -45,11 +45,8 @@
             </a>
             <div id="data_pengguna" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Data Admin:</h6>
+                    <h6 class="collapse-header">Data pengguna:</h6>
                     <a class="collapse-item" href="<?= base_url('user-account'); ?>"><i class="fas fa-fw fa-users"></i> Data pengguna</a>
-                    <a class="collapse-item" href="<?= base_url('user-account'); ?>"><i class="fas fa-fw fa-user-plus"></i> Tambah pengguna</a>
-                    <a class="collapse-item" href="<?= base_url('user-account'); ?>"><i class="fas fa-fw fa-user"></i> Hapus pengguna</a>
-
                 </div>
             </div>
         </li>
@@ -61,13 +58,13 @@
             <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Data akademik:</h6>
-                    <a class="collapse-item" href="<?= base_url('mahasiswa/list'); ?>"><i class="fas fa-fw fa-user-graduate"></i> Data Mahasiswa</a>
-                    <a class="collapse-item" href="<?= base_url('matakuliah/list'); ?>"><i class="fas fa-fw fa-book-open"></i> Data Matakuliah</a>
-                    <a class="collapse-item" href="<?= base_url('kelas/list'); ?>"><i class="fas fa-fw fa-building"></i> Data Kelas</a>
-                    <a class="collapse-item" href="<?= base_url('krs/list'); ?>"><i class="fas fa-fw fa-pen-alt"></i> Data Krs</a>
-                    <a class="collapse-item" href="<?= base_url('prodi/list'); ?>"><i class="fas fa-fw fa-bookmark"></i> Data Prodi</a>
-                    <a class="collapse-item" href="<?= base_url('perkuliahan/list'); ?>"><i class="fas fa-fw fa-book"></i> Data Perkuliahan</a>
-                    <a class="collapse-item" href="<?= base_url('dosen/list'); ?>"><i class="fas fa-fw fa-user"></i> Data Dosen</a>
+                    <a class="collapse-item" href="<?= base_url('data-mahasiswa'); ?>"><i class="fas fa-fw fa-user-graduate"></i> Data Mahasiswa</a>
+                    <a class="collapse-item" href="<?= base_url('data-matakuliah'); ?>"><i class="fas fa-fw fa-book-open"></i> Data Matakuliah</a>
+                    <a class="collapse-item" href="<?= base_url('data-kelas'); ?>"><i class="fas fa-fw fa-building"></i> Data Kelas</a>
+                    <a class="collapse-item" href="<?= base_url('data-krs'); ?>"><i class="fas fa-fw fa-pen-alt"></i> Data Krs</a>
+                    <a class="collapse-item" href="<?= base_url('data-prodi'); ?>"><i class="fas fa-fw fa-bookmark"></i> Data Prodi</a>
+                    <a class="collapse-item" href="<?= base_url('data-perkuliahan'); ?>"><i class="fas fa-fw fa-book"></i> Data Perkuliahan</a>
+                    <a class="collapse-item" href="<?= base_url('data-dosen'); ?>"><i class="fas fa-fw fa-user"></i> Data Dosen</a>
                 </div>
             </div>
         </li>
@@ -105,13 +102,13 @@
         </div>
 
         <!-- Divider -->
-        <li class="nav-item active">
+        <li class="nav-item <?= ($title === 'Home' ? 'active' : ''); ?>">
             <a class="nav-link" href="<?= base_url('users'); ?>">
                 <i class="fas fa-fw fa-home"></i>
                 <span>Home</span></a>
         </li>
-        <li class="nav-item ">
-            <a class="nav-link" href="<?= base_url('users/profile/' . url_title($get_sesi_user['name'], '-', TRUE)); ?>">
+        <li class="nav-item <?= ($title === 'Profile' ? 'active' : ''); ?> ">
+            <a class="nav-link" href="<?= base_url('profile');  ?>">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Profile</span></a>
         </li>
@@ -120,17 +117,17 @@
         <div class="sidebar-heading">
             Data perkuliahan
         </div>
-        <li class="nav-item ">
-            <a class="nav-link" href="<?= base_url('users/mahasiswa_data'); ?>">
+        <li class="nav-item <?= ($title === 'Data mahasiswa' ? 'active' : ''); ?> ">
+            <a class="nav-link" href="<?= base_url('data-diri'); ?>">
                 <i class="fas fa-fw fa-address-book"></i>
                 <span>Data Diri</span></a>
         </li>
-        <li class="nav-item ">
-            <a class="nav-link" href="<?= base_url('users/jadwal_perkuliahan/' .  url_title($get_sesi_user['name'], '-', TRUE)) . '-' . date('Y'); ?>">
+        <li class="nav-item <?= ($title === 'Jadwal perkuliahan' ? 'active' : ''); ?> ">
+            <a class="nav-link" href="<?= base_url('jadwal-perkuliahan'); ?>">
                 <i class="fas fa-fw fa-calendar-check"></i>
                 <span>Jadwal perkuliahan</span></a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item <?= ($title === 'Data KRS' ? 'active' : ''); ?> ">
             <a class="nav-link" href="<?= base_url('users/krs'); ?>">
                 <i class="fas fa-fw fa-bookmark"></i>
                 <span>Krs</span></a>

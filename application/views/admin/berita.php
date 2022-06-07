@@ -34,15 +34,14 @@
                                 $no = 1;
                                 foreach ($berita as $rows) : ?>
                                     <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $rows['judul_berita']; ?></td>
-                                        <td><?= $rows['penulis']; ?></td>
-                                        <td><?= $rows['is_active'] == 1 ? 'Diterbitkan' : 'Draft'; ?></td>
-                                        <td><?= date('D m Y, H:i:s',  $rows['created_at']); ?></td>
+                                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['judul_berita']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['penulis']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['is_active'] == 1 ? 'Diterbitkan' : 'Draft'; ?></td>
+                                        <td style="vertical-align: middle;"><?= date('d M Y, H:i:s',  $rows['created_at']); ?></td>
                                         <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('post/delete-post/' . htmlentities($rows['id_berita'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                <a href="javascript:void(0)" class="btn btn-warning btn-sm ml-1" data-toggle="modal" data-target="#edit_berita_modal<?= $rows['id_berita']; ?>"><i class="fas fa-edit"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('post/delete-post/' . htmlentities($rows['id_berita'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                                             </div>
                                         </td>
                                     </tr>

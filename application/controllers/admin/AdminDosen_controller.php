@@ -21,6 +21,7 @@ class AdminDosen_controller extends CI_Controller
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
         $data['dosen'] = $this->db->get('tb_dosen')->result_array();
         $data['matakuliah'] = $this->db->get('tb_mata_kuliah')->result_array();
+        $data['count_tb_dosen'] = $this->db->count_all('tb_dosen');
         $config = [
             [
                 'field' => 'id_dosen',
@@ -44,14 +45,6 @@ class AdminDosen_controller extends CI_Controller
             [
                 'field' => 'nama',
                 'label' => 'Nama dosen',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '{field} tidak boleh kosong!',
-                ]
-            ],
-            [
-                'field' => 'email',
-                'label' => 'Email',
                 'rules' => 'required|trim',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong!',
@@ -88,14 +81,12 @@ class AdminDosen_controller extends CI_Controller
             'id_dosen'       => $this->input->post('id_dosen', true),
             'nip'            => $this->input->post('nip', true),
             'nama'           => $this->input->post('nama', true),
-            'email'          => $this->input->post('email', true),
             'jenis_kelamin'  => $this->input->post('jenis_kelamin', true),
-            'status_dosen'   => $this->input->post('status_dosen', true),
         ];
 
         if ($this->db->insert('tb_dosen', $data)) {
             $this->session->set_flashdata('message_success', 'Berhasil menambahkan data dosen');
-            redirect('dosen/list');
+            redirect('data-dosen');
         }
     }
 
@@ -110,15 +101,13 @@ class AdminDosen_controller extends CI_Controller
                 'id_dosen'       => $this->input->post('id_dosen', true),
                 'nip'            => $this->input->post('nip', true),
                 'nama'           => $this->input->post('nama', true),
-                'email'          => $this->input->post('email', true),
                 'jenis_kelamin'  => $this->input->post('jenis_kelamin', true),
-                'status_dosen'   => $this->input->post('status_dosen', true),
             ];
 
 
             if ($this->db->update('tb_dosen', $data, ['id_dosen' => $id])) {
                 $this->session->set_flashdata('message_success', 'Data dosen di perbarui');
-                redirect('dosen/list');
+                redirect('data-dosen');
             }
         }
     }
@@ -132,7 +121,7 @@ class AdminDosen_controller extends CI_Controller
         } else {
             $this->db->delete('tb_dosen', ['id_dosen' => $id]);
             $this->session->set_flashdata('message_success', 'Data dosen dihapus');
-            redirect('dosen/list');
+            redirect('data-dosen');
         }
     }
 }

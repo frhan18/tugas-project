@@ -16,9 +16,10 @@
 
     <div class="box">
         <div class="dosen-info mb-3">
-            <h3 class="h3 mb-2">Data Dosen</h3>
+            <h3 class="h3 mb-2 text-dark">Data Dosen</h3>
+            <p class="text-dark">Halo <?= $get_sesi_user['name']; ?>, Jumlah data prodi saat ini tersedia <strong><?= $count_tb_dosen; ?></strong> data.</p>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
-                <i class="fas fa-plus"></i> Tambah Data Baru
+                <i class="fas fa-plus"></i> Tambah Data Dosen
             </button>
         </div>
 
@@ -34,9 +35,7 @@
                                     <th>Kode dosen</th>
                                     <th>Nip</th>
                                     <th>Nama</th>
-                                    <th>Email</th>
                                     <th>jenis_kelamin</th>
-                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -49,12 +48,10 @@
                                         <td style="vertical-align: middle;"><?= $rows['id_dosen']; ?></td>
                                         <td style="vertical-align: middle;"><?= $rows['nip']; ?></td>
                                         <td style="vertical-align: middle;"><?= $rows['nama']; ?></td>
-                                        <td style="vertical-align: middle;"><?= $rows['email']; ?></td>
                                         <td style="vertical-align: middle;"><?= $rows['jenis_kelamin'] == 'L' ? 'Laki laki' : 'Perempuan'; ?></td>
-                                        <td style="vertical-align: middle;"><?= $rows['status_dosen'] ? 'Aktif' : 'Tidak aktif'; ?></td>
                                         <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('dosen/delete/' . htmlentities($rows['id_dosen'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('data-dosen/delete/' . htmlentities($rows['id_dosen'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning ml-1" data-toggle="modal" data-target="#edit_dosen<?= $rows['id_dosen']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -103,7 +100,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('dosen/add') ?>
+                <?= form_open('data-dosen/add') ?>
                 <div class="form-group row">
                     <label for="id_dosen" class="col-sm-3 col-form-label">Kode Dosen</label>
                     <div class="col-sm-9">
@@ -127,13 +124,6 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="email" class="col-sm-3 col-form-label">Email</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('email')); ?>" name="email" id="email" required>
-                        <div class="invalid-feedback"><?= form_error('email'); ?></div>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="jenis_kelamin" class="col-sm-3 col-form-label"> Jenis kelamin</label>
                     <div class="col-sm-9">
                         <select class="custom-select custom-select <?= form_error('jenis_kelamin') ? 'is-invalid' : ''; ?>" name="jenis_kelamin" id="jenis_kelamin">
@@ -145,18 +135,6 @@
                             <?php endforeach; ?>
                         </select>
                         <div class="invalid-feedback"><?= form_error('jenis_kelamin'); ?></div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="status_dosen" class="col-sm-3 col-form-label"> Status</label>
-                    <div class="col-sm-9">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="1" id="status_dosen" checked>
-                            <label class="form-check-label" for="status_dosen">
-                                Status dosen aktif / tidak ?
-                            </label>
-                        </div>
-                        <div class="invalid-feedback"><?= form_error('status_dosen'); ?></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -184,7 +162,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('dosen/edit/' . htmlentities($dsn['id_dosen'])); ?>
+                    <?= form_open('data-dosen/edit/' . htmlentities($dsn['id_dosen'])); ?>
                     <div class="form-group row">
                         <label for="id_dosen" class="col-sm-3 col-form-label">Kode Dosen</label>
                         <div class="col-sm-9">
@@ -207,13 +185,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-3 col-form-label">Email</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= $dsn['email']; ?>" name="email" id="email" required>
-                            <div class="invalid-feedback"><?= form_error('email'); ?></div>
-                        </div>
-                    </div>
+
                     <div class="form-group row">
                         <label for="jenis_kelamin" class="col-sm-3 col-form-label"> Jenis kelamin</label>
                         <div class="col-sm-9">
@@ -226,18 +198,6 @@
                                 <?php endforeach; ?>
                             </select>
                             <div class="invalid-feedback"><?= form_error('jenis_kelamin'); ?></div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="status_dosen" class="col-sm-3 col-form-label"> Status</label>
-                        <div class="col-sm-9">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="status_dosen" value="1" <?php if ($dsn['status_dosen'] == 1) echo 'checked'; ?> id="status_dosen">
-                                <label class="form-check-label" for="status_dosen">
-                                    Status dosen aktif / tidak ?
-                                </label>
-                            </div>
-                            <div class="invalid-feedback"><?= form_error('status_dosen'); ?></div>
                         </div>
                     </div>
                     <div class="modal-footer">

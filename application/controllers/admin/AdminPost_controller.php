@@ -56,7 +56,7 @@ class AdminPost_controller extends CI_Controller
         ];
 
         if ($this->db->insert('tb_berita', $data)) {
-            $this->session->set_flashdata('berita_berhasil', 'Berita baru berhasil ditambahkan');
+            $this->session->set_flashdata('berita_berhasil', 'Berita baru  ditambahkan');
             redirect('post');
         }
     }
@@ -75,7 +75,7 @@ class AdminPost_controller extends CI_Controller
             ];
 
             if ($this->db->update('tb_berita', $data, ['id_berita' => $id])) {
-                $this->session->set_flashdata('berita_berhasil', 'Berita ' . $rows['judul_berita'] . ' di perbarui.');
+                $this->session->set_flashdata('berita_berhasil', 'Data Berita  diperbarui.');
                 redirect('post');
             }
         }
@@ -88,7 +88,7 @@ class AdminPost_controller extends CI_Controller
             show_404();
         } else {
             $this->db->delete('tb_berita', ['id_berita' => $id]);
-            $this->session->set_flashdata('berita_berhasil', 'Berita ' . $rows['judul_berita'] . ' dihapus.');
+            $this->session->set_flashdata('berita_berhasil', 'Data Berita  dihapus.');
             redirect('post');
         }
     }

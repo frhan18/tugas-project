@@ -27,19 +27,12 @@ class AdminPerkuliahan_controller extends CI_Controller
         $data['kode_nim'] = $this->db->select('tb_mahasiswa.nim')->from('tb_mahasiswa')->get()->result_array();
         $data['kode_kelas'] = $this->db->select('tb_kelas.kode_kelas, tb_kelas.nama_kelas')->from('tb_kelas')->get()->result_array();
         $data['kode_matakuliah'] = $this->db->select('tb_mata_kuliah.id_mata_kuliah, tb_mata_kuliah.nama_mata_kuliah')->from('tb_mata_kuliah')->get()->result_array();
+        $data['count_tb_perkuliahan'] = $this->db->count_all('tb_perkuliahan');
         $config = [
 
             [
                 'field' => 'id_dosen',
                 'label' => 'Kode dosen',
-                'rules' => 'required|trim',
-                'errors' => [
-                    'required' => '{field} tidak boleh kosong',
-                ]
-            ],
-            [
-                'field' => 'nim',
-                'label' => 'Nim',
                 'rules' => 'required|trim',
                 'errors' => [
                     'required' => '{field} tidak boleh kosong',
@@ -106,7 +99,6 @@ class AdminPerkuliahan_controller extends CI_Controller
     {
         $data_perkuliahan = [
             'id_dosen'          => $this->input->post('id_dosen', true),
-            'nim'               => $this->input->post('nim', true),
             'id_mata_kuliah'    => $this->input->post('id_mata_kuliah', true),
             'kode_kelas'        => $this->input->post('kode_kelas', true),
             'waktu_mulai'       => $this->input->post('waktu_mulai', true),
@@ -117,7 +109,7 @@ class AdminPerkuliahan_controller extends CI_Controller
 
         if ($this->db->insert('tb_perkuliahan', $data_perkuliahan)) {
             $this->session->set_flashdata('message_success', 'Data perkuliahan ditambahkan');
-            redirect('perkuliahan/list');
+            redirect('data-perkuliahan');
         }
     }
 
@@ -129,17 +121,16 @@ class AdminPerkuliahan_controller extends CI_Controller
         } else {
             $data_perkuliahan = [
                 'id_dosen'          => $this->input->post('id_dosen', true),
-                'nim'               => $this->input->post('nim', true),
                 'id_mata_kuliah'    => $this->input->post('id_mata_kuliah', true),
                 'kode_kelas'        => $this->input->post('kode_kelas', true),
                 'waktu_mulai'       => $this->input->post('waktu_mulai', true),
-                'waktu_selesai'      => $this->input->post('waktu_selesai', true),
+                'waktu_selesai'     => $this->input->post('waktu_selesai', true),
                 'hari'              => $this->input->post('hari', true),
             ];
 
             if ($this->db->update('tb_perkuliahan', $data_perkuliahan, ['id' => $id])) {
-                $this->session->set_flashdata('message_success', 'Data perkuliahan di perbarui');
-                redirect('perkuliahan/list');
+                $this->session->set_flashdata('message_success', ' Kode ' . $row['id_mata_kuliah'] . ' data perkuliahan diperbarui');
+                redirect('data-perkuliahan');
             }
         }
     }
@@ -151,8 +142,8 @@ class AdminPerkuliahan_controller extends CI_Controller
             show_404();
         } else {
             $this->db->delete('tb_perkuliahan', ['id' => $id]);
-            $this->session->set_flashdata('message_success', 'Data perkuliahan dihapus');
-            redirect('perkuliahan/list');
+            $this->session->set_flashdata('message_success', ' Kode ' . $row['id_mata_kuliah'] . ' data perkuliahan dihapus');
+            redirect('data-perkuliahan');
         }
     }
 }

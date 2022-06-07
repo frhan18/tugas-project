@@ -1,5 +1,4 @@
 <div class="dashboard-container">
-
     <div class="box">
         <div class="text-informasi">
             <div class="row">
@@ -49,8 +48,6 @@
                     </div>
                 </div>
             <?php endif; ?>
-
         </div>
-
     </div>
 </div>

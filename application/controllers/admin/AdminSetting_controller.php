@@ -72,7 +72,7 @@ class AdminSetting_controller extends CI_Controller
             $config['max_size']             = 2048; // 1MB
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('image')) {
-                $data['error'] = $this->upload->display_errors();
+                echo $data['error'] =  $this->upload->display_errors();
             } else {
                 $uploaded_data = $this->upload->data();
             }

@@ -28,8 +28,7 @@ class AdminDashboard_controller extends CI_Controller
         $data['count_all_user'] = $this->db->count_all('user');
 
         $data['berita'] = $this->db->get('tb_berita')->result_array();
-        $data['mahasiswa'] = $this->db->select('*')->from('tb_mahasiswa')->join('tb_prodi', 'tb_prodi.kode_prodi=tb_mahasiswa.kode_prodi')->get()->result_array();
-
+        $data['mahasiswa'] = $this->db->get('tb_mahasiswa')->result_array();
 
 
         $this->load->view('template/backend/header', $data);

@@ -15,9 +15,10 @@
     <!-- Page Heading -->
     <div class="box">
         <div class="krs-info mb-3">
-            <h3 class="h3 mb-2">Data KRS</h3>
+            <h3 class="h3 mb-2 text-dark">Data KRS</h3>
+            <p class="text-dark">Halo <?= $get_sesi_user['name']; ?>, Jumlah data krs saat ini tersedia <strong><?= $count_tb_krs; ?></strong> data.</p>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_krs" aria-pressed="false">
-                <i class="fas fa-plus"></i> Tambah Data Baru
+                <i class="fas fa-plus"></i> Tambah Data KRS
             </button>
         </div>
 
@@ -30,10 +31,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Matakuliah</th>
-                                    <th>Prodi</th>
-                                    <th>Kelas</th>
                                     <th>Nim</th>
+                                    <th>Kode Mk</th>
+                                    <th>Kode Prodi</th>
+                                    <th>Kode Kelas</th>
                                     <th>Sks</th>
                                     <th>Tahun</th>
                                     <th>Semester</th>
@@ -47,17 +48,18 @@
                                 foreach ($krs as $kr) : ?>
                                     <tr>
                                         <td style="vertical-align: middle;"><?= $no++; ?></td>
-                                        <td style="vertical-align: middle;"><?= $kr['nama_mata_kuliah']; ?></td>
-                                        <td style="vertical-align: middle;"><?= $kr['nama_prodi']; ?></td>
-                                        <td style="vertical-align: middle;"><?= $kr['kode_kelas']; ?></td>
                                         <td style="vertical-align: middle;"><?= $kr['nim']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kr['id_mata_kuliah']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kr['kode_prodi']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $kr['kode_kelas']; ?></td>
                                         <td style="vertical-align: middle;"><?= $kr['sks']; ?></td>
                                         <td style="vertical-align: middle;"><?= $kr['tahun']; ?></td>
                                         <td style="vertical-align: middle;"><?= $kr['semester']; ?></td>
                                         <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('krs/delete/' . htmlentities($kr['id'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('data-krs/delete/' . htmlentities($kr['id'])); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning  ml-1" data-toggle="modal" data-target="#modal_edit_krs<?= $kr['id']; ?>"><i class="fas fa-edit"></i></a>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -107,7 +109,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('krs/add') ?>
+                <?= form_open('data-krs/add') ?>
                 <div class="form-group row">
                     <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Matakuliah</label>
                     <div class="col-sm-9">
@@ -142,18 +144,6 @@
                             <?php endforeach; ?>
                         </select>
                         <div class="invalid-feedback"><?= form_error('kode_kelas'); ?></div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="nim" class="col-sm-3 col-form-label">Nim</label>
-                    <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('nim') ? 'is-invalid' : ''; ?>" name="nim" id="nim">
-                            <option selected disabled value="">Pilih Nim</option>
-                            <?php foreach ($mahasiswa as $mhs) : ?>
-                                <option value="<?= $mhs['nim']; ?>"><?= $mhs['nim']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="invalid-feedback"><?= form_error('nim'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -208,7 +198,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('krs/edit/' . htmlentities($rows['id'])) ?>
+                    <?= form_open('data-krs/edit/' . htmlentities($rows['id'])) ?>
                     <div class="form-group row">
                         <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Matakuliah</label>
                         <div class="col-sm-9">
@@ -243,18 +233,6 @@
                                 <?php endforeach; ?>
                             </select>
                             <div class="invalid-feedback"><?= form_error('kode_kelas'); ?></div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="nim" class="col-sm-3 col-form-label">Nim</label>
-                        <div class="col-sm-9">
-                            <select class="custom-select custom-select <?= form_error('nim') ? 'is-invalid' : ''; ?>" name="nim" id="nim" required>
-                                <option selected disabled value="">Pilih Nim</option>
-                                <?php foreach ($mahasiswa as $mhs) : ?>
-                                    <option value="<?= $mhs['nim']; ?>" <?php if ($rows['nim'] == $mhs['nim']) echo 'selected'; ?>><?= $mhs['nim']; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="invalid-feedback"><?= form_error('nim'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">

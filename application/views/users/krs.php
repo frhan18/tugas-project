@@ -3,11 +3,9 @@
         <h3 class="h3 text-dark">Kartu Rencana Studi <strong>(KRS)</strong></h3>
 
         <?php if (count($krs) <= 0) : ?>
-            <div class="text-center pt-3 mt-3">Jadwal KRS kamu belum tayang.&#128522</div>
+            <div class="text-center pt-3 mt-3">Data KRS kamu belum tersedia.&#128522</div>
         <?php else : ?>
             <p>Halo, <?= $get_sesi_user['name']; ?> Kartu Rencana Studi kamu sudah tersedia.</p>
-
-
             <hr class="sidebar-divider">
 
             <div class="list-krs pt-3">
@@ -28,9 +26,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($krs as $k) : ?>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($krs as $k) : ?>
                                         <tr>
-                                            <th scope="row" style="vertical-align: middle ;">1</th>
+                                            <th scope="row" style="vertical-align: middle ;"><?= $no++; ?></th>
                                             <td style="vertical-align: middle ;"><?= $k['id_mata_kuliah']; ?></td>
                                             <td style="vertical-align: middle ;"><?= $k['nama_mata_kuliah']; ?></td>
                                             <td style="vertical-align: middle ;"><?= $k['kode_kelas']; ?></td>

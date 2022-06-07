@@ -79,57 +79,61 @@ $route['user-account/add'] = 'admin/AdminUserAccount_controller/index';
 $route['user-account/edit/(:any)'] = 'admin/AdminUserAccount_controller/update_account/$1';
 $route['user-account/delete/(:any)'] = 'admin/AdminUserAccount_controller/delete_account/$1';
 
-$route['mahasiswa/list'] = 'admin/AdminMahasiswa_controller/index';
-$route['mahasiswa/add'] = 'admin/AdminMahasiswa_controller/index';
-$route['mahasiswa/edit/(:any)'] = 'admin/AdminMahasiswa_controller/update_mahasiswa/$1';
-$route['mahasiswa/delete/(:any)'] = 'admin/AdminMahasiswa_controller/delete_mahasiswa/$1';
+$route['data-mahasiswa'] = 'admin/AdminMahasiswa_controller/index';
+$route['data-mahasiswa/add'] = 'admin/AdminMahasiswa_controller/index';
+$route['data-mahasiswa/edit/(:any)'] = 'admin/AdminMahasiswa_controller/update_mahasiswa/$1';
+$route['data-mahasiswa/delete/(:any)'] = 'admin/AdminMahasiswa_controller/delete_mahasiswa/$1';
 
 
-$route['dosen/list'] = 'admin/AdminDosen_controller/index';
-$route['dosen/add'] = 'admin/AdminDosen_controller/index';
-$route['dosen/edit/(:any)'] = 'admin/AdminDosen_controller/update_dosen/$1';
-$route['dosen/delete/(:any)'] = 'admin/AdminDosen_controller/delete_dosen/$1';
-
-
-
-$route['matakuliah/list'] = 'admin/AdminMatakuliah_controller/index';
-$route['matakuliah/add'] = 'admin/AdminMatakuliah_controller/index';
-$route['matakuliah/edit/(:any)'] = 'admin/AdminMatakuliah_controller/update_matakuliah/$1';
-$route['matakuliah/delete/(:any)'] = 'admin/AdminMatakuliah_controller/delete_matakuliah/$1';
-
-
-$route['kelas/list'] = 'admin/AdminKelas_controller/index';
-$route['kelas/add'] = 'admin/AdminKelas_controller/index';
-$route['kelas/edit/(:any)'] = 'admin/AdminKelas_controller/update_kelas/$1';
-$route['kelas/delete/(:any)'] = 'admin/AdminKelas_controller/delete_kelas/$1';
-
-
-$route['krs/list'] = 'admin/AdminKrs_controller/index';
-$route['krs/add'] = 'admin/AdminKrs_controller/index';
-$route['krs/edit/(:any)'] = 'admin/AdminKrs_controller/update_krs/$1';
-$route['krs/delete/(:any)'] = 'admin/AdminKrs_controller/delete_krs/$1';
+$route['data-dosen'] = 'admin/AdminDosen_controller/index';
+$route['data-dosen/add'] = 'admin/AdminDosen_controller/index';
+$route['data-dosen/edit/(:any)'] = 'admin/AdminDosen_controller/update_dosen/$1';
+$route['data-dosen/delete/(:any)'] = 'admin/AdminDosen_controller/delete_dosen/$1';
 
 
 
-$route['prodi/list'] = 'admin/AdminProdi_controller/index';
-$route['prodi/add'] = 'admin/AdminProdi_controller/index';
-$route['prodi/edit/(:any)'] = 'admin/AdminProdi_controller/update_prodi/$1';
-$route['prodi/delete/(:any)'] = 'admin/AdminProdi_controller/delete_prodi/$1';
+$route['data-matakuliah'] = 'admin/AdminMatakuliah_controller/index';
+$route['data-matakuliah/add'] = 'admin/AdminMatakuliah_controller/index';
+$route['data-matakuliah/edit/(:any)'] = 'admin/AdminMatakuliah_controller/update_matakuliah/$1';
+$route['data-matakuliah/delete/(:any)'] = 'admin/AdminMatakuliah_controller/delete_matakuliah/$1';
+
+
+$route['data-kelas'] = 'admin/AdminKelas_controller/index';
+$route['data-kelas/add'] = 'admin/AdminKelas_controller/index';
+$route['data-kelas/edit/(:any)'] = 'admin/AdminKelas_controller/update_kelas/$1';
+$route['data-kelas/delete/(:any)'] = 'admin/AdminKelas_controller/delete_kelas/$1';
+$route['data-kelas/show/(:any)'] = 'admin/AdminKelas_controller/detail_kelas/$1';
+
+
+$route['data-krs'] = 'admin/AdminKrs_controller/index';
+$route['data-krs/add'] = 'admin/AdminKrs_controller/index';
+$route['data-krs/edit/(:any)'] = 'admin/AdminKrs_controller/update_krs/$1';
+$route['data-krs/delete/(:any)'] = 'admin/AdminKrs_controller/delete_krs/$1';
 
 
 
-$route['perkuliahan/list'] = 'admin/AdminPerkuliahan_controller/index';
-$route['perkuliahan/add'] = 'admin/AdminPerkuliahan_controller/index';
-$route['perkuliahan/edit/(:any)'] = 'admin/AdminPerkuliahan_controller/update_perkuliahan/$1';
-$route['perkuliahan/delete/(:any)'] = 'admin/AdminPerkuliahan_controller/delete_perkuliahan/$1';
+$route['data-prodi'] = 'admin/AdminProdi_controller/index';
+$route['data-prodi/add'] = 'admin/AdminProdi_controller/index';
+$route['data-prodi/edit/(:any)'] = 'admin/AdminProdi_controller/update_prodi/$1';
+$route['data-prodi/delete/(:any)'] = 'admin/AdminProdi_controller/delete_prodi/$1';
+
+
+
+$route['data-perkuliahan'] = 'admin/AdminPerkuliahan_controller/index';
+$route['data-perkuliahan/add'] = 'admin/AdminPerkuliahan_controller/index';
+$route['data-perkuliahan/edit/(:any)'] = 'admin/AdminPerkuliahan_controller/edit_perkuliahan/$1';
+$route['data-perkuliahan/delete/(:any)'] = 'admin/AdminPerkuliahan_controller/delete_perkuliahan/$1';
 
 
 
 
 
 // users
-$route['users/profile/update-profile/(:any)'] = 'users/setting_profile/$1';
-$route['users/profile/update-password/(:any)'] = 'users/setting_password/$1';
 
-$route['users/perkuliahan'] = 'users/jadwal_perkuliahan';
-$route['users/mahasiswa_data/update/(:any)'] = 'users/mahasiswa_data_update/$1';
+$route['profile'] = 'users/profile';
+$route['profile/update/(:any)'] = 'users/profile/setting_profile/$1';
+$route['profile/change-password/(:any)'] = 'users/setting_password/$1';
+
+$route['data-diri'] =  'users/mahasiswa_data';
+$route['data-diri/update/(:any)'] =  'users/mahasiswa_data_update/$1';
+$route['jadwal-perkuliahan'] = 'users/jadwal_perkuliahan';

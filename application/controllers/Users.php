@@ -39,7 +39,7 @@ class Users extends CI_Controller
             ->join('tb_kelas', 'tb_kelas.kode_kelas=tb_krs.kode_kelas')
             ->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_krs.id_mata_kuliah')
             ->join('tb_prodi', 'tb_prodi.kode_prodi=tb_krs.kode_prodi')
-            ->where('tb_krs.nim', $data['user']['nim'])
+            ->where('tb_krs.kode_kelas', $data['user']['kode_kelas'])
             ->order_by('tb_mata_kuliah.nama_mata_kuliah', 'ASC')
             ->get()->result_array();
 
@@ -61,8 +61,8 @@ class Users extends CI_Controller
         // $data['perkuliahan'] = $this->db->select('*, tb_mahasiswa.nim')->from('tb_mahasiswa')->join('tb_perkuliahan', 'tb_perkuliahan.nim=tb_mahasiswa.nim')->get()->result_array();
         // $data['user'] = $this->db->select('*')->from('user')->join('tb_mahasiswa', 'tb_mahasiswa.id_user=user.id_user')->get()->row_array();
         $data['user'] = $this->db->get_where('tb_mahasiswa', ['id_user' => $data['get_sesi_user']['id_user']])->row_array();
-        $data['perkuliahan'] = $this->db->select('*, tb_mahasiswa.nim, tb_dosen.nama')->from('tb_perkuliahan')->join('tb_mahasiswa', 'tb_mahasiswa.nim=tb_perkuliahan.nim')->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_perkuliahan.id_mata_kuliah')->join('tb_dosen', 'tb_dosen.id_dosen=tb_perkuliahan.id_dosen')->where('tb_perkuliahan.nim', $data['user']['nim'])->get()->result_array();
-
+        // $data['perkuliahan'] = $this->db->select('*, tb_mahasiswa.nim, tb_dosen.nama')->from('tb_perkuliahan')->join('tb_mahasiswa', 'tb_mahasiswa.nim=tb_perkuliahan.nim')->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_perkuliahan.id_mata_kuliah')->join('tb_dosen', 'tb_dosen.id_dosen=tb_perkuliahan.id_dosen')->where('tb_perkuliahan.kode_kelas', $data['user']['kode_kelas'])->get()->result_array();
+        $data['perkuliahan'] = $this->db->select('*,tb_dosen.nama')->from('tb_perkuliahan')->join('tb_mata_kuliah', 'tb_mata_kuliah.id_mata_kuliah=tb_perkuliahan.id_mata_kuliah')->join('tb_dosen', 'tb_dosen.id_dosen=tb_perkuliahan.id_dosen')->where('tb_perkuliahan.kode_kelas', $data['user']['kode_kelas'])->get()->result_array();
 
         $this->load->view('template/backend/header', $data);
         $this->load->view('template/backend/sidebar', $data);
@@ -105,7 +105,7 @@ class Users extends CI_Controller
 
             if ($this->db->update('tb_mahasiswa', $data, ['id_user' => $id])) {
                 $this->session->set_flashdata('message_success', 'Data kamu di perbarui.');
-                redirect('users/mahasiswa_data');
+                redirect('data-diri');
             }
         }
     }
@@ -114,6 +114,7 @@ class Users extends CI_Controller
     {
         $data['title'] = 'Profile';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
+
         $this->load->view('template/backend/header', $data);
         $this->load->view('template/backend/sidebar', $data);
         $this->load->view('template/backend/topbar', $data);

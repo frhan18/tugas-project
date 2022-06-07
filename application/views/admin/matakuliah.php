@@ -16,9 +16,10 @@
 
     <div class="box">
         <div class="matakuliah-info mb-3">
-            <h3 class="h3 mb-2">Data Matakuliah</h3>
+            <h3 class="h3 mb-2 text-dark">Data Matakuliah</h3>
+            <p class="text-dark">Halo <?= $get_sesi_user['name']; ?>, Jumlah data matakuliah saat ini tersedia <strong><?= $count_tb_matakuliah; ?></strong> data.</p>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_matakuliah" aria-pressed="false">
-                <i class="fas fa-plus"></i> Tambah Data Baru
+                <i class="fas fa-plus"></i> Tambah Data Matakuliah
             </button>
         </div>
 
@@ -47,7 +48,7 @@
                                         <td style="vertical-align: middle;"><?= $rows['nama_mata_kuliah']; ?></td>
                                         <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('matakuliah/delete/' . $rows['id_mata_kuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('data-matakuliah/delete/' . $rows['id_mata_kuliah']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning  ml-1" data-toggle="modal" data-target="#modal_matakuliah_edit<?= $rows['id_mata_kuliah']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -96,7 +97,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('matakuliah/add') ?>
+                <?= form_open('data-matakuliah/add') ?>
                 <div class="form-group row">
                     <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Kode matakuliah</label>
                     <div class="col-sm-9">
@@ -137,7 +138,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('matakuliah/edit/' . htmlentities($mk['id_mata_kuliah'])) ?>
+                    <?= form_open('data-matakuliah/edit/' . htmlentities($mk['id_mata_kuliah'])) ?>
                     <div class="form-group row">
                         <label for="id_mata_kuliah" class="col-sm-3 col-form-label">Kode matakuliah</label>
                         <div class="col-sm-9">

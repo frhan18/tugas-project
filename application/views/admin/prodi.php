@@ -15,9 +15,10 @@
     <!-- Page Heading -->
     <div class="box">
         <div class="prodi-info mb-3">
-            <h3 class="h3 mb-2">Data Prodi</h3>
+            <h3 class="h3 mb-2 text-dark">Data Prodi</h3>
+            <p class="text-dark">Halo <?= $get_sesi_user['name']; ?>, Jumlah data prodi saat ini tersedia <strong><?= $count_tb_prodi; ?></strong> data.</p>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_prodi_add" aria-pressed="false">
-                <i class="fas fa-plus"></i> Tambah Data Baru
+                <i class="fas fa-plus"></i> Tambah Data Prodi
             </button>
         </div>
 
@@ -47,7 +48,7 @@
                                         <td style="vertical-align: middle;"><?= $rows['nama_prodi']; ?></td>
                                         <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('prodi/delete/' . $rows['kode_prodi']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('data-prodi/delete/' . $rows['kode_prodi']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
                                                 <a href="javascript:void(0)" class="btn btn-warning  ml-1" data-toggle="modal" data-target="#modal_prodi_edit<?= $rows['kode_prodi']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
@@ -97,7 +98,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('prodi/add') ?>
+                <?= form_open('data-prodi/add') ?>
                 <div class="form-group row">
                     <label for="kode_prodi" class="col-sm-3 col-form-label">Kode prodi</label>
                     <div class="col-sm-9">
@@ -138,7 +139,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('prodi/edit/' . $rows['kode_prodi']) ?>
+                    <?= form_open('data-prodi/edit/' . $rows['kode_prodi']) ?>
                     <div class="form-group row">
                         <label for="kode_prodi" class="col-sm-3 col-form-label">Kode prodi</label>
                         <div class="col-sm-9">

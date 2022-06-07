@@ -16,9 +16,10 @@
 
     <div class="box">
         <div class="mahasiswa-info mb-3">
-            <h3>Data Mahasiswa</h3>
+            <h3 class="text-dark">Data Mahasiswa</h3>
+            <p class="text-dark">Halo <?= $get_sesi_user['name']; ?>, Jumlah data mahasiswa saat ini tersedia <strong><?= $count_tb_mahasiswa; ?></strong> data.</p>
             <button type="button" class="btn btn-dark " data-toggle="modal" data-target="#modal_tambah" aria-pressed="false">
-                <i class="fas fa-plus"></i> Tambah Data Baru
+                <i class="fas fa-plus"></i> Tambah Data Mahasiswa
             </button>
         </div>
         <hr class="sidebar-divider">
@@ -34,7 +35,7 @@
                                     <th>Nim</th>
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Status</th>
+                                    <th>Tahun Masuk</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -46,24 +47,14 @@
                                     <tr>
                                         <td style="vertical-align: middle;"><?= $no++; ?></td>
                                         <td style="vertical-align: middle;"><?= $rows['nim']; ?></td>
-                                        <td style="vertical-align: middle;"><?= $rows['nama']; ?></td>
+                                        <td style="vertical-align: middle;" class="text-capitalize"><?= $rows['nama']; ?></td>
                                         <td style="vertical-align: middle;"><?= $rows['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan'; ?></td>
-                                        <td style="vertical-align: middle;">
-                                            <?php if ($rows['status_mhs'] == 1) : ?>
-                                                Aktif
-                                            <?php elseif ($rows['status_mhs'] == 2) : ?>
-                                                Cuti
-                                            <?php elseif ($rows['status_mhs'] == 0) : ?>
-                                                Tidak Aktif
-                                            <?php else : ?>
-                                                Lulus
-                                            <?php endif; ?>
+                                        <td style="vertical-align: middle;"><?= $rows['tahun_masuk']; ?></td>
 
-                                        </td>
                                         <td style="vertical-align: middle;">
                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                                                <a href="javascript:void(0)" class="btn btn-warning ml-1" data-toggle="modal" data-target="#modal_edit<?= $rows['nim']; ?>"><i class="fas fa-edit"></i></a>
+                                                <a href="javascript:void(0)" data-delete-url="<?= site_url('data-mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                <a href="javascript:void(0)" class="btn btn-warning ml-1" data-toggle="modal" data-target="#modal_edit_mhs<?= $rows['nim']; ?>"><i class="fas fa-edit"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -113,18 +104,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('mahasiswa/add') ?>
+                <?= form_open('data-mahasiswa/add') ?>
                 <div class="form-group row">
                     <label for="nim" class="col-sm-3 col-form-label">Nim</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nim')); ?>" name="nim" id="nim" required>
+                        <input type="number" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nim') ? set_value('nim') : '15200'); ?>" name="nim" id="nim" required>
                         <div class="invalid-feedback"><?= form_error('nim'); ?></div>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="nama" class="col-sm-3 col-form-label">Nama mahasiswa</label>
+                    <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nama')); ?>" name="nama" id="nama">
+                        <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('nama')); ?>" name="nama" id="nama" required>
                         <div class="invalid-feedback"><?= form_error('nama'); ?></div>
                     </div>
                 </div>
@@ -132,7 +123,7 @@
                 <div class="form-group row">
                     <label for="tempat_tanggal_lahir" class="col-sm-3 col-form-label">Tempat tgl lahir</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('tempat_tanggal_lahir') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('tempat_tanggal_lahir')); ?>" name="tempat_tanggal_lahir" id="tempat_tanggal_lahir">
+                        <input type="text" class="form-control <?= form_error('tempat_tanggal_lahir') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('tempat_tanggal_lahir')); ?>" name="tempat_tanggal_lahir" id="tempat_tanggal_lahir" required>
                         <div class="invalid-feedback"><?= form_error('tempat_tanggal_lahir'); ?></div>
                     </div>
                 </div>
@@ -140,7 +131,7 @@
                 <div class="form-group row">
                     <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control <?= form_error('alamat') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('alamat')); ?>" name="alamat" id="alamat">
+                        <input type="text" class="form-control <?= form_error('alamat') ? 'is-invalid' : ''; ?>" value="<?= htmlentities(set_value('alamat')); ?>" name="alamat" id="alamat" required>
                         <div class="invalid-feedback"><?= form_error('alamat'); ?></div>
                     </div>
                 </div>
@@ -148,8 +139,8 @@
                 <div class="form-group row">
                     <label for="jenis_kelamin" class="col-sm-3 col-form-label">Jenis kelamin</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select <?= form_error('jenis_kelamin') ? 'is-invalid' : ''; ?>" name="jenis_kelamin" id="jenis_kelamin">
-                            <option selected disabled>Pilih jenis kelamin</option>
+                        <select class="custom-select custom-select <?= form_error('jenis_kelamin') ? 'is-invalid' : ''; ?>" name="jenis_kelamin" id="jenis_kelamin" required>
+                            <option selected disabled value="">Pilih jenis kelamin</option>
                             <?php
                             $jenis_kelamin = [['key' => 'L', 'value' => 'Laki-laki'], ['key' => 'P', 'value' => 'Perempuan']];
                             foreach ($jenis_kelamin as $rows) : ?>
@@ -160,24 +151,10 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="kode_prodi" class="col-sm-3 col-form-label">Prodi</label>
-                    <div class="col-sm-9">
-                        <select class="custom-select custom-select  <?= form_error('kode_prodi') ? 'is-invalid' : ''; ?>" name="kode_prodi" id="kode_prodi">
-                            <option selected disabled>Pilih prodi</option>
-                            <?php
-
-                            foreach ($prodi as $p) : ?>
-                                <option value="<?= $p['kode_prodi']; ?>"><?= $p['nama_prodi']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="invalid-feedback"><?= form_error('kode_prodi'); ?></div>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="agama" class="col-sm-3 col-form-label">Agama</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="agama" id="agama">
-                            <option selected disabled>Pilih agama</option>
+                        <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="agama" id="agama" required>
+                            <option selected disabled value="">Pilih agama</option>
                             <?php
                             $agama = ['Islam', 'Kristen', 'Konghucu'];
                             foreach ($agama as $ag) : ?>
@@ -190,10 +167,10 @@
                 <div class="form-group row">
                     <label for="tahun_masuk" class="col-sm-3 col-form-label">Tahun masuk</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="tahun_masuk" id="tahun_masyk">
-                            <option selected disabled>Pilih tahun</option>
+                        <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="tahun_masuk" id="tahun_masuk" required>
+                            <option selected disabled value="">Pilih tahun</option>
                             <?php
-                            $tahun_masuk = ['2015', '2016', '2017', '2018', '2018', '2019', '2020', '2021', '2022'];
+                            $tahun_masuk = ['2017', '2018', '2018', '2019', '2020', '2021', '2022'];
                             foreach ($tahun_masuk as $th) : ?>
                                 <option value="<?= $th; ?>"><?= $th; ?></option>
                             <?php endforeach; ?>
@@ -202,31 +179,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="status_mhs" class="col-sm-3 col-form-label">Status </label>
+                    <label for="kode_kelas" class="col-sm-3 col-form-label">Kode kelas</label>
                     <div class="col-sm-9">
-                        <select class="custom-select custom-select  <?= form_error('status_mhs') ? 'is-invalid' : ''; ?>" name="status_mhs" id="status_mhs">
-                            <option disabled selected>Pilih status</option>
-
+                        <select class="custom-select custom-select  <?= form_error('kode_kelas') ? 'is-invalid' : ''; ?>" name="kode_kelas" id="kode_kelas" required>
+                            <option selected disabled value="">Pilih kode kelas</option>
                             <?php
-                            $status_mhs = [
-                                [
-                                    'key' => 1,  'value' => 'Aktif',
-                                ],
-                                [
-                                    'key' => 2,  'value' => 'Cuti',
-                                ],
-                                [
-                                    'key' => 0,  'value' => 'Tidak aktif',
-                                ],
-                                [
-                                    'key' => 3,  'value' => 'Lulus',
-                                ],
-                            ];
-                            foreach ($status_mhs as $rows) : ?>
-                                <option value="<?= $rows['key']; ?>"><?= $rows['value']; ?></option>
+                            foreach ($kelas as $ks) : ?>
+                                <option value="<?= $ks['kode_kelas']; ?>"><?= $ks['kode_kelas']; ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <div class="invalid-feedback"><?= form_error('status_mhs'); ?></div>
+                        <div class="invalid-feedback"><?= form_error('kode_kelas'); ?></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -242,29 +204,29 @@
 </div>
 
 
-<?php foreach ($mahasiswa as $rows) : ?>
-    <div class="modal fade" id="modal_edit<?= $rows['nim']; ?>" tabindex="-1" aria-labelledby="modal_editLabel" aria-hidden="true">
+<?php foreach ($mahasiswa as $mhs) : ?>
+    <div class="modal fade" id="modal_edit_mhs<?= $mhs['nim']; ?>" tabindex="-1" aria-labelledby="modal_edit_mhsLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal_editLabel">Edit Data <b> Mahasiswa</b></h5>
+                <div class="modal-header ">
+                    <h5 class="modal-title " id="modal_edit_mhsLabel">Edit Data <b> Mahasiswa</b></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('mahasiswa/edit/' . $rows['nim']) ?>
+                    <?= form_open('data-mahasiswa/edit/' . htmlentities($mhs['nim'])) ?>
                     <div class="form-group row">
                         <label for="nim" class="col-sm-3 col-form-label">Nim</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['nim']); ?>" name="nim" id="nim">
+                            <input type="number" class="form-control <?= form_error('nim') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($mhs['nim']) ?>" name="nim" id="nim" required>
                             <div class="invalid-feedback"><?= form_error('nim'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="nama" class="col-sm-3 col-form-label">Nama mahasiswa</label>
+                        <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['nama']); ?>" name="nama" id="nama">
+                            <input type="text" class="form-control <?= form_error('nama') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($mhs['nama']) ?>" name="nama" id="nama">
                             <div class="invalid-feedback"><?= form_error('nama'); ?></div>
                         </div>
                     </div>
@@ -272,7 +234,7 @@
                     <div class="form-group row">
                         <label for="tempat_tanggal_lahir" class="col-sm-3 col-form-label">Tempat tgl lahir</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('tempat_tanggal_lahir') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['tempat_tanggal_lahir']); ?>" name="tempat_tanggal_lahir" id="tempat_tanggal_lahir">
+                            <input type="text" class="form-control <?= form_error('tempat_tanggal_lahir') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($mhs['tempat_tanggal_lahir']) ?>" name="tempat_tanggal_lahir" id="tempat_tanggal_lahir">
                             <div class="invalid-feedback"><?= form_error('tempat_tanggal_lahir'); ?></div>
                         </div>
                     </div>
@@ -280,7 +242,7 @@
                     <div class="form-group row">
                         <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control <?= form_error('alamat') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($rows['alamat']); ?>" name="alamat" id="alamat">
+                            <input type="text" class="form-control <?= form_error('alamat') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($mhs['alamat']) ?>" name="alamat" id="alamat">
                             <div class="invalid-feedback"><?= form_error('alamat'); ?></div>
                         </div>
                     </div>
@@ -293,13 +255,12 @@
                                 <?php
                                 $jenis_kelamin = [['key' => 'L', 'value' => 'Laki-laki'], ['key' => 'P', 'value' => 'Perempuan']];
                                 foreach ($jenis_kelamin as $jk) : ?>
-                                    <option value="<?= $jk['key']; ?>" <?php if ($rows['jenis_kelamin'] == $jk['key']) echo 'selected'; ?>><?= $jk['value']; ?></option>
+                                    <option value="<?= $jk['key']; ?>" <?php if ($mhs['jenis_kelamin'] == $jk['key']) echo 'selected'; ?>><?= $jk['value']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <div class="invalid-feedback"><?= form_error('jenis_kelamin'); ?></div>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <label for="agama" class="col-sm-3 col-form-label">Agama</label>
                         <div class="col-sm-9">
@@ -308,7 +269,7 @@
                                 <?php
                                 $agama = ['Islam', 'Kristen', 'Konghucu'];
                                 foreach ($agama as $ag) : ?>
-                                    <option value="<?= $ag; ?> " <?php if ($rows['agama'] == $ag) echo 'selected'; ?>><?= $ag; ?></option>
+                                    <option value="<?= $ag; ?>" <?php if ($mhs['agama'] == $ag) echo 'selected'; ?>><?= $ag; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <div class="invalid-feedback"><?= form_error('agama'); ?></div>
@@ -317,48 +278,33 @@
                     <div class="form-group row">
                         <label for="tahun_masuk" class="col-sm-3 col-form-label">Tahun masuk</label>
                         <div class="col-sm-9">
-                            <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="tahun_masuk" id="tahun_masyk">
+                            <select class="custom-select custom-select  <?= form_error('agama') ? 'is-invalid' : ''; ?>" name="tahun_masuk" id="tahun_masuk">
                                 <option selected disabled>Pilih tahun</option>
                                 <?php
-                                $tahun_masuk = ['2015', '2016', '2017', '2018', '2018', '2019', '2020', '2021', '2022'];
+                                $tahun_masuk = ['2017', '2018', '2018', '2019', '2020', '2021', '2022'];
                                 foreach ($tahun_masuk as $th) : ?>
-                                    <option value="<?= $th; ?>" <?php if ($rows['tahun_masuk'] == $th) echo 'selected'; ?>><?= $th; ?></option>
+                                    <option value="<?= $th; ?>" <?php if ($mhs['tahun_masuk'] == $th) echo 'selected'; ?>><?= $th; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <div class="invalid-feedback"><?= form_error('tahun_masuk'); ?></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="status_mhs" class="col-sm-3 col-form-label">Status </label>
+                        <label for="kode_kelas" class="col-sm-3 col-form-label">Kode kelas</label>
                         <div class="col-sm-9">
-                            <select class="custom-select custom-select  <?= form_error('status_mhs') ? 'is-invalid' : ''; ?>" name="status_mhs" id="status_mhs">
-                                <option disabled selected>Pilih status</option>
+                            <select class="custom-select custom-select  <?= form_error('kode_kelas') ? 'is-invalid' : ''; ?>" name="kode_kelas" id="kode_kelas" required>
+                                <option selected disabled value="">Pilih kode kelas</option>
                                 <?php
-                                $status_mhs = [
-                                    [
-                                        'key' => 1,  'value' => 'Aktif',
-                                    ],
-                                    [
-                                        'key' => 2,  'value' => 'Cuti',
-                                    ],
-                                    [
-                                        'key' => 0,  'value' => 'Tidak aktif',
-                                    ],
-                                    [
-                                        'key' => 3,  'value' => 'Lulus',
-                                    ],
-                                ];
-                                foreach ($status_mhs as $st) : ?>
-                                    <option value="<?= $st['key']; ?>" <?php if ($rows['status_mhs'] == $st['key']) echo 'selected'; ?>><?= $st['value']; ?></option>
+                                foreach ($kelas as $ks) : ?>
+                                    <option value="<?= $ks['kode_kelas']; ?>" <?php if ($mhs['kode_kelas'] == $ks['kode_kelas']) echo 'selected'; ?>><?= $ks['kode_kelas']; ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <div class="invalid-feedback"><?= form_error('status_mhs'); ?></div>
+                            <div class="invalid-feedback"><?= form_error('kode_kelas'); ?></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-dark"><i class="fas fa-save"></i> Update </button>
                     </div>
-
 
                     <?= form_close(); ?>
 

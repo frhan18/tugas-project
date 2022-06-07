@@ -3,7 +3,8 @@
 
     <div class="box">
         <div class="dashboard-text ">
-            <h1 class="h3 mb-4 text-dark">Selamat Datang , <?= isset($get_sesi_user['name']) ? $get_sesi_user['name'] : 'Users'; ?></h1>
+            <h1 class="h3 mb-4 text-dark">Halo , <?= isset($get_sesi_user['name']) ? $get_sesi_user['name'] : 'Users'; ?></h1>
+            <p class="text-dark">Selamat datang di sistem informasi akademik kampus kita / SIKA.</p>
         </div>
         <hr class="divider-sidebar">
 
@@ -80,72 +81,56 @@
     </div>
 
     <div class="box">
+        <div class="row">
+            <div class="col p-3">
 
-        <div class="account-container p-3">
-            <div class="row">
-                <div class="col">
+                <div class="info">
+                    <h3 class="text-dark">Mahasiswa Yang Terdaftar</h3>
+                </div>
 
-                    <div class="row justify-content-arround">
-                        <div class="col-lg-8 col-md-6">
-                            <h5 class="mb-4 text-dark">Mahasiswa terdaftar </b></h5>
-                            <p class="info" style="margin-top: -15px;">Jumlah mahasiswa : <?= $count_all_mahasiswa; ?></p>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <form action="" method="GET">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Cari mahasiswa" name="pengguna">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <hr class="sidebar-divider">
 
 
-                    <div class="list-account">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="thead-dark">
+                <div class="list-data">
+                    <div class="table-responsive">
+                        <table class="table table-stripped" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama</th>
+                                    <th>Nim</th>
+                                    <th>Email</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Tahun Masuk</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <?php $no = 1;
+                                foreach ($mahasiswa as $rows) : ?>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Nim</th>
-                                        <th scope="col">Prodi</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col"><i class="fas fa-cogs"></i></th>
+                                        <td style="vertical-align: middle;"><?= $no++; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['nama']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['nim']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['email']; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['jenis_kelamin'] == 'L' ? 'Laki-laki' : 'Perempuan'; ?></td>
+                                        <td style="vertical-align: middle;"><?= $rows['tahun_masuk']; ?></td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 1;
-                                    foreach ($mahasiswa as $rows) : ?>
 
-                                        <tr>
-                                            <th scope="row" style="vertical-align: middle;"><?= $no++; ?></th>
-                                            <td style="vertical-align: middle;"><?= $rows['nama']; ?></td>
-                                            <td style="vertical-align: middle;"><?= $rows['nim']; ?></td>
-                                            <td style="vertical-align: middle;"><?= $rows['nama_prodi']; ?></td>
-                                            <td style="vertical-align: middle;">
-                                                <?= $rows['status_mhs'] ? 'Aktif' : 'Tidak aktif'; ?>
-                                            </td>
-                                            <td style="vertical-align: middle;">
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a href="javascript:void(0)" data-delete-url="<?= base_url('dashboard/mahasiswa/delete/' . $rows['nim']); ?>" onclick="deleteConfirm(this)" class="btn btn-danger "><i class="fas fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                <?php endforeach; ?>
 
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+
             </div>
         </div>
-
     </div>
+
+
 
 
 

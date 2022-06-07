@@ -47,11 +47,11 @@
                     <div class="row">
                         <div class="col-xl-8 col-lg-8 col-sm-10 col-md-10">
                             <div class="form-akun-info p-2 pt-3">
-                                <?= form_open_multipart('users/profile/update-profile/' . $get_sesi_user['id_user']); ?>
+                                <?= form_open_multipart('profile/update/' . $get_sesi_user['id_user']); ?>
                                 <div class="form-group row">
                                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['email']); ?>" name="email" id="email" autofocus required>
+                                        <input type="email" class="form-control <?= form_error('email') ? 'is-invalid' : ''; ?>" value="<?= htmlentities($get_sesi_user['email']); ?>" name="email" id="email" autofocus readonly>
                                         <div class="invalid-feedback"><?= form_error('email'); ?></div>
                                     </div>
                                 </div>
@@ -103,7 +103,7 @@
                                     <p>Kata sandi anda di perbarui <b> <?= date('d M Y ', $get_sesi_user['password_update']); ?></b></p>
                                 </div>
                                 <hr class="sidebar-divider">
-                                <?= form_open('users/profile/update-password/' . $get_sesi_user['id_user']); ?>
+                                <?= form_open('profile/change-password/' . $get_sesi_user['id_user']); ?>
                                 <div class="form-group row">
                                     <label for="password_lama" class="col-sm-3 col-form-label">Password Lama</label>
                                     <div class="col-sm-9">

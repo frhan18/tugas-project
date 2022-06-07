@@ -23,6 +23,7 @@ class AdminProdi_controller extends CI_Controller
         $data['title'] = 'Data Prodi';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
         $data['prodi'] = $this->db->get('tb_prodi')->result_array();
+        $data['count_tb_prodi'] = $this->db->count_all('tb_prodi');
         $config = [
 
             [
@@ -67,8 +68,8 @@ class AdminProdi_controller extends CI_Controller
         ];
 
         if ($this->db->insert('tb_prodi', $data)) {
-            $this->session->set_flashdata('message_success', 'Data prodi berhasil ditambahkan');
-            redirect('admin/prodi');
+            $this->session->set_flashdata('message_success', 'Data prodi  ditambahkan');
+            redirect('data-prodi');
         }
     }
     public function update_prodi($id)
@@ -83,8 +84,8 @@ class AdminProdi_controller extends CI_Controller
             ];
 
             if ($this->db->update('tb_prodi', $data, ['kode_prodi' => $id])) {
-                $this->session->set_flashdata('message_success', 'Data prpdi berhasil diperbarui');
-                redirect('admin/prodi');
+                $this->session->set_flashdata('message_success', 'Data prodi  diperbarui');
+                redirect('data-prodi');
             }
         }
     }
@@ -96,8 +97,8 @@ class AdminProdi_controller extends CI_Controller
             show_404();
         } else {
             $this->db->delete('tb_prodi', ['kode_prodi' => $id]);
-            $this->session->set_flashdata('message_success', 'Data prodi berhasil dihapus');
-            redirect('admin/prodi');
+            $this->session->set_flashdata('message_success', 'Data prodi  dihapus');
+            redirect('data-prodi');
         }
     }
 }

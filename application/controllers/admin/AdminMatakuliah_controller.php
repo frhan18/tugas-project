@@ -20,7 +20,7 @@ class AdminMatakuliah_controller extends CI_Controller
         $data['title'] = 'Data Matakuliah';
         $data['get_sesi_user'] = $this->db->get_where('user', ['id_user' => $this->session->userdata('id')])->row_array();
         $data['matakuliah'] = $this->db->get('tb_mata_kuliah')->result_array();
-
+        $data['count_tb_matakuliah'] = $this->db->count_all('tb_mata_kuliah');
         $config = [
             [
                 'field' => 'id_mata_kuliah',
@@ -64,8 +64,8 @@ class AdminMatakuliah_controller extends CI_Controller
         ];
 
         if ($this->db->insert('tb_mata_kuliah', $data)) {
-            $this->session->set_flashdata('message_success', 'Data matakuliah berhasil ditambahkan');
-            redirect('admin/matakuliah');
+            $this->session->set_flashdata('message_success', 'Data matakuliah ditambahkan');
+            redirect('data-matakuliah');
         }
     }
 
@@ -81,8 +81,8 @@ class AdminMatakuliah_controller extends CI_Controller
             ];
 
             if ($this->db->update('tb_mata_kuliah', $data, ['id_mata_kuliah' => $id])) {
-                $this->session->set_flashdata('message_success', 'Data matakuliah berhasil diperbarui');
-                redirect('admin/matakuliah');
+                $this->session->set_flashdata('message_success', 'Data matakuliah diperbarui');
+                redirect('data-matakuliah');
             }
         }
     }
@@ -95,8 +95,8 @@ class AdminMatakuliah_controller extends CI_Controller
             show_404();
         } else {
             $this->db->delete('tb_mata_kuliah', ['id_mata_kuliah' => $id]);
-            $this->session->set_flashdata('message_success', 'Data matakuliah berhasil dihapus');
-            redirect('admin/matakuliah');
+            $this->session->set_flashdata('message_success', 'Data matakuliah dihapus');
+            redirect('data-matakuliah');
         }
     }
 }
